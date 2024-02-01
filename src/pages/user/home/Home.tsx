@@ -4,13 +4,13 @@ import Blog from "../../../layouts/components/blog/Blog"
 import Header from "../../../layouts/components/header/Header"
 import Slide from "../../../layouts/components/slide/Silde"
 import Footer from "../../../layouts/footer/Footer"
-import DashBoard from "../../admin/dashboard/DashBoard"
+// import DashBoard from "../../admin/dashboard/DashBoard"
 
 
 const Home = () => {
     return(
         <>
-        <DashBoard/>
+        {/* <DashBoard/> */}
         <Header/>
         <Slide/>
         <Banner/>
