@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {authActions} from "../../redux/slices/auth.slice";
 import {useDispatch} from "react-redux";
+import './Login.scss'
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [inputLogin, setInputLogin] = useState({
@@ -20,7 +22,7 @@ const Login = () => {
     }
     return (
         <>
-            <input placeholder={'email'} onChange={e => setInputLogin({
+            {/* <input placeholder={'email'} onChange={e => setInputLogin({
                 ...inputLogin,
                 email: e.target.value,
             })}/>
@@ -28,7 +30,29 @@ const Login = () => {
                 ...inputLogin,
                 password: e.target.value,
             })}/>
-            <button onClick={handleLogin}>login</button>
+            <button onClick={handleLogin}>login</button> */}
+             <div className="wrapper-top">
+            <div className="container_top">
+              <h1 className="text-center">Đăng nhập</h1>
+              <div className="top">
+                <input type="text" placeholder="Email của bạn" onChange={e => setInputLogin({
+                ...inputLogin,
+                email: e.target.value,
+            })} />
+                <input type="password" placeholder="Nhập mật khẩu"  onChange={e => setInputLogin({
+                ...inputLogin,
+                password: e.target.value,
+            })}/>
+                <button type="submit" onClick={handleLogin}>Đăng Nhập</button>
+                <p>
+                  Bạn chưa có tài khoản? Vui lòng đăng ký Tài khoản mới
+                  <Link to={"/singUp"}>
+                    <span>tại đây</span>
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
             <div>admin@gmail.com</div>
             <div>Admin@123</div>
         </>
