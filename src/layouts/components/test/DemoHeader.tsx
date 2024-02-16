@@ -1,6 +1,9 @@
 const DemoHeader = () => {
     return (
-        <div>-----   Header   -------</div>
+        <>
+            <div style={{textAlign: "center"}}>-----   Header   -------</div>
+            <hr />
+        </>
     )
 }
 

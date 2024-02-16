@@ -7,6 +7,7 @@ import {authorizedRoutes} from "./routerData";
 import AuthorizedLayout from "../layouts/auth/AuthorizedLayout";
 import Login from "../pages/Auth/Login";
 import GuestLayout from "../layouts/auth/GuestLayout";
+import ManageRoom from "../pages/ManageRoom/ManageRoom";
 
 const Router = () => {
     return useRoutes([
@@ -20,6 +21,10 @@ const Router = () => {
                 {
                     path: '/',
                     element: <Dashboard />
+                },
+                {
+                    path: '/hotel/:id',
+                    element: <ManageRoom />
                 },
             ]
         },

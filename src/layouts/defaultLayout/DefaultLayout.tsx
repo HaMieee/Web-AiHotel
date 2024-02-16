@@ -5,7 +5,9 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({children}) => {
     return (
         <div className={"app-blank"}>
             <DemoHeader/>
-            {children}
+            <div className={"container-fluid"}>
+                {children}
+            </div>
         </div>
     )
 }
