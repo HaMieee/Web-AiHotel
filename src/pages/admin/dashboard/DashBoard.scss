@@ -1,0 +1,102 @@
+.dash_board{
+    background-color: antiquewhite;
+    max-width: 100%;
+    height: 100vh;
+    .warper_board{
+        display: flex;
+        justify-content: start;
+        .sidebar{
+            width: 20%;
+            height: 100vh;
+            background-color: white;
+            border: 5px solid gainsboro;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .sidebar-top{
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                img{
+                    width: 130px;
+                }
+            }
+            .sidebar-bottom{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                div{
+                    width: 80%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    margin: 5px;
+                    padding: 2px;
+                    // border: 1px solid gray;
+                    border-radius: 5px;
+                    hr{
+                        color: 1px gray;
+                    }
+                    i{
+                        margin-right: 12px;
+                        font-size: 24px;
+                        color: gray;
+                        &:hover{
+                            color: white;
+                        }
+                        
+                    }
+                    span{
+                        font-size: 1.1rem;
+                    }
+                    &:hover{
+                        background-color: rgb(97, 197, 129);
+                        border: 1px solid gray;
+                        // color: white;
+                    }
+                }
+            }
+
+    }
+    .sidebar_nav{
+        width: 80%;
+       padding: 30px;
+       .sidebar_nav-top{
+        input{
+            height: 48px;
+            border: 1px solid gainsboro;
+            padding: 10px;
+            border-radius: 8px;
+        }
+       }
+    }
+}
+}
+
+.sidebar_nav-topOne{
+    //style={{background:'white', height:'64px' ,marginBottom:'24px', padding:'12px'}}
+    background-color: aliceblue;
+    height: 64px;
+    margin-bottom: 24px;
+    padding: 16px;
+
+}
+
+table {
+    /* Thiết lập các thuộc tính cho bảng */
+    width: 100%; /* Bảng chiếm toàn bộ chiều rộng của container */
+    border-collapse: collapse; /* Gộp các đường viền của ô thành một */
+    
+    td {
+        padding: 14px;
+        text-align: start; 
+        border-bottom: 1px solid black; 
+    }
+    th{
+        padding: 14px;
+        text-align: start; 
+        background-color: gainsboro;
+    }
+}
