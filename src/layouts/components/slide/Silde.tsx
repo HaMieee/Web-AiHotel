@@ -14,38 +14,40 @@ const Slide = () => {
         autoplay: true,
         autoplaySpeed: 1000,
       };
-      return ( 
-          <Slider {...settings}>
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%" }}
-                src={slide1}
-                alt=""
-              />
-            </div>
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%" }}
-                src={slide2}
-                alt="Slide 1"
-              />
-            </div>
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%", height:"673px"}}
-                src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner2-1400x721.jpg"
-                alt=""
-              />
-            </div>
-    
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%", height:"673px"}}
-                src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner1-1400x721.jpg"
-                alt=""
-              />
-            </div>
-          </Slider>
+      return (
+          <div className={'container-fluid'}>
+              <Slider {...settings}>
+                  <div style={{ width: "100%" }}>
+                      <img
+                          style={{ width: "100%" }}
+                          src={slide1}
+                          alt=""
+                      />
+                  </div>
+                  <div style={{ width: "100%" }}>
+                      <img
+                          style={{ width: "100%" }}
+                          src={slide2}
+                          alt="Slide 1"
+                      />
+                  </div>
+                  <div style={{ width: "100%" }}>
+                      <img
+                          style={{ width: "100%", height:"673px"}}
+                          src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner2-1400x721.jpg"
+                          alt=""
+                      />
+                  </div>
+
+                  <div style={{ width: "100%" }}>
+                      <img
+                          style={{ width: "100%", height:"673px"}}
+                          src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner1-1400x721.jpg"
+                          alt=""
+                      />
+                  </div>
+              </Slider>
+          </div>
       );
 }
 export default Slide

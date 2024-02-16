@@ -11,10 +11,7 @@ import {Col, Row} from "react-bootstrap";
 const Home = () => {
     return (
         <>
-        <Dashboard/>
-        <Header/>
         <Slide/>
-        <Banner/>
             <div className={"container-fluid"}>
                 <Row>
                     <Col md={4} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
@@ -25,9 +22,8 @@ const Home = () => {
                     </Col>
                 </Row>
             </div>
+        <Banner/>
         <Blog/>
-        <Footer/>
-
         </>
     )
 }

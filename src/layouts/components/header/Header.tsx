@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
 import logo from '../../../img/logo.jpg';
+import {useNavigate} from "react-router";
 
 
 
 const Header = () => {
+  const navigate = useNavigate();
+
     return (
         <div className="app">
           <div className="wrapper">
@@ -34,13 +37,11 @@ const Header = () => {
                     Hệ thống khách sạn
                   </h6>
                 </div>
-                <Link to={"/login"}>
-                  <div className="icon_admin">
+                  <div className="icon_admin" onClick={() => navigate('/login')}>
                     <span>
                       <IoPersonSharp />
                     </span>
                   </div>
-                </Link>
                 <div className="icon_heart">
                   <span>
                     <FaHeart />
