@@ -21,6 +21,7 @@ const Dashboard = () => {
             <div>Dashboard</div>
             <button onClick={() => navigate('/home')}>Home page</button>
             <button onClick={() => navigate('/profile')}>Profile page</button>
+            <button onClick={() => navigate('/ws-example')}>WS Example</button>
             { token ?
                 <button onClick={handleLogout}>Logout</button>
                 :
