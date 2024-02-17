@@ -3,6 +3,8 @@ import {authActions} from "../../redux/slices/auth.slice";
 import {useDispatch} from "react-redux";
 import './Login.scss'
 import { Link } from "react-router-dom";
+import Header from "../../layouts/components/header/Header";
+import Footer from "../../layouts/footer/Footer";
 
 const Login = () => {
     const [inputLogin, setInputLogin] = useState({

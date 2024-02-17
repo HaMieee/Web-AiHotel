@@ -1,17 +1,13 @@
 import { FaHeart } from "react-icons/fa6";
 import { IoHome, IoPersonSharp } from "react-icons/io5";
 import { MdLanguage } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
 import logo from '../../../img/logo.jpg';
-import {useNavigate} from "react-router";
-
-
 
 const Header = () => {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
     return (
         <div className="app">
           <div className="wrapper">
@@ -33,11 +29,11 @@ const Header = () => {
                   <span className="icon_home">
                     <IoHome />
                   </span>
-                  <h6 style={{ fontSize: "14px", marginTop: "22px" }}>
+                  <h4 style={{ fontSize: "13px", marginTop: "16px" }}>
                     Hệ thống khách sạn
-                  </h6>
+                  </h4>
                 </div>
-                  <div className="icon_admin" onClick={() => navigate('/login')}>
+                <div className="icon_admin" onClick={() => navigate('/login')}>
                     <span>
                       <IoPersonSharp />
                     </span>
@@ -75,9 +71,9 @@ const Header = () => {
             </div>
             <div className="header_item2">
               <ul className="header_item2_menu">
-                <Link to={"/veAiHotel"}>
+                <div onClick={() => navigate('.//veAiHotel')}>
                   <li>Về AiHotel</li>
-                </Link>
+                </div>
                 <li>Blog</li>
               </ul>
             </div>

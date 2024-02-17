@@ -1,9 +1,9 @@
+//  import Header from "../header/Header";
+
 const DemoHeader = () => {
     return (
-        <>
-            <div style={{textAlign: "center"}}>-----   Header   -------</div>
-            <hr />
-        </>
+        //  <Header/>
+         <div></div>
     )
 }
 

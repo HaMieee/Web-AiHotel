@@ -73,7 +73,7 @@ const Footer = () => {
             </div>
             <div className='custom_notify'>
                 <span className='note'><VscTriangleUp/></span>
-                <div>* Lưu ý: Tác dụng của sản phẩm có thể thay đổi tùy theo tình trạng thể chất mỗi người</div>
+                <div>* Lưu ý: Hãy đến với AiHotel sẽ không làm bạn phải thất vọng!!!!</div>
             </div>
             <div className='custom_img'>
                 <img className='img_1' src="https://mazii.net/assets/imgs/icon/logoSaleNoti.png" alt=""></img>
