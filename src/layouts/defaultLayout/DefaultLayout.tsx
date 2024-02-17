@@ -1,11 +1,17 @@
 import React, {ReactNode} from "react";
-import DemoHeader from "../components/test/DemoHeader";
+import Header from "../components/header/Header";
+import Footer from "../footer/Footer";
+// import DemoHeader from "../components/test/DemoHeader";
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({children}) => {
     return (
         <div className={"app-blank"}>
-            <DemoHeader/>
-            {children}
+            {/* <DemoHeader/> */}
+            <Header/>
+            <div className={"container-fluid"}>
+                {children}
+            </div>
+            <Footer/>
         </div>
     )
 }

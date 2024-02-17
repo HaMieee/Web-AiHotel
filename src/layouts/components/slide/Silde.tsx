@@ -15,7 +15,7 @@ const Slide = () => {
         autoplaySpeed: 1000,
       };
       return ( 
-          <Slider {...settings}>
+           <Slider {...settings}>
             <div style={{ width: "100%" }}>
               <img
                 style={{ width: "100%" }}

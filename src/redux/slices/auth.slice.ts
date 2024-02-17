@@ -36,6 +36,8 @@ const loginPending = requestPending;
 const loginError = requestError;
 const logoutPending = requestPending;
 const logoutError = requestError;
+const registerPending = requestPending;
+const registerError = requestError;
 
 const loginSuccess = (
     state: IInitialState,
@@ -60,6 +62,17 @@ const logoutSuccess = (
     localStorage.clear();
 }
 
+const registerSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: string;
+    }
+) => {
+    state.token = action.payload;
+    state.isLoading = false;
+}
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
@@ -70,6 +83,9 @@ const authSlice = createSlice({
         logoutPending,
         logoutError,
         logoutSuccess,
+        registerPending,
+        registerError,
+        registerSuccess,
     }
 })
 

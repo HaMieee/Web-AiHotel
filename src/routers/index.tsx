@@ -7,6 +7,7 @@ import {authorizedRoutes} from "./routerData";
 import AuthorizedLayout from "../layouts/auth/AuthorizedLayout";
 import Login from "../pages/Auth/Login";
 import GuestLayout from "../layouts/auth/GuestLayout";
+import SingUp from '../pages/User/singup/SingUp';
 
 const Router = () => {
     return useRoutes([
@@ -24,12 +25,16 @@ const Router = () => {
             ]
         },
         {
-            element: <NonAuthorizedLayout />,
+            element: <NonAuthorizedLayout/>,
             children: [
                 {
                   path: '/login',
                   element: <Login />
                 },
+                {
+                    path: '/SingUp',
+                    element: <SingUp/>
+                  },
             ],
         },
         {

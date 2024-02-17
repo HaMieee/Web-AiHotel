@@ -1,6 +1,9 @@
+//  import Header from "../header/Header";
+
 const DemoHeader = () => {
     return (
-        <div>-----   Header   -------</div>
+        //  <Header/>
+         <div></div>
     )
 }
 
