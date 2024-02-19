@@ -9,6 +9,9 @@ import Login from "../pages/Auth/Login";
 import GuestLayout from "../layouts/auth/GuestLayout";
 import ManageRoom from "../pages/ManageRoom/ManageRoom";
 import SingUp from "../pages/Auth/SingUp";
+import DashBoardAdmin from "../pages/Admin/dashboard/DashBoardAdmin";
+import AdminLayout from "../layouts/auth/AdminLayout";
+import NotFound404 from "../pages/404/NotFound404";
 
 const Router = () => {
     return useRoutes([
@@ -27,6 +30,19 @@ const Router = () => {
                     path: '/hotel/:id',
                     element: <ManageRoom />
                 },
+                {
+                    path: '/404',
+                    element: <NotFound404 />
+                }
+            ]
+        },
+        {
+            element: <AdminLayout />,
+            children: [
+                {
+                    path: '/admin',
+                    element: <DashBoardAdmin />
+                }
             ]
         },
         {

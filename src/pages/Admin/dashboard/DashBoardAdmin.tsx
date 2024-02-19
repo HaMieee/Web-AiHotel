@@ -1,5 +1,5 @@
 import logo from'../../../../src/img/logo.jpg'
-import './DashBoard.scss'
+import './DashBoardAdmin.scss'
 import { MdDashboard } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { BiHomeHeart } from "react-icons/bi";
@@ -8,7 +8,9 @@ import { MdPerson3 } from "react-icons/md";
 import { RiTeamFill } from "react-icons/ri";
 import { RiBillLine } from "react-icons/ri";
 import { IoPersonSharp } from "react-icons/io5";
-const DashBoard = () => {
+import TableManage from "../../../layouts/components/table/TableManage";
+
+const DashBoardAdmin = () => {
     return (
         <div className="dash_board">
             <div className="warper_board">
@@ -66,62 +68,71 @@ const DashBoard = () => {
                             </div>
                             <button>add</button>
                         </div>
-                    <div style={{border:'1px solid gray', borderRadius:'4px', backgroundColor:'white'}}>
-                        <div className='d-flex' style={{ height:'44px'}}>
-                            <div className='p-3'>Active</div>
-                            <div className='p-3'>Pause</div>
-                            <div className='p-3'>All</div>
-                        </div>
-                        <div>
-                        <table>
-                            <tr>
-                                <th>Họ và tên</th>
-                                <th>Email</th>
-                                <th>Vị trí</th>
-                                <th>Trạng thái</th>
-                                <th>Ngày tạo</th>
-                                <th>Hành động</th>
-                            </tr>
-                            <tr>
-                                <td>ha mi</td>
-                                <td>mi@gmail.com</td>
-                                <td>khong</td>
-                                <td>khong</td>
-                                <td>02/01/2024</td>
-                                <td>Edit/Delete</td>
-                            </tr>
-                            <tr>
-                                <td>ha mi</td>
-                                <td>mi@gmail.com</td>
-                                <td>khong</td>
-                                <td>khong</td>
-                                <td>02/01/2024</td>
-                                <td>Edit/Delete</td>
-                            </tr>
-                            <tr>
-                                <td>ha mi</td>
-                                <td>mi@gmail.com</td>
-                                <td>khong</td>
-                                <td>khong</td>
-                                <td>02/01/2024</td>
-                                <td>Edit/Delete</td>
-                            </tr> <tr>
-                                <td>ha mi</td>
-                                <td>mi@gmail.com</td>
-                                <td>khong</td>
-                                <td>khong</td>
-                                <td>02/01/2024</td>
-                                <td>Edit/Delete</td>
-                            </tr>
-                        </table>
-                        </div>
+
+                    {/*<div style={{border:'1px solid gray', borderRadius:'4px', backgroundColor:'white'}}>*/}
+                    {/*    <div className='d-flex' style={{ height:'44px'}}>*/}
+                    {/*        <div className='p-3'>Active</div>*/}
+                    {/*        <div className='p-3'>Pause</div>*/}
+                    {/*        <div className='p-3'>All</div>*/}
+                    {/*    </div>*/}
+                    {/*    <div>*/}
+                    {/*    <table>*/}
+                    {/*        <tr>*/}
+                    {/*            <th>Họ và tên</th>*/}
+                    {/*            <th>Email</th>*/}
+                    {/*            <th>Vị trí</th>*/}
+                    {/*            <th>Trạng thái</th>*/}
+                    {/*            <th>Ngày tạo</th>*/}
+                    {/*            <th>Hành động</th>*/}
+                    {/*        </tr>*/}
+                    {/*        <tr>*/}
+                    {/*            <td>ha mi</td>*/}
+                    {/*            <td>mi@gmail.com</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>02/01/2024</td>*/}
+                    {/*            <td>Edit/Delete</td>*/}
+                    {/*        </tr>*/}
+                    {/*        <tr>*/}
+                    {/*            <td>ha mi</td>*/}
+                    {/*            <td>mi@gmail.com</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>02/01/2024</td>*/}
+                    {/*            <td>Edit/Delete</td>*/}
+                    {/*        </tr>*/}
+                    {/*        <tr>*/}
+                    {/*            <td>ha mi</td>*/}
+                    {/*            <td>mi@gmail.com</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>02/01/2024</td>*/}
+                    {/*            <td>Edit/Delete</td>*/}
+                    {/*        </tr> <tr>*/}
+                    {/*            <td>ha mi</td>*/}
+                    {/*            <td>mi@gmail.com</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>khong</td>*/}
+                    {/*            <td>02/01/2024</td>*/}
+                    {/*            <td>Edit/Delete</td>*/}
+                    {/*        </tr>*/}
+                    {/*    </table>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+                    <br />
+
+                    <div>
+                        <TableManage
+                            headers={['STT', 'Name', 'Address', 'Description']}
+                        />
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-export default DashBoard
+export default DashBoardAdmin
 
 
 

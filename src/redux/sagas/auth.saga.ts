@@ -10,6 +10,10 @@ const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
 }
 
+const userInfo = async () => {
+    return axiosInstance.get('api/auth/my-information')
+}
+
 const logout = async () => {
     return axiosInstance.get('api/auth/logout')
 }
@@ -24,8 +28,7 @@ const handleLogin = function* (action) {
             type: authActions.loginPending.type,
         })
         const response = yield call(login, action.payload);
-        console.log(response);
-        
+
         if (response.data.statusCode === 200) {
             const resultLogin = response.data.data;
             const token = resultLogin.access_token;
@@ -33,7 +36,9 @@ const handleLogin = function* (action) {
                 type: authActions.loginSuccess.type,
                 payload: token,
             })
-            console.log(token)
+            yield put({
+                type: `${authActions.getInfoPending}_saga`,
+            })
             toast.success(`Welcome to my web!`);
         } else {
             throw new Error(response.data.message || 'Server error');
@@ -41,6 +46,30 @@ const handleLogin = function* (action) {
     } catch (err) {
         yield put({
             type: authActions.loginError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'message'));
+    }
+}
+
+const handleGetInfo = function* () {
+    try {
+        yield put({
+            type: authActions.getInfoPending.type,
+        })
+        const response = yield call(userInfo);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: authActions.getInfoSuccess.type,
+                payload: response.data.data,
+            })
+        } else {
+            throw new Error(response.data.message || 'Server error');
+
+        }
+    } catch (err) {
+        yield put({
+            type: authActions.getInfoError.type,
             payload: {message: get(err, 'message')},
         })
         toast.error(get(err, 'message'));
@@ -101,11 +130,15 @@ const handleRegister = function* (action) {
 
 const authSaga = function* () {
     yield takeLatest(
-        `${authActions.loginPending.type}_saga`,
+        `${authActions.loginPending}_saga`,
         handleLogin,
     );
     yield takeLatest(
-        `${authActions.logoutPending.type}_saga`,
+        `${authActions.getInfoPending}_saga`,
+        handleGetInfo,
+    )
+    yield takeLatest(
+        `${authActions.logoutPending}_saga`,
         handleLogout,
     );
     yield takeLatest(

@@ -1,7 +1,10 @@
 export type IUser = {
     id?: number;
-    username?: string;
-    password?: string;
-    isAdmin?: boolean;
-    token?: string;
+    name?: string;
+    role_type?: string;
+    address?: string;
+    phone?: string;
+    identification?: string;
+    email?: string;
+    age?: number;
 }
