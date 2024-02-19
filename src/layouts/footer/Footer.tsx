@@ -1,6 +1,7 @@
 import {FaFacebookSquare, FaInstagramSquare} from "react-icons/fa";
 import {IoLogoYoutube, IoHome } from "react-icons/io5";
 import { VscTriangleUp } from "react-icons/vsc";
+import logo from '../../../src/img/logo.jpg';
 import './Footer.scss'
 
 
@@ -46,7 +47,7 @@ const Footer = () => {
                 <button>Đăng ký</button>
               </div>
               <div>
-                <img src='src\img\logo.jpg' style={{width:"140px", borderRadius:'35px'}} alt="logo"></img>
+                <img src={logo} style={{width:"100px", borderRadius:'35px'}} alt="logo"></img>
               </div>
               <h1 style={{fontWeight:'600'}}>Khách sạn AiHotel</h1>
               <div className="footer_social">
@@ -65,10 +66,9 @@ const Footer = () => {
           <div className="footer_custom">
             <div className="custom_item">
               <div className="custom_item_title">
-                Công ty cổ phần Mỹ phẩm Thiên nhiên cỏ mềm
+                Công ty cổ phần khách sạn AiHotel
               </div>
               <div>GPĐKKD số 0109153702 do Sở KHĐT Tp.Hà Nội cấp 09/04/2020</div>
-              <div>Sản xuất tại Nhà máy Mỹ Phẩm Thiên Nhiên Song An </div>
               <div>225 Trần Đăng Ninh, p. Dịch Vọng, q. Cầu Giấy, Hà Nội</div>
             </div>
             <div className='custom_notify'>

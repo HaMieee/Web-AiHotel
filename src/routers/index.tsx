@@ -8,7 +8,7 @@ import AuthorizedLayout from "../layouts/auth/AuthorizedLayout";
 import Login from "../pages/Auth/Login";
 import GuestLayout from "../layouts/auth/GuestLayout";
 import ManageRoom from "../pages/ManageRoom/ManageRoom";
-import SingUp from '../pages/User/singup/SingUp';
+import SingUp from '../pages/Auth/SingUp';
 
 const Router = () => {
     return useRoutes([
@@ -39,7 +39,7 @@ const Router = () => {
                 {
                     path: '/SingUp',
                     element: <SingUp/>
-                  },
+                },
             ],
         },
         {
