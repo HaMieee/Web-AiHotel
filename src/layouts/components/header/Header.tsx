@@ -33,10 +33,15 @@ const Header = () => {
                     Hệ thống khách sạn
                   </h4>
                 </div>
-                <div className="icon_admin" onClick={() => navigate('/login')}>
-                    <span>
+                <div className="icon_admin">
+                    <span onClick={() => navigate('/login')}>
                       <IoPersonSharp />
                     </span>
+                    <div className='profile'>
+                      <div className='profile_info'>Xem thông tin cá nhân </div>
+                      <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
+                      <div className='logout'>Đăng xuất</div>
+                    </div>
                   </div>
                 <div className="icon_heart">
                   <span>

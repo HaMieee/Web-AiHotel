@@ -1,5 +1,6 @@
 import Banner from "../../layouts/components/banner/Banner";
 import Blog from "../../layouts/components/blog/Blog";
+import ChangePassword from "../../layouts/components/profileInfo/ChangePassword";
 import Slide from "../../layouts/components/slide/Silde";
 import ManageHotel from "../ManageHotel/ManageHotel";
 import React from "react";
@@ -21,6 +22,7 @@ const Home = () => {
             </div>
         <Banner/>
         <Blog/>
+        {/* <ChangePassword/> */}
         </>
     )
 }

@@ -5,6 +5,8 @@ import {toast} from 'react-toastify';
 import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
 import { IRegister } from '../types/register';
+import { IChangePassword } from '../types/changePassword';
+import { AxiosError } from 'axios';
 
 const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
@@ -20,6 +22,10 @@ const logout = async () => {
 
 const register = async (dataRegister: IRegister) => {
     return axiosInstance.post('api/auth/sign-up-for-customer', dataRegister)
+}
+
+const changePassword = async (dataChangePassword: IChangePassword) => {
+    return axiosInstance.put('/api/auth/change-password', dataChangePassword)
 }
 
 const handleLogin = function* (action) {
@@ -128,6 +134,38 @@ const handleRegister = function* (action) {
     }
 }
 
+const handleChangePassword = function* (action) {
+    try{
+        yield put({
+            type: authActions.changePasswordPending.type,
+        })
+        const response = yield call(changePassword, action.payload)
+        console.log("response",response)
+
+        if(response.data.status === 200) {
+            yield put({
+                type: authActions.changePasswordSuccess.type,
+                payload: response.data.message
+            })
+            toast.success(`Thay đổi mật khẩu thành công!`);
+        }
+        else{
+            console.log('throw err');
+            
+            throw new Error(response.data.message || 'Sever Error')
+        }
+    } catch(err){
+        yield put({
+            type: authActions.changePasswordError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err,'response.data.message'))
+        console.log('error: ', err);
+        
+    }
+
+}
+
 const authSaga = function* () {
     yield takeLatest(
         `${authActions.loginPending}_saga`,
@@ -145,6 +183,10 @@ const authSaga = function* () {
         `${authActions.registerPending}_saga`,
         handleRegister,
     );
+    yield takeLatest(
+        `${authActions.changePasswordPending}_saga`,
+        handleChangePassword
+    )
 };
 
 export default authSaga;
