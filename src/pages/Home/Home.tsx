@@ -1,8 +1,6 @@
 import Banner from "../../layouts/components/banner/Banner";
 import Blog from "../../layouts/components/blog/Blog";
 import Slide from "../../layouts/components/slide/Silde";
-import Footer from "../../layouts/footer/Footer";
-import Dashboard from "../Dashboard/Dashboard";
 import ManageHotel from "../ManageHotel/ManageHotel";
 import React from "react";
 import {Col, Row} from "react-bootstrap";

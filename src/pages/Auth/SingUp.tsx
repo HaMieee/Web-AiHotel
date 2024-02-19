@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../../redux/slices/auth.slice";
-import { IRegister } from "../../../redux/types/register";
+import { authActions } from "../../redux/slices/auth.slice";
+import { IRegister } from "../../redux/types/register";
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 

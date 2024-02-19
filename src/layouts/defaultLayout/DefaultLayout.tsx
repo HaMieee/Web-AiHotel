@@ -1,7 +1,6 @@
 import React, {ReactNode} from "react";
 import Header from "../components/header/Header";
 import Footer from "../footer/Footer";
-// import DemoHeader from "../components/test/DemoHeader";
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({children}) => {
     return (
