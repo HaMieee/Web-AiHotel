@@ -6,7 +6,6 @@ import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
 import { IRegister } from '../types/register';
 import { IChangePassword } from '../types/changePassword';
-import { AxiosError } from 'axios';
 
 const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
@@ -114,11 +113,12 @@ const handleRegister = function* (action) {
         
         if (response.data.statusCode === 200) {
             const token = response.data.data.access_token;
-            console.log('res register: ', token);
-
             yield put({
                 type: authActions.registerSuccess.type,
                 payload: token,
+            })
+            yield put({
+                type: `${authActions.getInfoPending}_saga`,
             })
             toast.success(`Welcome to my web!`);
         } else {

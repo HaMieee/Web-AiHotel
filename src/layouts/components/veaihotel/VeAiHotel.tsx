@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const VeAiHotel = () => {
     return (
         <div>
-          <Header/>
+          {/*<Header/>*/}
           <hr></hr>
           <div className="d-flex flex-column align-items-center">
             <h1 className="text-center">Thông tin về khách sạn AiHotel</h1>
