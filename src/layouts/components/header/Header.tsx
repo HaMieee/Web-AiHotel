@@ -38,7 +38,7 @@ const Header = () => {
                       <IoPersonSharp />
                     </span>
                     <div className='profile'>
-                      <div className='profile_info'>Xem thông tin cá nhân </div>
+                      <div className='profile_info' onClick={() => navigate('/update_info')}>Xem thông tin cá nhân </div>
                       <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
                       <div className='logout'>Đăng xuất</div>
                     </div>
