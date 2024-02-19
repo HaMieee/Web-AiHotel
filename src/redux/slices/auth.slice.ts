@@ -34,6 +34,8 @@ const requestError = (
 
 const loginPending = requestPending;
 const loginError = requestError;
+const getInfoPending = requestPending;
+const getInfoError = requestError;
 const logoutPending = requestPending;
 const logoutError = requestError;
 const registerPending = requestPending;
@@ -52,6 +54,17 @@ const loginSuccess = (
     state.isLoading = false;
 }
 
+const getInfoSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IUser;
+    }
+) => {
+    state.userInfo = action.payload;
+    state.isLoading = false;
+}
+
 const logoutSuccess = (
     state: IInitialState,
     action: {
@@ -59,7 +72,8 @@ const logoutSuccess = (
         payload: string;
     },
 ) => {
-    state.token = action.payload;
+    state.token = '';
+    state.userInfo = {};
     state.isLoading = false;
     localStorage.clear();
 }
@@ -93,6 +107,9 @@ const authSlice = createSlice({
         loginPending,
         loginError,
         loginSuccess,
+        getInfoPending,
+        getInfoError,
+        getInfoSuccess,
         logoutPending,
         logoutError,
         logoutSuccess,

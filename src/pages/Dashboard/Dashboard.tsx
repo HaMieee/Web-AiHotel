@@ -20,6 +20,7 @@ const Dashboard = () => {
         <>
             <div>Dashboard</div>
             <button onClick={() => navigate('/home')}>Home page</button>
+            <button onClick={() => navigate('/admin')}>Dashboard Admin</button>
             <button onClick={() => navigate('/profile')}>Profile page</button>
             <button onClick={() => navigate('/ws-example')}>WS Example</button>
             <button onClick={() => navigate('/stripe-example')}>Stripe Example</button>

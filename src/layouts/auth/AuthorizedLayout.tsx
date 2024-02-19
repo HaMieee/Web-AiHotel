@@ -6,7 +6,7 @@ import DefaultLayout from "../defaultLayout/DefaultLayout";
 
 const NonAuthorizedLayout = () => {
     const tokenState = useSelector((state: RootState) => state.auth.token)
-    console.log('token: ', tokenState)
+
     if (!tokenState) {
         return <Navigate to={'/login'} replace />;
     }

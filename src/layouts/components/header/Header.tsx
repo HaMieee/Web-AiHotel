@@ -1,3 +1,4 @@
+import React from 'react';
 import { FaHeart } from "react-icons/fa6";
 import { IoHome, IoPersonSharp } from "react-icons/io5";
 import { MdLanguage } from "react-icons/md";
@@ -5,8 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
 import logo from '../../../img/logo.jpg';
+import {IUser} from "../../../redux/types/user";
 
-const Header = () => {
+type IHeader = {
+  userInfo: IUser;
+}
+
+const Header: React.FC<IHeader> = ({
+                                       userInfo = {}
+                                   }) => {
   const navigate = useNavigate()
     return (
         <div className="app">
@@ -34,7 +42,8 @@ const Header = () => {
                   </h4>
                 </div>
                 <div className="icon_admin">
-                    <span onClick={() => navigate('/login')}>
+                    <span>{userInfo.name}</span>
+                    <span>
                       <IoPersonSharp />
                     </span>
                     <div className='profile'>
