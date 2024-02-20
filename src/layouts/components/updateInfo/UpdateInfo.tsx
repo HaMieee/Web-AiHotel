@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useState } from 'react'
 import './UpdateInfo.scss'
@@ -16,7 +17,7 @@ const UpdateInfo: React.FC<IUpdateInfoComponent> = ({
     userInfo = {}
 }) => {
     const [showBtnUpdate, setShowBtnUpdate] = useState(false)
-    const [inputValue, setInputValue] = useState<IUser | undefined>({
+    const [inputValue, setInputValue] = useState<IUser>({
         name:'',
         phone:'',
         address:'',
@@ -24,7 +25,7 @@ const UpdateInfo: React.FC<IUpdateInfoComponent> = ({
         age: 0,
     })
 
-    const [newInputValue, setNewInputValue] = useState<IUser | undefined>({
+    const [newInputValue, setNewInputValue] = useState<IUser>({
         name:'',
         phone:'',
         address:'',
@@ -52,24 +53,27 @@ const UpdateInfo: React.FC<IUpdateInfoComponent> = ({
     }, [userInfo])
 
     useEffect(() => {
-      // Kiểm tra sự khác biệt giữa inputValue và newInputValue
-      const isDifferent = JSON.stringify(inputValue) !== JSON.stringify(newInputValue);
-      setShowBtnUpdate(isDifferent); // Nếu khác biệt, hiển thị nút cập nhật
-  }, [inputValue, newInputValue]);
+        const isDifferent = JSON.stringify(inputValue) !== JSON.stringify(newInputValue);
+        setShowBtnUpdate(isDifferent);
+    }, [inputValue, newInputValue]);
 
     const dispatch = useDispatch()
 
     const checkInValid = () => {
-      let isValid = false;
-      if(!isEmpty(newInputValue?.name) && !isEmpty(newInputValue?.phone) && !isEmpty(newInputValue?.address) && !isEmpty(newInputValue?.identification) && !isEmpty(newInputValue?.age) )
-      {
-        isValid= true;
-      }
-      else{
-        isValid=false
+      let isValid;
+      if (
+        isEmpty(newInputValue.name) || 
+        isEmpty(newInputValue.address) || 
+        isEmpty(newInputValue.identification) || 
+        isEmpty(newInputValue.phone)
+        ) {
+        isValid = false;
+      } else {
+        isValid = true
       }
       return isValid;
-     }
+    }
+
 
     const handleProcessData = (inputValue, newInputValue) => {
       const keys = Object.keys(inputValue);
@@ -87,7 +91,7 @@ const UpdateInfo: React.FC<IUpdateInfoComponent> = ({
     const handleSubmit = () => {
       if(checkInValid()){
         const dataChange = handleProcessData(inputValue, newInputValue);
-      const newProfileData = {
+        const newProfileData = {
         ...dataChange,
         user_id: userInfo.id + '',
       }
