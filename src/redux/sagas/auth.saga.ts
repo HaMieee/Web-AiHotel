@@ -6,6 +6,7 @@ import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
 import { IRegister } from '../types/register';
 import { IChangePassword } from '../types/changePassword';
+import { IUpdateInfo } from '../types/updateInfo';
 
 const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
@@ -25,6 +26,10 @@ const register = async (dataRegister: IRegister) => {
 
 const changePassword = async (dataChangePassword: IChangePassword) => {
     return axiosInstance.put('/api/auth/change-password', dataChangePassword)
+}
+
+const updateInfo = async (dataUpdateInfo: IUpdateInfo) => {
+    return axiosInstance.put('/api/auth/update-user', dataUpdateInfo)
 }
 
 const handleLogin = function* (action) {
@@ -80,6 +85,8 @@ const handleGetInfo = function* () {
         toast.error(get(err, 'message'));
     }
 }
+
+
 
 const handleLogout = function* () {
     try {
@@ -166,6 +173,36 @@ const handleChangePassword = function* (action) {
 
 }
 
+const handleUpdateInfo = function* (action) {
+    try{
+        yield put({
+            type: authActions.updateInfoPending.type,
+        })
+        const response = yield call(updateInfo, action.payload)
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: authActions.updateInfoSuccess.type,
+                payload: response.data.data
+            })
+            toast.success(`Cập nhật thông tin thành công!`);
+        }
+        else{
+            console.log('throw err');
+            
+            throw new Error(response.data.message || 'Sever Error')
+        }
+    } catch(err){
+        yield put({
+            type: authActions.changePasswordError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err,'response.data.message'))
+        console.log('error: ', err);
+        
+    }
+
+}
+
 const authSaga = function* () {
     yield takeLatest(
         `${authActions.loginPending}_saga`,
@@ -186,6 +223,10 @@ const authSaga = function* () {
     yield takeLatest(
         `${authActions.changePasswordPending}_saga`,
         handleChangePassword
+    );
+    yield takeLatest(
+        `${authActions.updateInfoPending}_saga`,
+        handleUpdateInfo
     )
 };
 

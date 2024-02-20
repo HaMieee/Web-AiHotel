@@ -42,6 +42,8 @@ const registerPending = requestPending;
 const registerError = requestError;
 const changePasswordPending = requestPending;
 const changePasswordError = requestError;
+const updateInfoPending = registerPending;
+const updateInfoError = requestError; 
 
 const loginSuccess = (
     state: IInitialState,
@@ -100,6 +102,17 @@ const changePasswordSuccess = (
     state.isLoading = false;
 }
 
+const updateInfoSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: {};
+    }
+) => {
+    state.userInfo = action.payload;
+    state.isLoading = false;
+}
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
@@ -119,6 +132,9 @@ const authSlice = createSlice({
         changePasswordPending,
         changePasswordError,
         changePasswordSuccess,
+        updateInfoPending,
+        updateInfoError,
+        updateInfoSuccess,
     }
 })
 
