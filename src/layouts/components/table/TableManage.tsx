@@ -21,7 +21,6 @@ const TableManage: React.FC<ITableManage> = ({
     shortValue = false,
     onAction,
                                              }) => {
-    console.log('actions: ', actions)
     const renderTagTd = (value, key, idx) => {
         let style = {};
         if (!isEmpty(actions)) {
@@ -40,11 +39,11 @@ const TableManage: React.FC<ITableManage> = ({
         return map(actions, action => {
             switch (action.type) {
                 case 'edit':
-                    return <Button key={`edit_${recordId}`} variant="warning" title='Edit'></Button>
+                    return <Button key={`edit_${recordId}`} variant="warning" title='Edit' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}></Button>
                 case 'delete':
                     return <Button key={`delete${recordId}`} variant="secondary" title='Delete' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><MdDelete /></Button>
                 case 'detail':
-                    return <Button key={`detail${recordId}`} variant="success" title='Detail' className='me-1 ms-1'><FaEye /></Button>
+                    return <Button key={`detail${recordId}`} variant="success" title='Detail' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><FaEye /></Button>
                 default:
                     return <></>
             }

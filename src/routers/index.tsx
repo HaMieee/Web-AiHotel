@@ -13,6 +13,7 @@ import DashBoardAdmin from "../pages/Admin/Dashboard/DashBoardAdmin";
 import AdminLayout from "../layouts/auth/AdminLayout";
 import NotFound404 from "../pages/404/NotFound404";
 import ManageHotel from "../pages/Admin/ManageHotel/ManageHotel";
+import HotelDetail from "../pages/Admin/ManageHotel/HotelDetail";
 
 const Router = () => {
     return useRoutes([
@@ -47,6 +48,10 @@ const Router = () => {
                 {
                     path: '/manage-hotel',
                     element: <ManageHotel />
+                },
+                {
+                    path: '/manage-hotel/:hotel_id',
+                    element: <HotelDetail />
                 }
             ]
         },

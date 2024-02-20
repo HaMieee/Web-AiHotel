@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 type IInitialState = {
     hotels: IHotel[];
+    hotelDetail: IHotel;
     isLoading: boolean;
     isError: boolean;
     message: string;
@@ -10,6 +11,7 @@ type IInitialState = {
 
 const initialState: IInitialState = {
     hotels: [],
+    hotelDetail: {},
     isLoading: false,
     isError: false,
     message: '',
@@ -32,6 +34,8 @@ const requestError = (
 
 const getListHotelPending = requestPending;
 const getListHotelError = requestError;
+const getHotelDetailPending = requestPending;
+const getHotelDetailError = requestError;
 
 const getListHotelSuccess = (
     state: IInitialState,
@@ -44,6 +48,17 @@ const getListHotelSuccess = (
     state.isLoading = false;
 }
 
+const getHotelDetailSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IHotel;
+    }
+) => {
+    state.hotelDetail = action.payload;
+    state.isLoading = false;
+}
+
 const manageHotel = createSlice({
     name: 'hotels',
     initialState: initialState,
@@ -51,6 +66,9 @@ const manageHotel = createSlice({
         getListHotelPending,
         getListHotelError,
         getListHotelSuccess,
+        getHotelDetailPending,
+        getHotelDetailError,
+        getHotelDetailSuccess,
     }
 })
 
