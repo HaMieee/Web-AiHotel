@@ -1,14 +1,56 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import {isEmpty, map} from "lodash";
+import {Button} from "react-bootstrap";
+import { MdDelete } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
 
 type ITableManage = {
     headers: string[];
-    // data: [];
+    data: any[];
+    actions: {type: string}[];
+    onAction?: (id: number, action: string) => void;
+    useIdx?: boolean;
+    shortValue?: boolean;
 }
 const TableManage: React.FC<ITableManage> = ({
     headers,
-    // data = []
-                     }) => {
+    data = [],
+    actions = [],
+    useIdx = false,
+    shortValue = false,
+    onAction,
+                                             }) => {
+    console.log('actions: ', actions)
+    const renderTagTd = (value, key, idx) => {
+        let style = {};
+        if (!isEmpty(actions)) {
+            style = {textAlign: 'center', lineHeight: '34px'};
+        }
+        if (key === 'id' && useIdx) {
+            return <td key={idx} style={style}>{idx}</td>
+        } else if (typeof value === 'string' && shortValue &&  value.length > 20) {
+            return <td key={`${key}_${idx}`} title={value} style={style}>{`${value.slice(0, 20)}...`}</td>
+        }
+
+        return <td key={`${key}_${idx}`} style={style}>{value}</td>
+    }
+
+    const renderActions = (recordId, recordStatus = null) => {
+        return map(actions, action => {
+            switch (action.type) {
+                case 'edit':
+                    return <Button key={`edit_${recordId}`} variant="warning" title='Edit'></Button>
+                case 'delete':
+                    return <Button key={`delete${recordId}`} variant="secondary" title='Delete' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><MdDelete /></Button>
+                case 'detail':
+                    return <Button key={`detail${recordId}`} variant="success" title='Detail' className='me-1 ms-1'><FaEye /></Button>
+                default:
+                    return <></>
+            }
+        })
+    }
+
     return (
         <Table striped bordered hover variant="light">
             <thead>
@@ -19,23 +61,14 @@ const TableManage: React.FC<ITableManage> = ({
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td colSpan={2}>Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {!isEmpty(data) && map(data, (row, i_index) => (
+                <tr>
+                    {Object.keys(row).map((item) => {
+                        return renderTagTd(row[item], item, i_index + 1);
+                    })}
+                    {actions && !isEmpty(actions) && <td style={{textAlign: 'center'}}>{renderActions(row.id, row.status)}</td>}
+                </tr>
+            ))}
             </tbody>
         </Table>
     );
