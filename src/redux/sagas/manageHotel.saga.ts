@@ -30,6 +30,11 @@ const updateHotel = async (updateHotelData: IUpdateHotel) => {
     return axiosInstance.put('api/hotel/update-hotel', updateHotelData)
 }
 
+const deleteHotel = async (hotel_id: number) => {
+    const data = {hotel_id: hotel_id}
+    return axiosInstance.delete('api/hotel/delete-hotel', {data})
+}
+
 const handleGetListHotel = function* () {
     try {
         yield put({
@@ -116,6 +121,28 @@ const handleUpdateHotel = function* (action) {
     }
 }
 
+const handleDeleteHotel = function* (action) {
+    try {
+        yield put({
+            type: manageHotelActions.deleteHotelPending.type,
+        })
+        const response = yield call(deleteHotel, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageHotelActions.deleteHotelSuccess.type,
+                payload: action.payload,
+            })
+            toast.success(`Xóa thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageHotelActions.deleteHotelError.type,
+            payload: {message: get(err, 'response.data.message')}
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+
 const manageHotelSaga = function* () {
     yield takeLatest(
         `${manageHotelActions.getListHotelPending}_saga`,
@@ -132,6 +159,10 @@ const manageHotelSaga = function* () {
     yield takeLatest(
         `${manageHotelActions.createHotelPending}_saga`,
         handleCreateHotel,
+    );
+    yield takeLatest(
+        `${manageHotelActions.deleteHotelPending}_saga`,
+        handleDeleteHotel,
     )
 }
 
