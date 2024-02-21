@@ -3,6 +3,8 @@ import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../redux/slices/auth.slice";
 import {RootState} from "../../redux/store";
+import {Col, Row} from "react-bootstrap";
+import ListHotels from "../Admin/ManageHotel/ListHotels";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -29,6 +31,16 @@ const Dashboard = () => {
                 :
                 <button onClick={() => navigate('/login')}>login</button>
             }
+            <div className={"container-fluid"}>
+                <Row>
+                    <Col md={4} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
+                        <div className={'container-fluid'}>Page support</div>
+                    </Col>
+                    <Col>
+                        <ListHotels />
+                    </Col>
+                </Row>
+            </div>
         </>
     )
 }

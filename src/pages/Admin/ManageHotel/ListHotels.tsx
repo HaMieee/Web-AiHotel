@@ -2,10 +2,10 @@ import Image from 'react-bootstrap/Image';
 import React from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {IoIosArrowForward} from "react-icons/io";
-import './ManageHotel.css';
+import './ListHotels.css';
 import {useNavigate} from "react-router";
 
-const ManageHotel = () => {
+const ListHotels = () => {
     const navigate = useNavigate();
 
     return (
@@ -243,4 +243,4 @@ const ManageHotel = () => {
     )
 }
 
-export default ManageHotel;
+export default ListHotels;

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../redux/slices/auth.slice";
-import { IRegister } from "../../redux/types/register";
+import { IRegister } from "../../redux/types/dtos/register";
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 

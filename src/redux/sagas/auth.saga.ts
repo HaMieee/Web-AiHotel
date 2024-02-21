@@ -1,13 +1,13 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {authActions} from "../slices/auth.slice";
-import {ILogin} from "../types/login";
+import {ILogin} from "../types/dtos/login";
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
-import { IRegister } from '../types/register';
-import { IChangePassword } from '../types/changePassword';
 import { IUpdateInfo } from '../types/updateInfo';
 import { IResetPassword } from '../types/resetPassword';
+import { IRegister } from '../types/dtos/register';
+import { IChangePassword } from '../types/dtos/changePassword';
 
 const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
@@ -90,8 +90,6 @@ const handleGetInfo = function* () {
         toast.error(get(err, 'message'));
     }
 }
-
-
 
 const handleLogout = function* () {
     try {
@@ -193,7 +191,7 @@ const handleUpdateInfo = function* (action) {
         }
         else{
             console.log('throw err');
-            
+
             throw new Error(response.data.message || 'Sever Error')
         }
     } catch(err){
@@ -203,7 +201,7 @@ const handleUpdateInfo = function* (action) {
         })
         toast.error(get(err,'response.data.message'))
         console.log('error: ', err);
-        
+
     }
 
 }
@@ -213,7 +211,7 @@ const handleResetPassword = function* (action) {
             type:authActions.resetPasswordPending.type,
         })
         const response  = yield call (resetPassword, action.payload)
-        
+
         if(response.data.status ===200) {
             yield put({
                 type: authActions.resetPasswordSuccess.type,
@@ -223,7 +221,7 @@ const handleResetPassword = function* (action) {
         }
         else{
             console.log('throw err');
-            
+
             throw new Error(response.data.message || 'Sever Error')
         }
     }catch(err){
@@ -236,7 +234,7 @@ const handleResetPassword = function* (action) {
 
     }
 }
- 
+
 const authSaga = function* () {
     yield takeLatest(
         `${authActions.loginPending}_saga`,

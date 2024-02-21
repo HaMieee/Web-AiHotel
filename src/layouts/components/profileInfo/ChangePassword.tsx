@@ -1,6 +1,6 @@
 import { useState } from "react"
 import './ChangePassword.scss'
-import { IChangePassword } from "../../../redux/types/changePassword";
+import { IChangePassword } from "../../../redux/types/dtos/changePassword";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { isEmpty } from "lodash";
