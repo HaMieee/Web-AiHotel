@@ -3,6 +3,7 @@ import {put, call, takeLatest} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageHotelActions} from "../slices/manageHotel.slice";
+import {IUpdateHotel} from "../types/dtos/updateHotel";
 
 const getListHotel = async () => {
     return axiosInstance.get('/api/hotel/list-hotels')
@@ -14,6 +15,10 @@ const getHotel = async (hotelId: number) => {
             hotel_id: hotelId,
         }
     })
+}
+
+const updateHotel = async (updateHotelData: IUpdateHotel) => {
+    return axiosInstance.put('api/hotel/update-hotel', updateHotelData)
 }
 
 const handleGetListHotel = function* () {
@@ -54,7 +59,29 @@ const handleGetHotel = function* (action) {
             type: manageHotelActions.getHotelDetailError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'message'));
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+
+const handleUpdateHotel = function* (action) {
+    try {
+        yield put({
+            type: manageHotelActions.updateHotelPending.type,
+        })
+        const response = yield call(updateHotel, action.payload)
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageHotelActions.updateHotelSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success(`Cập nhật thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageHotelActions.updateHotelError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'));
     }
 }
 
@@ -66,6 +93,10 @@ const manageHotelSaga = function* () {
     yield takeLatest(
         `${manageHotelActions.getHotelDetailPending}_saga`,
         handleGetHotel,
+    );
+    yield takeLatest(
+        `${manageHotelActions.updateHotelPending}_saga`,
+        handleUpdateHotel,
     );
 }
 

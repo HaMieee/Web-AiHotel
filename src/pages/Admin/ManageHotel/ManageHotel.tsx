@@ -6,6 +6,9 @@ import {RootState} from "../../../redux/store";
 import {IHotel} from "../../../redux/types/hotel";
 import {map} from "lodash";
 import {useNavigate} from "react-router";
+import {Button} from "react-bootstrap";
+import { BsFillHouseAddFill } from "react-icons/bs";
+
 
 const typeActions = ['delete', 'detail'];
 
@@ -40,6 +43,12 @@ const ManageHotel = () => {
 
     return (
         <>
+            <div className={'float-end p-2'}>
+                <Button variant={'success'} className={'d-flex align-items-center'}>
+                    <BsFillHouseAddFill className={'me-2'}/>
+                    Thêm
+                </Button>
+            </div>
             <TableManage
                 headers={['STT', 'Name', 'Address', 'Description', 'Actions']}
                 data={hotelsData}

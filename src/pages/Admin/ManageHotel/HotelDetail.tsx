@@ -8,13 +8,21 @@ import {manageHotelActions} from "../../../redux/slices/manageHotel.slice";
 import {RootState} from "../../../redux/store";
 import {IHotel} from "../../../redux/types/hotel";
 import {isEmpty, map} from "lodash";
+import {IUpdateHotel} from "../../../redux/types/dtos/updateHotel";
 
 const HotelDetail = () => {
     const dispatch = useDispatch();
-    const { hotel_id } = useParams();
+    const {hotel_id} = useParams();
     const hotelState = useSelector((state: RootState) => state.manageHotels.hotelDetail);
 
-    const [hotelDetail, setHotelDetail] = useState<IHotel>({});
+    const [formValueHotel, setFormValueHotel] = useState<IHotel>({
+        name: '',
+        description: '',
+        address: '',
+        room_types: [],
+    })
+    const [idRoomTypes, setIdRoomTypes] = useState<number[] | undefined>([]);
+
     const [validated, setValidated] = useState(false);
     const [categories, setCategories] = useState(['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5', 'Category 6', 'Category 7']);
 
@@ -26,17 +34,39 @@ const HotelDetail = () => {
     }, [hotel_id])
 
     useEffect(() => {
-        setHotelDetail(hotelState)
+        setFormValueHotel({
+            name: hotelState.name,
+            description: hotelState.description,
+            address: hotelState.address,
+            room_types: hotelState.room_types,
+        })
+        if (hotelState.room_types) {
+            const roomTypeIds = hotelState.room_types.map(item => item.id);
+            setIdRoomTypes(roomTypeIds.filter(id => id != null) as number[]);
+        }
     }, [hotelState])
 
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+        // const form = event.currentTarget;
+        // if (form.checkValidity() === false) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        // }
+        //
+        // setValidated(true);
+        const updateHotelData: IUpdateHotel = {
+            hotel_id: hotelState.id + '',
+            address: formValueHotel.address,
+            name: formValueHotel.name,
+            description: formValueHotel.description,
+            room_types: idRoomTypes,
         }
-
-        setValidated(true);
+        console.log(idRoomTypes)
+        console.log(updateHotelData)
+        dispatch({
+            type: `${manageHotelActions.updateHotelPending}_saga`,
+            payload: updateHotelData,
+        })
     };
 
     const handleDeleteCategory = (index) => {
@@ -56,7 +86,11 @@ const HotelDetail = () => {
                                 required
                                 type="text"
                                 placeholder="First name"
-                                value={hotelDetail.name}
+                                value={formValueHotel.name}
+                                onChange={e => setFormValueHotel({
+                                    ...formValueHotel,
+                                    name: e.target.value,
+                                })}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </Form.Group>
@@ -67,7 +101,11 @@ const HotelDetail = () => {
                                 required
                                 type="text"
                                 placeholder="First name"
-                                value={hotelDetail.address}
+                                value={formValueHotel.address}
+                                onChange={e => setFormValueHotel({
+                                    ...formValueHotel,
+                                    address: e.target.value,
+                                })}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </Form.Group>
@@ -79,7 +117,11 @@ const HotelDetail = () => {
                                 required
                                 type="text"
                                 placeholder="Last name"
-                                value={hotelDetail.description}
+                                value={formValueHotel.description}
+                                onChange={e => setFormValueHotel({
+                                    ...formValueHotel,
+                                    description: e.target.value,
+                                })}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </Form.Group>
@@ -89,7 +131,7 @@ const HotelDetail = () => {
                             <Form.Label>Room types:</Form.Label>
                             <div className={'d-flex custom-fill'}>
                                 <div className={'container-fluid d-flex flex-wrap'}>
-                                    {!isEmpty(hotelDetail.room_types) && map(hotelDetail.room_types, (t, i_index) => (
+                                    {!isEmpty(formValueHotel.room_types) && map(formValueHotel.room_types, (t, i_index) => (
                                         <div key={i_index} className={'p-1'}>
                                             <Button variant="secondary" className="mb-2 me-2">
                                                 {t.name}
@@ -101,7 +143,7 @@ const HotelDetail = () => {
                             </div>
                         </Form.Group>
                     </Row>
-                    <Button>Submit form</Button>
+                    <Button onClick={(e) => handleSubmit(e)}>Submit form</Button>
                 </Form>
             </div>
         </>

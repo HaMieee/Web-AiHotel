@@ -1,11 +1,11 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {authActions} from "../slices/auth.slice";
-import {ILogin} from "../types/login";
+import {ILogin} from "../types/dtos/login";
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
-import { IRegister } from '../types/register';
-import { IChangePassword } from '../types/changePassword';
+import { IRegister } from '../types/dtos/register';
+import { IChangePassword } from '../types/dtos/changePassword';
 
 const login = async (dataLogin: ILogin) => {
     return axiosInstance.post('api/auth/login', dataLogin)
