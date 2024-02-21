@@ -1,28 +1,13 @@
 import React from 'react';
-import {authActions} from "../../redux/slices/auth.slice";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router";
+import UpdateInfo from '../../layouts/components/updateInfo/UpdateInfo';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const Profile = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-
-    const handleDemo = () => {
-        console.log('hello')
-    }
-
-    const handleLogout = () => {
-        dispatch({
-            type: `${authActions.logoutPending}_saga`,
-        })
-        navigate('/');
-    };
+    const userInfo = useSelector((state: RootState) => state.auth.userInfo)
     return (
         <>
-            <div>Profile Page</div>
-            <button onClick={handleDemo}>click me</button>
-            <button onClick={handleLogout}>Logout</button>
+            <UpdateInfo userInfo={userInfo}/>
         </>
     )
 };

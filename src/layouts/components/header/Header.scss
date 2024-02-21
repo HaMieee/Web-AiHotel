@@ -22,12 +22,11 @@
 
 }
 .header_custom{
-    width: 34%;
+    width: 37%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     .book_btn{
-        margin-left: 30px;
         a{
          background: #fff;
          padding: 8px 10px;
@@ -69,7 +68,7 @@
   }
 .icon_admin {
     position: relative;
-    margin-left: 14px;
+    // margin-left: 14px;
   
     &:hover {
       .profile {
@@ -84,17 +83,27 @@
     border: 1px solid gainsboro;
     font-size: 1rem;
     position: absolute;
-    top: 52px;
-    right: -65px;
+    top: 50px;
+    right: -10px;
     width: 360px;
     border-radius: 5px;
     display: none;
     z-index: 2;
-    .profile_info{
+    .login{
         padding: 8px;
         background-color: black;
         border-bottom: 1px solid gainsboro;
         border-radius: 5px;
+        &:hover{
+            cursor: pointer;
+            background-color: gray;
+            color: #ffff;
+        }
+    }
+    .profile_info{
+        padding: 8px;
+        background-color: black;
+        border-bottom: 1px solid gainsboro;
         &:hover{
             cursor: pointer;
             background-color: palevioletred;

@@ -42,15 +42,17 @@ const Header: React.FC<IHeader> = ({
                   </h4>
                 </div>
                 <div className="icon_admin">
-                    <span>{userInfo.name}</span>
+                   
                     <span>
                       <IoPersonSharp />
                     </span>
                     <div className='profile'>
-                      <div className='profile_info'>Xem thông tin cá nhân </div>
+                      {/* <div className='login'>Đăng nhập</div> */}
+                      <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
                       <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
-                      <div className='logout'>Đăng xuất</div>
+                      {/* <div className='logout'>Đăng xuất</div> */}
                     </div>
+                    <span style={{fontSize:'0.8rem', marginTop:'18px'}}>{userInfo.name}</span>
                   </div>
                 <div className="icon_heart">
                   <span>
