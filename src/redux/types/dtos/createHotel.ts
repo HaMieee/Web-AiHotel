@@ -1,5 +1,4 @@
-export type IUpdateHotel = {
-    hotel_id?: string;
+export type ICreateHotel = {
     name?: string;
     description?: string;
     address?: string;

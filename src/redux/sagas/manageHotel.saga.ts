@@ -4,17 +4,26 @@ import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageHotelActions} from "../slices/manageHotel.slice";
 import {IUpdateHotel} from "../types/dtos/updateHotel";
+import {ICreateHotel} from "../types/dtos/createHotel";
 
 const getListHotel = async () => {
-    return axiosInstance.get('/api/hotel/list-hotels')
+    return axiosInstance.get('/api/hotel/list-hotels', {
+        params: {
+            per_page: 5
+        }
+    })
 }
 
 const getHotel = async (hotelId: number) => {
-    return axiosInstance.get('/api/hotel/one-hotel', {
+    return axiosInstance.get('/api/hotel/detail', {
         params: {
             hotel_id: hotelId,
         }
     })
+}
+
+const createHotel = async (createHotel: ICreateHotel) => {
+    return axiosInstance.post('/api/hotel/create-hotel', createHotel)
 }
 
 const updateHotel = async (updateHotelData: IUpdateHotel) => {
@@ -63,6 +72,28 @@ const handleGetHotel = function* (action) {
     }
 }
 
+const handleCreateHotel = function* (action) {
+    try {
+        yield put({
+            type: manageHotelActions.createHotelPending.type,
+        })
+        const response = yield call(createHotel, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageHotelActions.createHotelSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success(`thêm mới thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageHotelActions.createHotelPending.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+
 const handleUpdateHotel = function* (action) {
     try {
         yield put({
@@ -98,6 +129,10 @@ const manageHotelSaga = function* () {
         `${manageHotelActions.updateHotelPending}_saga`,
         handleUpdateHotel,
     );
+    yield takeLatest(
+        `${manageHotelActions.createHotelPending}_saga`,
+        handleCreateHotel,
+    )
 }
 
 export default manageHotelSaga;

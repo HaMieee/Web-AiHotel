@@ -13,7 +13,7 @@ import {IUpdateHotel} from "../../../redux/types/dtos/updateHotel";
 const HotelDetail = () => {
     const dispatch = useDispatch();
     const {hotel_id} = useParams();
-    const hotelState = useSelector((state: RootState) => state.manageHotels.hotelDetail);
+    const hotelState = useSelector((state: RootState) => state.manageHotel.hotelDetail);
 
     const [formValueHotel, setFormValueHotel] = useState<IHotel>({
         name: '',
@@ -85,7 +85,6 @@ const HotelDetail = () => {
                             <Form.Control
                                 required
                                 type="text"
-                                placeholder="First name"
                                 value={formValueHotel.name}
                                 onChange={e => setFormValueHotel({
                                     ...formValueHotel,
@@ -100,7 +99,6 @@ const HotelDetail = () => {
                             <Form.Control
                                 required
                                 type="text"
-                                placeholder="First name"
                                 value={formValueHotel.address}
                                 onChange={e => setFormValueHotel({
                                     ...formValueHotel,
@@ -114,15 +112,15 @@ const HotelDetail = () => {
                         <Form.Group as={Col} md="8">
                             <Form.Label>Description:</Form.Label>
                             <Form.Control
+                                as="textarea" rows={3}
                                 required
-                                type="text"
-                                placeholder="Last name"
                                 value={formValueHotel.description}
                                 onChange={e => setFormValueHotel({
                                     ...formValueHotel,
                                     description: e.target.value,
                                 })}
                             />
+
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </Form.Group>
                     </Row>
@@ -143,7 +141,9 @@ const HotelDetail = () => {
                             </div>
                         </Form.Group>
                     </Row>
-                    <Button onClick={(e) => handleSubmit(e)}>Submit form</Button>
+                    <Button onClick={(e) => handleSubmit(e)}>
+                        Xác nhận
+                    </Button>
                 </Form>
             </div>
         </>

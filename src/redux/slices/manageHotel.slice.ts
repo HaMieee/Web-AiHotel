@@ -36,6 +36,8 @@ const getListHotelPending = requestPending;
 const getListHotelError = requestError;
 const getHotelDetailPending = requestPending;
 const getHotelDetailError = requestError;
+const createHotelError = requestError;
+const createHotelPending = requestPending;
 const updateHotelPending = requestPending;
 const updateHotelError = requestError;
 
@@ -59,6 +61,18 @@ const getHotelDetailSuccess = (
 ) => {
     state.hotelDetail = action.payload;
     state.isLoading = false;
+};
+
+const createHotelSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IHotel;
+    }
+) => {
+    state.hotels.push(action.payload);
+    state.isLoading = false;
+    state.isError = false;
 }
 
 const updateHotelSuccess = (
@@ -82,6 +96,9 @@ const manageHotel = createSlice({
         getHotelDetailPending,
         getHotelDetailError,
         getHotelDetailSuccess,
+        createHotelError,
+        createHotelPending,
+        createHotelSuccess,
         updateHotelPending,
         updateHotelError,
         updateHotelSuccess,
