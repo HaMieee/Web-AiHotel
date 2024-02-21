@@ -2,11 +2,11 @@ import {useState} from "react";
 import {authActions} from "../../redux/slices/auth.slice";
 import {useDispatch} from "react-redux";
 import './Login.scss'
-import { Link } from "react-router-dom";
-import Header from "../../layouts/components/header/Header";
-import Footer from "../../layouts/footer/Footer";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+    const navigate = useNavigate()
     const [inputLogin, setInputLogin] = useState({
         email: '',
         password: '',
@@ -45,8 +45,11 @@ const Login = () => {
                 ...inputLogin,
                 password: e.target.value,
             })}/>
+                <p className="forgot_password" onClick={() => navigate('/sendEmail')}>
+                Forgot Password ?
+                </p>
                 <button type="submit" onClick={handleLogin}>Đăng Nhập</button>
-                <p>
+                <p className="sing_up">
                   Bạn chưa có tài khoản? Vui lòng đăng ký Tài khoản mới
                   <Link to={"/singUp"}>
                     <span>tại đây</span>

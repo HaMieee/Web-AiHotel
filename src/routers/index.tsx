@@ -12,6 +12,8 @@ import SingUp from "../pages/Auth/SingUp";
 import DashBoardAdmin from "../pages/Admin/dashboard/DashBoardAdmin";
 import AdminLayout from "../layouts/auth/AdminLayout";
 import NotFound404 from "../pages/404/NotFound404";
+import SendEmail from '../pages/Auth/SendEmail';
+import ResetPassword from '../pages/Auth/ResetPassword';
 
 const Router = () => {
     return useRoutes([
@@ -55,7 +57,16 @@ const Router = () => {
                 {
                     path: '/SingUp',
                     element: <SingUp/>
-                  },
+                },
+                { 
+                    path: '/sendEmail',
+                    element: <SendEmail/>
+                },
+                {
+                    path:'/reset-password',
+                    element:<ResetPassword />
+                }
+
             ],
         },
         {

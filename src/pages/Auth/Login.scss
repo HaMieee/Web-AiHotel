@@ -62,7 +62,7 @@
         button{
             padding: 24px;
             line-height: 5px;
-            margin-top: 12px;
+            margin-top: 5px;
             width: 90%;
             height: 46px;
             color: #fff;
@@ -77,9 +77,15 @@
                 background-color:gray;
             }
         }
-        p{
+        .sing_up{
             font-size: 1.1rem;
             padding-bottom: 24px;
         }
+    }
 
+    .forgot_password{
+        font-size: 1.1rem;
+        &:hover{
+            cursor: pointer;
+        }
     }
