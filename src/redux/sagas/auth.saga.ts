@@ -139,7 +139,7 @@ const handleRegister = function* (action) {
             type: authActions.registerError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'message'));
+        toast.error(get(err, 'response.data.message'));
         console.log('error: ', err);
     }
 }

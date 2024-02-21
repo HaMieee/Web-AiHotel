@@ -78,7 +78,6 @@ const UpdateInfo: React.FC<IUpdateInfoComponent> = ({
     const handleProcessData = (inputValue, newInputValue) => {
       const keys = Object.keys(inputValue);
       const result = {};
-
       keys.map(key => {
         if (newInputValue.hasOwnProperty(key) && inputValue[key] !== newInputValue[key]) {
           result[key] = newInputValue[key]

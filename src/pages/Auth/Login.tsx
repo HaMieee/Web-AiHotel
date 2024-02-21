@@ -51,7 +51,7 @@ const Login = () => {
                 <button type="submit" onClick={handleLogin}>Đăng Nhập</button>
                 <p className="sing_up">
                   Bạn chưa có tài khoản? Vui lòng đăng ký Tài khoản mới
-                  <Link to={"/singUp"}>
+                  <Link to={"/singUp_modal"}>
                     <span>tại đây</span>
                   </Link>
                 </p>

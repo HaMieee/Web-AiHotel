@@ -16,6 +16,7 @@ import ManageHotel from "../pages/Admin/ManageHotel/ManageHotel";
 import HotelDetail from "../pages/Admin/ManageHotel/HotelDetail";
 import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
+import SingUpModal from '../layouts/components/modals/SingUpModal';
 
 const Router = () => {
     return useRoutes([
@@ -64,11 +65,11 @@ const Router = () => {
                   path: '/login',
                   element: <Login />
                 },
-                {
-                    path: '/SingUp',
-                    element: <SingUp/>
-                },
-                {
+                // {
+                //     path: '/singUp_modal',
+                //     element: <SingUpModal/>
+                // },
+                { 
                     path: '/sendEmail',
                     element: <SendEmail/>
                 },
