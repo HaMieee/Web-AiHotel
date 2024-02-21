@@ -56,6 +56,7 @@ const loginSuccess = (
 ) => {
     state.token = action.payload;
     state.isLoading = false;
+    state.isError = false;
 }
 
 const getInfoSuccess = (
@@ -91,6 +92,7 @@ const registerSuccess = (
 ) => {
     state.token = action.payload;
     state.isLoading = false;
+    state.isError = false;
 }
 
 const changePasswordSuccess = (

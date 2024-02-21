@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaHeart } from "react-icons/fa6";
 import { IoHome, IoPersonSharp } from "react-icons/io5";
 import { MdLanguage } from "react-icons/md";
@@ -7,17 +7,38 @@ import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
 import logo from '../../../img/logo.jpg';
 import {IUser} from "../../../redux/types/user";
+import SingUpModal from '../modals/SingUpModal';
+import LoginModal from '../modals/LoginModal';
+import { isEmpty } from 'lodash';
 
 type IHeader = {
   userInfo: IUser;
+  isLoginError: boolean;
+  isSingUpError: boolean;
 }
 
 const Header: React.FC<IHeader> = ({
-                                       userInfo = {}
+                                       userInfo = {},
+                                       isLoginError = false,
+                                       isSingUpError = false
                                    }) => {
   const navigate = useNavigate()
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleChangeModalSignUp = () => {
+    setShowLogin(false)
+    setShowSignUp(true)
+  }
+
+  const handleChangeModalLogin = () => {
+    setShowLogin(true)
+    setShowSignUp(false)
+  }
+
     return (
-        <div className="app">
+      <>
+          <div className="app">
           <div className="wrapper">
             <div className="site_header">
               <div className="header_logo">
@@ -47,10 +68,21 @@ const Header: React.FC<IHeader> = ({
                       <IoPersonSharp />
                     </span>
                     <div className='profile'>
-                      {/* <div className='login'>Đăng nhập</div> */}
-                      <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
-                      <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
-                      {/* <div className='logout'>Đăng xuất</div> */}
+                      {
+                         !isEmpty(userInfo) ? 
+                        <>
+                           <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
+                          <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
+                          <div className='logout'>Đăng xuất</div>
+                        </>
+                        :
+                        <>
+                          <div className='login' onClick={() => setShowLogin(true)}>Đăng nhập</div>
+                          <div className='sing_up' onClick={() => setShowSignUp(true)}>Đăng ký</div>
+                        </>
+                      }
+                      
+                     
                     </div>
                     <span style={{fontSize:'0.8rem', marginTop:'18px'}}>{userInfo.name}</span>
                   </div>
@@ -95,6 +127,10 @@ const Header: React.FC<IHeader> = ({
             </div>
           </div>
         </div>
+
+        <SingUpModal isShow ={showSignUp} onClose={() => setShowSignUp(false)} onChangeModal={handleChangeModalLogin} isSingUpError = {isSingUpError}/>
+        <LoginModal isShow ={showLogin} onClose={() => setShowLogin(false)} onChangeModal={handleChangeModalSignUp} isLoginError={isLoginError}/>
+      </>
       );
 }
 

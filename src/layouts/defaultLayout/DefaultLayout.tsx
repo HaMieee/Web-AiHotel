@@ -6,10 +6,12 @@ import {RootState} from "../../redux/store";
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({children}) => {
     const userInfo = useSelector((state: RootState) => state.auth.userInfo)
+    const loginErrorState = useSelector((state: RootState) => state.auth.isError)
+    const singUpErrorState = useSelector((state: RootState) => state.auth.isError)
 
     return (
         <div className={"app-blank"}>
-            <Header userInfo={userInfo}/>
+            <Header userInfo={userInfo} isLoginError={loginErrorState} isSingUpError= {singUpErrorState}/>
             <div className={"container-fluid"}>
                 {children}
             </div>

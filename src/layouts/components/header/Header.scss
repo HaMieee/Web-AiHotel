@@ -84,7 +84,7 @@
     font-size: 1rem;
     position: absolute;
     top: 50px;
-    right: -10px;
+    right: -50px;
     width: 360px;
     border-radius: 5px;
     display: none;
@@ -110,6 +110,16 @@
         }
     }
     .changePassword{
+        padding: 8px;
+        background-color: black;
+        border-bottom: 1px solid gainsboro;
+        &:hover{
+            cursor: pointer;
+            background-color: gray;
+            color: #ffff;
+        }
+    }
+    .sing_up{
         padding: 8px;
         background-color: black;
         border-bottom: 1px solid gainsboro;
