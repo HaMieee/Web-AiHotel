@@ -2,11 +2,11 @@ import { isEmpty } from 'lodash';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { IRegister } from '../../../redux/types/dtos/register';
 import { authActions } from '../../../redux/slices/auth.slice';
 import { toast } from 'react-toastify';
 import Modal from 'react-bootstrap/Modal';
 import './SingUpModal.scss'
+import { IRegister } from '../../../redux/types/dtos/register';
 
 type ISignUpModal = {
     isShow: boolean;

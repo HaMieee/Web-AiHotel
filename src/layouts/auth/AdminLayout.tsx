@@ -43,7 +43,7 @@ const AdminLayout = () => {
                                 <i><RiAdminFill/></i>
                                 <span>Quản lý người dùng</span>
                             </div>
-                            <div onClick={() => navigate('manage-hotel')}>
+                            <div onClick={() => navigate('/manage-hotel')}>
                                 <i><RiHotelFill /></i>
                                 <span>Quản lý khách sạn</span>
                             </div>
@@ -55,7 +55,7 @@ const AdminLayout = () => {
                                 <i><MdPerson3/></i>
                                 <span>Quản lý nhân viên </span>
                             </div>
-                            <div>
+                            <div onClick={() => navigate('/manage-customer')}>
                                 <i><RiTeamFill/></i>
                                 <span>Quản lý khách hàng</span>
                             </div>

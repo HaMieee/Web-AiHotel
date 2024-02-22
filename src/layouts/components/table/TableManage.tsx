@@ -8,7 +8,7 @@ import { FaEye } from "react-icons/fa";
 type ITableManage = {
     headers: string[];
     data: any[];
-    actions: {type: string}[];
+    actions?: {type: string}[];
     onAction?: (id: number, action: string) => void;
     useIdx?: boolean;
     shortValue?: boolean;
