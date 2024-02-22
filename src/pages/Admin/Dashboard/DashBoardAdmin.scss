@@ -1,5 +1,5 @@
 .dash_board{
-    background-color: antiquewhite;
+    background-color: white;
     max-width: 100%;
     height: 100vh;
     .warper_board{
@@ -9,7 +9,8 @@
             width: 20%;
             height: 100vh;
             background-color: white;
-            border: 5px solid gainsboro;
+            border-right: 1px solid gainsboro;
+            box-shadow: 1px 0 5px 0  gainsboro ;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,13 +29,12 @@
                 justify-content: center;
                 align-items: center;
                 div{
-                    width: 80%;
+                    width: 70%;
                     display: flex;
                     align-items: center;
                     justify-content: start;
                     margin: 5px;
                     padding: 2px;
-                    // border: 1px solid gray;
                     border-radius: 5px;
                     hr{
                         color: 1px gray;
@@ -42,19 +42,17 @@
                     i{
                         margin-right: 12px;
                         font-size: 24px;
-                        color: gray;
-                        &:hover{
-                            color: white;
-                        }
                         
                     }
                     span{
                         font-size: 1.1rem;
+                        padding-top: 6px;
                     }
                     &:hover{
-                        background-color: rgb(97, 197, 129);
-                        border: 1px solid gray;
-                        // color: white;
+                        background-color: gray; 
+                        // border: 1px solid gray;
+                        color: white;
+                        cursor: pointer;
                     }
                 }
             }
@@ -63,12 +61,20 @@
     .sidebar_nav{
         width: 80%;
        padding: 30px;
+    //    background-color: var(--bs-app-toolbar-base-bg-color);
        .sidebar_nav-top{
         input{
             height: 48px;
             border: 1px solid gainsboro;
             padding: 10px;
             border-radius: 8px;
+            outline: none;
+        }
+        div{
+            i{
+                color: gray;
+                padding-left: 22px;
+            }
         }
        }
     }
@@ -76,11 +82,13 @@
 }
 
 .sidebar_nav-topOne{
-    //style={{background:'white', height:'64px' ,marginBottom:'24px', padding:'12px'}}
-    background-color: aliceblue;
+    // background-color: rgb(240, 242, 244);
     height: 64px;
     margin-bottom: 24px;
     padding: 16px;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid gainsboro;
 
 }
 

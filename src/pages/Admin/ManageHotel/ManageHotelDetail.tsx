@@ -9,28 +9,35 @@ import {RootState} from "../../../redux/store";
 import {IHotel} from "../../../redux/types/hotel";
 import {isEmpty, map} from "lodash";
 import {IUpdateHotel} from "../../../redux/types/dtos/updateHotel";
+import {IRoomType} from "../../../redux/types/roomType";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import AddRoomTypeModal from "../../../layouts/components/modals/AddRoomTypeModal";
+import {manageRoomTypeActions} from "../../../redux/slices/manageRoomType.slice";
 
-const HotelDetail = () => {
+const ManageHotelDetail = () => {
     const dispatch = useDispatch();
     const {hotel_id} = useParams();
     const hotelState = useSelector((state: RootState) => state.manageHotel.hotelDetail);
+    const roomTypesState: IRoomType[] = useSelector((state: RootState) => state.manageRoomType.room_types);
 
+    const [showAddRoomType, setShowAddRoomType] = useState(false);
+    const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
     const [formValueHotel, setFormValueHotel] = useState<IHotel>({
         name: '',
         description: '',
         address: '',
         room_types: [],
     })
-    const [idRoomTypes, setIdRoomTypes] = useState<number[] | undefined>([]);
-
-    const [validated, setValidated] = useState(false);
-    const [categories, setCategories] = useState(['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5', 'Category 6', 'Category 7']);
+    const [selectRoomTypes, setSelectRoomTypes] = useState<number[]>([]);
 
     useEffect(() => {
         dispatch({
             type: `${manageHotelActions.getHotelDetailPending}_saga`,
             payload: hotel_id,
-        })
+        });
+        dispatch({
+            type: `${manageRoomTypeActions.getListRoomTypePending}_saga`,
+        });
     }, [hotel_id])
 
     useEffect(() => {
@@ -40,28 +47,44 @@ const HotelDetail = () => {
             address: hotelState.address,
             room_types: hotelState.room_types,
         })
-        if (hotelState.room_types) {
-            const roomTypeIds = hotelState.room_types.map(item => item.id);
-            setIdRoomTypes(roomTypeIds.filter(id => id != null) as number[]);
-        }
-    }, [hotelState])
+        setRoomTypeData(roomTypesState)
+    }, [hotelState, roomTypesState])
 
-    const handleSubmit = (event) => {
-        // const form = event.currentTarget;
-        // if (form.checkValidity() === false) {
-        //     event.preventDefault();
-        //     event.stopPropagation();
-        // }
-        //
-        // setValidated(true);
+    const handleDeleteRoomType = (roomTypeId: number | undefined) => {
+        if (roomTypeId && formValueHotel.room_types) {
+            const updatedRoomTypes = formValueHotel.room_types.filter((roomType) => roomType.id !== roomTypeId);
+            setFormValueHotel({
+                ...formValueHotel,
+                room_types: updatedRoomTypes,
+            });
+        }
+    }
+
+    const handleAddRoomType = (roomType: IRoomType) => {
+        if (roomType && formValueHotel.room_types) {
+            setFormValueHotel({
+                ...formValueHotel.room_types,
+                room_types: [ ...formValueHotel.room_types, roomType],
+            })
+        }
+    }
+
+    const buildRoomTypeData = (roomTypeData: IRoomType[] | undefined) => {
+        let data;
+        if (roomTypeData) {
+            data = roomTypeData.map(item => item.id);
+        }
+        return data;
+    }
+
+    const handleSubmit = () => {
         const updateHotelData: IUpdateHotel = {
             hotel_id: hotelState.id + '',
             address: formValueHotel.address,
             name: formValueHotel.name,
             description: formValueHotel.description,
-            room_types: idRoomTypes,
+            room_types: buildRoomTypeData(formValueHotel.room_types),
         }
-        console.log(idRoomTypes)
         console.log(updateHotelData)
         dispatch({
             type: `${manageHotelActions.updateHotelPending}_saga`,
@@ -69,16 +92,10 @@ const HotelDetail = () => {
         })
     };
 
-    const handleDeleteCategory = (index) => {
-        const newCategories = [...categories];
-        newCategories.splice(index, 1);
-        setCategories(newCategories);
-    };
-
     return (
         <>
             <div className={'container-fluid'}>
-                <Form noValidate validated={validated}>
+                <Form>
                     <Row className="mb-3">
                         <Form.Group as={Col} md={4}>
                             <Form.Label>Hotel name:</Form.Label>
@@ -126,14 +143,25 @@ const HotelDetail = () => {
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} md="8">
-                            <Form.Label>Room types:</Form.Label>
+                            <Form.Label className={'d-flex justify-content-between'}>
+                                Room types:
+                                <Button variant={'primary'}
+                                        onClick={() => setShowAddRoomType(true)}
+                                >
+                                    <IoMdAddCircleOutline className={'me-2'}/>
+                                    Thêm loại phòng
+                                </Button>
+                            </Form.Label>
                             <div className={'d-flex custom-fill'}>
                                 <div className={'container-fluid d-flex flex-wrap'}>
                                     {!isEmpty(formValueHotel.room_types) && map(formValueHotel.room_types, (t, i_index) => (
                                         <div key={i_index} className={'p-1'}>
                                             <Button variant="secondary" className="mb-2 me-2">
                                                 {t.name}
-                                                <Badge bg="dark" className={'ms-2'}>x</Badge>
+                                                <Badge bg="dark"
+                                                       className={'ms-2'}
+                                                       onClick={() => handleDeleteRoomType(t.id)}
+                                                >x</Badge>
                                             </Button>
                                         </div>
                                     ))}
@@ -141,13 +169,21 @@ const HotelDetail = () => {
                             </div>
                         </Form.Group>
                     </Row>
-                    <Button onClick={(e) => handleSubmit(e)}>
+                    <Button onClick={(e) => handleSubmit()}>
                         Xác nhận
                     </Button>
                 </Form>
             </div>
+
+            <AddRoomTypeModal isShow={showAddRoomType}
+                              onClose={() => setShowAddRoomType(false)}
+                              roomTypeData={roomTypeData}
+                              roomTypeCurrent={formValueHotel.room_types}
+                              onDeleteRoomType={handleDeleteRoomType}
+                              onAddRoomType={handleAddRoomType}
+            />
         </>
     )
 };
 
-export default HotelDetail;
+export default ManageHotelDetail;

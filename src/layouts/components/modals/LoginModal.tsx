@@ -55,7 +55,7 @@ const LoginModal: React.FC<ILoginModal> = ({
             <Modal.Body className="modal-lg">
             <div className="wrapper-top">
             <div className="container_top">
-              <h1 className="text-center">Đăng nhập</h1>
+              <h1 className="text-center" style={{marginTop:'-64px'}}>Đăng nhập</h1>
               <div className="top">
                 <input type="text" placeholder="Email của bạn" value={inputLogin.email} onChange={e => setInputLogin({
                 ...inputLogin,

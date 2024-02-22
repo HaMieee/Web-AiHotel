@@ -8,8 +8,11 @@ import {GoProjectRoadmap} from "react-icons/go";
 import {MdDashboard, MdPerson3} from "react-icons/md";
 import {RiAdminFill, RiBillLine, RiTeamFill} from "react-icons/ri";
 import {BiHomeHeart} from "react-icons/bi";
-import {IoPersonSharp} from "react-icons/io5";
 import { RiHotelFill } from "react-icons/ri";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { RiCalendar2Line } from "react-icons/ri";
+import { FaRegBell } from "react-icons/fa";
+
 
 
 const AdminLayout = () => {
@@ -69,19 +72,23 @@ const AdminLayout = () => {
                         <div>
                             <div className='d-flex justify-content-between sidebar_nav-top'>
                                 <input placeholder='Search...'/>
-                                <i style ={{fontSize:'28px'}}><IoPersonSharp/></i>
+                              <div>
+                              <i style ={{fontSize:'22px'}}>< RiCalendar2Line/></i>
+                              <i style ={{fontSize:'22px'}}>< FaRegBell/></i>
+                              <i style ={{fontSize:'22px'}}>< FaRegBell/></i>
+                              <i style ={{fontSize:'36px'}}>< RiAccountCircleFill/></i>
+                              </div>
                             </div>
                             <hr/>
                         </div>
-                        {/*<div className='d-flex justify-content-between sidebar_nav-topOne'>*/}
-                        {/*    <div className=''>*/}
-                        {/*        <div>Quản lý người dùng</div>*/}
-                        {/*        <span>Home</span>*/}
-                        {/*        <span>--</span>*/}
-                        {/*        <span>Quản lý người dùng</span>*/}
-                        {/*    </div>*/}
-                        {/*    <button>add</button>*/}
-                        {/*</div>*/}
+                        <div className='d-flex justify-content-between sidebar_nav-topOne'>
+                           <div className=''>
+                               <div>Quản lý khách sạn</div>
+                               <span style={{fontSize:'0.8rem'}}>Home </span>
+                               <span> - </span>
+                               <span style={{fontSize:'0.8rem'}}> Quản lý khách sạn</span>
+                           </div>
+                        </div>
 
                         <Outlet />
 

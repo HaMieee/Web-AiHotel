@@ -7,8 +7,6 @@ import { differenceInDays } from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
 
-
-
 const RoomDetail = ({show, handleClose}) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);

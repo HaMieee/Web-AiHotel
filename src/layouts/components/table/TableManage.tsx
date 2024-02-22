@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import {isEmpty, map} from "lodash";
-import {Button} from "react-bootstrap";
+import {Button, Pagination} from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import './TableManage.scss';
 
 type ITableManage = {
     headers: string[];
@@ -50,18 +51,22 @@ const TableManage: React.FC<ITableManage> = ({
         })
     }
 
+    const [currentPage, setCurrentPage] = useState(1);
     return (
-        <Table striped bordered hover variant="light">
+        <div className='table'>
+            <hr></hr>
+      <div>
+      <Table   hover  style={{ borderRadius: '10px', border: 'none' }}>
             <thead>
             <tr>
                 {headers.map((header, header_index) => (
-                    <th key={header_index}>{header}</th>
+                    <th className= 'title' key={header_index}>{header}</th>
                 ))}
             </tr>
             </thead>
             <tbody>
             {!isEmpty(data) && map(data, (row, i_index) => (
-                <tr>
+                <tr className='data'>
                     {Object.keys(row).map((item) => {
                         return renderTagTd(row[item], item, i_index + 1);
                     })}
@@ -70,6 +75,16 @@ const TableManage: React.FC<ITableManage> = ({
             ))}
             </tbody>
         </Table>
+      </div>
+       {/* <div className='d-flex float-end'>
+       <Pagination>
+                            <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
+                            <Pagination.Item onClick={() => setCurrentPage(1)} active={currentPage === 1}>1</Pagination.Item>
+                            <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+        </Pagination>
+       </div> */}
+        
+        </div>
     );
 }
 

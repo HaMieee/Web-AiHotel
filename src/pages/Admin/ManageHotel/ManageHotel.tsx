@@ -28,6 +28,10 @@ const ManageHotel = () => {
     useEffect(() => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
+            payload: {
+                per_page: 5,
+                page: 1,
+            }
         });
         dispatch({
             type: `${manageRoomTypeActions.getListRoomTypePending}_saga`,
@@ -48,10 +52,15 @@ const ManageHotel = () => {
         if (action === 'detail') {
             return navigate(`/manage-hotel/${recordId}`)
         }
+        if (action === 'delete') {
+            dispatch({
+                type: `${manageHotelActions.deleteHotelPending}_saga`,
+                payload: recordId,
+            })
+        }
     }
 
     const handleCreateHotel = (createHotelData: ICreateHotel) => {
-        console.log('data create hotel: ', createHotelData)
         dispatch({
             type: `${manageHotelActions.createHotelPending}_saga`,
             payload: createHotelData,
@@ -69,6 +78,7 @@ const ManageHotel = () => {
                     Thêm
                 </Button>
             </div>
+
             <TableManage
                 headers={['STT', 'Name', 'Address', 'Description', 'Actions']}
                 data={hotelsData}
