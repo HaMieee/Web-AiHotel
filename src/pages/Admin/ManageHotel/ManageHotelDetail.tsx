@@ -14,7 +14,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import AddRoomTypeModal from "../../../layouts/components/modals/AddRoomTypeModal";
 import {manageRoomTypeActions} from "../../../redux/slices/manageRoomType.slice";
 
-const HotelDetail = () => {
+const ManageHotelDetail = () => {
     const dispatch = useDispatch();
     const {hotel_id} = useParams();
     const hotelState = useSelector((state: RootState) => state.manageHotel.hotelDetail);
@@ -186,4 +186,4 @@ const HotelDetail = () => {
     )
 };
 
-export default HotelDetail;
+export default ManageHotelDetail;

@@ -28,6 +28,10 @@ const ManageHotel = () => {
     useEffect(() => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
+            payload: {
+                per_page: 5,
+                page: 1,
+            }
         });
         dispatch({
             type: `${manageRoomTypeActions.getListRoomTypePending}_saga`,
