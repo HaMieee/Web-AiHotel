@@ -17,6 +17,7 @@ import HotelDetail from "../pages/Admin/ManageHotel/HotelDetail";
 import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import SingUpModal from '../layouts/components/modals/SingUpModal';
+import Hotel from "../pages/Hotel/Hotel";
 
 const Router = () => {
     return useRoutes([
@@ -28,7 +29,7 @@ const Router = () => {
                     element: <Home />,
                 },
                 {
-                    path: '/',
+                    path: '/dashboard',
                     element: <Dashboard />
                 },
                 {
@@ -38,6 +39,10 @@ const Router = () => {
                 {
                     path: '/404',
                     element: <NotFound404 />
+                },
+                {
+                    path: '/',
+                    element: <Hotel />
                 }
             ]
         },

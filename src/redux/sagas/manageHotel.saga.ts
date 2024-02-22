@@ -6,10 +6,14 @@ import {manageHotelActions} from "../slices/manageHotel.slice";
 import {IUpdateHotel} from "../types/dtos/updateHotel";
 import {ICreateHotel} from "../types/dtos/createHotel";
 
-const getListHotel = async () => {
+const getListHotel = async (payload: {
+    per_page: number;
+    page: number;
+}) => {
     return axiosInstance.get('/api/hotel/list-hotels', {
         params: {
-            per_page: 5
+            per_page: payload.per_page,
+            page: payload.page,
         }
     })
 }
@@ -35,16 +39,19 @@ const deleteHotel = async (hotel_id: number) => {
     return axiosInstance.delete('api/hotel/delete-hotel', {data})
 }
 
-const handleGetListHotel = function* () {
+const handleGetListHotel = function* (action) {
     try {
         yield put({
             type: manageHotelActions.getListHotelPending.type,
         })
-        const response = yield call(getListHotel);
+        const response = yield call(getListHotel, action.payload);
         if (response.data.statusCode === 200) {
             yield put({
                 type: manageHotelActions.getListHotelSuccess.type,
-                payload: response.data.data,
+                payload: {
+                    hotels: response.data.data,
+                    meta: response.data.meta.pagination,
+                }
             })
         }
     } catch (err) {

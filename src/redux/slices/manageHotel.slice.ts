@@ -1,5 +1,6 @@
 import {IHotel} from "../types/hotel";
 import {createSlice} from "@reduxjs/toolkit";
+import {IPaginateResponse} from "../types/page";
 
 type IInitialState = {
     hotels: IHotel[];
@@ -7,6 +8,7 @@ type IInitialState = {
     isLoading: boolean;
     isError: boolean;
     message: string;
+    paginate: IPaginateResponse;
 }
 
 const initialState: IInitialState = {
@@ -15,6 +17,14 @@ const initialState: IInitialState = {
     isLoading: false,
     isError: false,
     message: '',
+    paginate: {
+        count: 0,
+        current_page: 0,
+        per_page: 0,
+        total: 0,
+        total_pages: 0,
+        links: {},
+    },
 }
 
 const requestPending = (state: IInitialState) => {
@@ -47,10 +57,11 @@ const getListHotelSuccess = (
     state: IInitialState,
     action: {
         type: string;
-        payload: IHotel[];
+        payload: {hotels: IHotel[], meta: IPaginateResponse};
     }
 ) => {
-    state.hotels = action.payload;
+    state.hotels = action.payload.hotels;
+    state.paginate = action.payload.meta;
     state.isLoading = false;
 }
 
