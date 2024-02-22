@@ -8,9 +8,11 @@ import {IHotel} from "../../redux/types/hotel";
 import {IPaginateResponse} from "../../redux/types/page";
 import {isEmpty, map} from "lodash";
 import PaginationComponent from "../../layouts/components/pagination/PaginationComponent";
+import {useNavigate} from "react-router";
 
 const Hotel = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const listHotelState = useSelector((state: RootState) => state.manageHotel.hotels);
     const metaState = useSelector((state: RootState) => state.manageHotel.paginate);
 
@@ -37,6 +39,10 @@ const Hotel = () => {
         setCurrentPage(page)
     }
 
+    const handleCheckHotel = (hotelId: number) => {
+        navigate(`/hotel/${hotelId}`)
+    }
+
     return (
         <>
             <div className={"container-fluid mt-3"}>
@@ -45,7 +51,7 @@ const Hotel = () => {
                         <div className={'container-fluid'}>Page support</div>
                     </Col>
                     <Col>
-                        <ListHotels listHotelData={listHotelData}/>
+                        <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
                         <div className={'d-flex float-end'}>
                             <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
                         </div>

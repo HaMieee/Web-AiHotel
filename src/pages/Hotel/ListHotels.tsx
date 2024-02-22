@@ -11,10 +11,12 @@ import {isEmpty, map} from "lodash";
 
 type IListHotelComponent = {
     listHotelData: IHotel[];
+    onCheckHotel: (hotelId: number) => void;
 }
 
 const ListHotels: React.FC<IListHotelComponent> = ({
                                                        listHotelData = [],
+                                                       onCheckHotel,
                                                    }) => {
 
     return (
@@ -63,7 +65,7 @@ const ListHotels: React.FC<IListHotelComponent> = ({
                                 <Button>4.8</Button>
                             </div>
                             <div>
-                                <Button>
+                                <Button onClick={() => onCheckHotel(Number(hotel.id))}>
                                     Check room
                                     <i><IoIosArrowForward size={"20px"}/></i>
                                 </Button>

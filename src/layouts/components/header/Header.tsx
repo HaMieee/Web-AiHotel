@@ -38,7 +38,7 @@ const Header: React.FC<IHeader> = ({
 
     return (
       <>
-          <div className="app">
+          <div className="app mb-3">
           <div className="wrapper">
             <div className="site_header">
               <div className="header_logo">
