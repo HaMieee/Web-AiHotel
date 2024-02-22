@@ -14,6 +14,7 @@
     justify-content: space-around;
     h2{
         margin-bottom: 22px;
+        margin-top: -64px;
     }
     input{
         width:80%;
@@ -53,14 +54,14 @@
             font-size: 18px;
             font-weight: 700;
             border-radius: 5px;
-            background-color: #55cbcb;
+            background-color: gray;
             border: none;
             padding: 24px;
             text-align: center;
             line-height: 5px;
             &:hover{
                 cursor: pointer;
-                background-color: gray;
+                background-color: #738136;
             }
         }
 

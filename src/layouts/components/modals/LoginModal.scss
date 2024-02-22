@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('https://assets.comem.vn/images/background-login.jpg');
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: contain;
@@ -22,6 +21,7 @@
         margin-bottom: 22px;
         font-size: 1.8rem;
         color: #4c503d;
+        margin-top: -64px;
     }
   
 }
@@ -69,12 +69,12 @@
             font-size: 18px;
             font-weight: 700;
             border-radius: 5px;
-            background-color:rgb(109, 210, 220);
+            background-color:gray;
             margin-bottom: 22px;
             border: none;
             &:hover{
                 cursor: pointer;
-                background-color:gray;
+                background-color:#738136;
             }
         }
         .sing_up{

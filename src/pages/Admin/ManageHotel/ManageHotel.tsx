@@ -69,6 +69,7 @@ const ManageHotel = () => {
                     Thêm
                 </Button>
             </div>
+
             <TableManage
                 headers={['STT', 'Name', 'Address', 'Description', 'Actions']}
                 data={hotelsData}

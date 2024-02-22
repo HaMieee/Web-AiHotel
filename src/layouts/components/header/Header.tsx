@@ -10,6 +10,8 @@ import {IUser} from "../../../redux/types/user";
 import SingUpModal from '../modals/SingUpModal';
 import LoginModal from '../modals/LoginModal';
 import { isEmpty } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../../redux/slices/auth.slice';
 
 type IHeader = {
   userInfo: IUser;
@@ -35,6 +37,14 @@ const Header: React.FC<IHeader> = ({
     setShowLogin(true)
     setShowSignUp(false)
   }
+
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    dispatch({
+        type: `${authActions.logoutPending}_saga`,
+    })
+    navigate('/');
+};
 
     return (
       <>
@@ -63,7 +73,6 @@ const Header: React.FC<IHeader> = ({
                   </h4>
                 </div>
                 <div className="icon_admin">
-                   
                     <span>
                       <IoPersonSharp />
                     </span>
@@ -73,7 +82,7 @@ const Header: React.FC<IHeader> = ({
                         <>
                            <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
                           <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
-                          <div className='logout'>Đăng xuất</div>
+                          <div className='logout' onClick={handleLogout}>Đăng xuất</div>
                         </>
                         :
                         <>

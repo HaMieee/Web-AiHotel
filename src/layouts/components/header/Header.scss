@@ -68,8 +68,7 @@
   }
 .icon_admin {
     position: relative;
-    // margin-left: 14px;
-  
+    // width: 130px;
     &:hover {
       .profile {
         display: block;
@@ -77,23 +76,26 @@
     }
 }
 .profile{
-    background-color:black;
+    background-color:white;
     max-width: 180px;
     border-radius: 10px;
     border: 1px solid gainsboro;
     font-size: 1rem;
     position: absolute;
     top: 50px;
-    right: -50px;
+    right: -20px;
     width: 360px;
-    border-radius: 5px;
+    border-radius: 10px;
     display: none;
     z-index: 2;
+    color: black;
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
     .login{
         padding: 8px;
-        background-color: black;
+        // background-color: black;
         border-bottom: 1px solid gainsboro;
-        border-radius: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
             background-color: gray;
@@ -102,16 +104,19 @@
     }
     .profile_info{
         padding: 8px;
-        background-color: black;
+        // background-color: black;
         border-bottom: 1px solid gainsboro;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: palevioletred;
+            background-color: gray;
+            color: #ffff;
         }
     }
     .changePassword{
         padding: 8px;
-        background-color: black;
+        // background-color: black;
         border-bottom: 1px solid gainsboro;
         &:hover{
             cursor: pointer;
@@ -121,8 +126,9 @@
     }
     .sing_up{
         padding: 8px;
-        background-color: black;
         border-bottom: 1px solid gainsboro;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
             background-color: gray;
@@ -131,11 +137,12 @@
     }
     .logout{
         padding: 8px;
-        background-color: black;
-        border-radius: 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: palevioletred;
+            background-color: gray;
+            color: #ffff;
         }
        
     }
