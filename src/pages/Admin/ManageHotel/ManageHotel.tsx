@@ -31,6 +31,10 @@ const ManageHotel = () => {
         });
         dispatch({
             type: `${manageRoomTypeActions.getListRoomTypePending}_saga`,
+            payload: {
+                per_page: 0,
+                page: 0,
+            }
         })
     }, [])
 

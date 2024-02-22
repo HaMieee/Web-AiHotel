@@ -9,6 +9,7 @@ import {MdDashboard, MdPerson3} from "react-icons/md";
 import {RiAdminFill, RiBillLine, RiTeamFill} from "react-icons/ri";
 import {BiHomeHeart} from "react-icons/bi";
 import {IoPersonSharp} from "react-icons/io5";
+import { MdRoomPreferences } from "react-icons/md";
 import { RiHotelFill } from "react-icons/ri";
 
 
@@ -51,18 +52,22 @@ const AdminLayout = () => {
                                 <i><BiHomeHeart/></i>
                                 <span>Quản lý phòng</span>
                             </div>
-                            <div>
-                                <i><MdPerson3/></i>
-                                <span>Quản lý nhân viên </span>
+                            <div onClick={() => navigate('/manage-room-type')}>
+                                <i><MdRoomPreferences /></i>
+                                <span>Quản lý loại phòng</span>
                             </div>
-                            <div>
-                                <i><RiTeamFill/></i>
-                                <span>Quản lý khách hàng</span>
-                            </div>
-                            <div>
-                                <i><RiBillLine/></i>
-                                <span>Quản lý hóa đơn</span>
-                            </div>
+                            {/*<div>*/}
+                            {/*    <i><MdPerson3/></i>*/}
+                            {/*    <span>Quản lý nhân viên </span>*/}
+                            {/*</div>*/}
+                            {/*<div>*/}
+                            {/*    <i><RiTeamFill/></i>*/}
+                            {/*    <span>Quản lý khách hàng</span>*/}
+                            {/*</div>*/}
+                            {/*<div>*/}
+                            {/*    <i><RiBillLine/></i>*/}
+                            {/*    <span>Quản lý hóa đơn</span>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className='sidebar_nav'>

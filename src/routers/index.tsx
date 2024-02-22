@@ -17,6 +17,7 @@ import HotelDetail from "../pages/Admin/ManageHotel/HotelDetail";
 import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import SingUpModal from '../layouts/components/modals/SingUpModal';
+import ManageRoomType from "../pages/Admin/ManageRoomType/ManageRoomType";
 
 const Router = () => {
     return useRoutes([
@@ -55,6 +56,10 @@ const Router = () => {
                 {
                     path: '/manage-hotel/:hotel_id',
                     element: <HotelDetail />
+                },
+                {
+                    path: '/manage-room-type',
+                    element: <ManageRoomType />
                 }
             ]
         },

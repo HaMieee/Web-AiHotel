@@ -55,7 +55,7 @@ const TableManage: React.FC<ITableManage> = ({
             <thead>
             <tr>
                 {headers.map((header, header_index) => (
-                    <th key={header_index}>{header}</th>
+                    <th key={header_index} style={{textAlign: 'center'}}>{header}</th>
                 ))}
             </tr>
             </thead>

@@ -4,16 +4,23 @@ import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageRoomTypeActions} from "../slices/manageRoomType.slice";
 
-const getListRoomType = async () => {
-    return axiosInstance.get('/api/room-type/get-list')
+const getListRoomType = async (payload: {
+    per_page: number;
+    page: number;
+}) => {
+    return axiosInstance.get('/api/room-type/get-list', {
+        params: {
+            per_page: payload.per_page,
+        }
+    })
 }
 
-const handleGetListRoomType = function* () {
+const handleGetListRoomType = function* (action) {
     try {
         yield put({
             type: manageRoomTypeActions.getListRoomTypePending.type,
         })
-        const response = yield call(getListRoomType)
+        const response = yield call(getListRoomType, action.payload)
         if (response.data.statusCode === 200) {
             yield put({
                 type: manageRoomTypeActions.getListRoomTypeSuccess.type,
@@ -23,7 +30,7 @@ const handleGetListRoomType = function* () {
     } catch (err) {
         yield put({
             type: manageRoomTypeActions.getListRoomTypeError.type,
-            payload: {message:get(err, 'response.data.message')},
+            payload: {message: get(err, 'response.data.message')},
         })
         toast.error(get(err, 'response.data.message'));
     }
