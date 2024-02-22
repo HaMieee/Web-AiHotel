@@ -6,10 +6,14 @@ import {manageHotelActions} from "../slices/manageHotel.slice";
 import {IUpdateHotel} from "../types/dtos/updateHotel";
 import {ICreateHotel} from "../types/dtos/createHotel";
 
-const getListHotel = async () => {
+const getListHotel = async (payload: {
+    per_page: number;
+    page: number;
+}) => {
     return axiosInstance.get('/api/hotel/list-hotels', {
         params: {
-            per_page: 5
+            per_page: payload.per_page,
+            page: payload.page,
         }
     })
 }
@@ -30,16 +34,24 @@ const updateHotel = async (updateHotelData: IUpdateHotel) => {
     return axiosInstance.put('api/hotel/update-hotel', updateHotelData)
 }
 
-const handleGetListHotel = function* () {
+const deleteHotel = async (hotel_id: number) => {
+    const data = {hotel_id: hotel_id}
+    return axiosInstance.delete('api/hotel/delete-hotel', {data})
+}
+
+const handleGetListHotel = function* (action) {
     try {
         yield put({
             type: manageHotelActions.getListHotelPending.type,
         })
-        const response = yield call(getListHotel);
+        const response = yield call(getListHotel, action.payload);
         if (response.data.statusCode === 200) {
             yield put({
                 type: manageHotelActions.getListHotelSuccess.type,
-                payload: response.data.data,
+                payload: {
+                    hotels: response.data.data,
+                    meta: response.data.meta.pagination,
+                }
             })
         }
     } catch (err) {
@@ -116,6 +128,28 @@ const handleUpdateHotel = function* (action) {
     }
 }
 
+const handleDeleteHotel = function* (action) {
+    try {
+        yield put({
+            type: manageHotelActions.deleteHotelPending.type,
+        })
+        const response = yield call(deleteHotel, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageHotelActions.deleteHotelSuccess.type,
+                payload: action.payload,
+            })
+            toast.success(`Xóa thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageHotelActions.deleteHotelError.type,
+            payload: {message: get(err, 'response.data.message')}
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+
 const manageHotelSaga = function* () {
     yield takeLatest(
         `${manageHotelActions.getListHotelPending}_saga`,
@@ -132,6 +166,10 @@ const manageHotelSaga = function* () {
     yield takeLatest(
         `${manageHotelActions.createHotelPending}_saga`,
         handleCreateHotel,
+    );
+    yield takeLatest(
+        `${manageHotelActions.deleteHotelPending}_saga`,
+        handleDeleteHotel,
     )
 }
 

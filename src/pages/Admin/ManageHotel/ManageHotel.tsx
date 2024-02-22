@@ -48,10 +48,15 @@ const ManageHotel = () => {
         if (action === 'detail') {
             return navigate(`/manage-hotel/${recordId}`)
         }
+        if (action === 'delete') {
+            dispatch({
+                type: `${manageHotelActions.deleteHotelPending}_saga`,
+                payload: recordId,
+            })
+        }
     }
 
     const handleCreateHotel = (createHotelData: ICreateHotel) => {
-        console.log('data create hotel: ', createHotelData)
         dispatch({
             type: `${manageHotelActions.createHotelPending}_saga`,
             payload: createHotelData,

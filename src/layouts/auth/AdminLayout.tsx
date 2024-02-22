@@ -46,7 +46,7 @@ const AdminLayout = () => {
                                 <i><RiAdminFill/></i>
                                 <span>Quản lý người dùng</span>
                             </div>
-                            <div onClick={() => navigate('manage-hotel')}>
+                            <div onClick={() => navigate('/manage-hotel')}>
                                 <i><RiHotelFill /></i>
                                 <span>Quản lý khách sạn</span>
                             </div>
