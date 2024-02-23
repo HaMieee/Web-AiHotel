@@ -15,7 +15,7 @@ import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import Hotel from "../pages/Hotel/Hotel";
 import HotelDetail from "../pages/Hotel/HotelDetail";
-import ManageCustomer from '../pages/Admin/ManageCustomer/ManageCustomer';
+import ManageUser from '../pages/Admin/ManageUser/ManageUser';
 
 const Router = () => {
     return useRoutes([
@@ -60,8 +60,8 @@ const Router = () => {
                     element: <HotelDetail />
                 },
                 {
-                    path: '/manage-customer',
-                    element: <ManageCustomer/>
+                    path: '/manage-user',
+                    element: <ManageUser/>
                 },
             ]
         },
