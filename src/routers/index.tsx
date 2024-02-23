@@ -57,7 +57,7 @@ const Router = () => {
                 },
                 {
                     path: '/manage-hotel/:hotel_id',
-                    element: <HotelDetail />
+                    element: <ManageHotelDetail />
                 },
                 {
                     path: '/manage-user',

@@ -7,7 +7,7 @@ import {IHotel} from "../../../redux/types/hotel";
 import {map} from "lodash";
 import {useNavigate} from "react-router";
 import {Button} from "react-bootstrap";
-import { BsFillHouseAddFill } from "react-icons/bs";
+import {BsFillHouseAddFill} from "react-icons/bs";
 import CreateHotelModal from "../../../layouts/components/modals/CreateHotelModal";
 import {manageRoomTypeActions} from "../../../redux/slices/manageRoomType.slice";
 import {IRoomType} from "../../../redux/types/roomType";
@@ -39,14 +39,20 @@ const ManageHotel = () => {
     }, [])
 
     useEffect(() => {
-        const hotels = hotelsState.map(hotel => {
-            const newHotel = { ...hotel };
-            delete newHotel.room_types;
-            return newHotel;
-        })
-        setHotelsData(hotels);
+        setHotelsData(buildUserData(hotelsState));
         setRoomTypesData(roomTypesState);
     }, [hotelsState, roomTypesState])
+
+    const buildUserData = (data: IHotel[]) => {
+        return data.map(hotel => {
+            return {
+                id: hotel.id,
+                name: hotel.name,
+                address: hotel.address,
+                description: hotel.description,
+            }
+        });
+    }
 
     const handleOnAction = (recordId, action) => {
         if (action === 'detail') {

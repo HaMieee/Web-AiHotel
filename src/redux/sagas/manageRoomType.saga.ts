@@ -25,6 +25,7 @@ const handleGetListRoomType = function* () {
             type: manageRoomTypeActions.getListRoomTypeError.type,
             payload: {message:get(err, 'response.data.message')},
         })
+        console.log(err)
         toast.error(get(err, 'response.data.message'));
     }
 };

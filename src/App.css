@@ -46,6 +46,16 @@
   --bs-btn-active-border-color: #948474 !important;
 }
 
+.active>.page-link {
+  color: var(--bs-pagination-active-color) !important;
+  background-color: gray !important;
+  border-color: gray !important;
+}
+
+.page-link {
+  color: #282c34 !important;
+}
+
 .custom-stroke {
   border: solid 2px #CAB39E;
   border-radius: 5px;

@@ -52,7 +52,7 @@ const Hotel = () => {
                     </Col>
                     <Col>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
-                        <div className={'d-flex float-end'}>
+                        <div className={'d-flex justify-content-center'}>
                             <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
                         </div>
                     </Col>

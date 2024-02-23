@@ -33,7 +33,7 @@ const ListHotels: React.FC<IListHotelComponent> = ({
                                className={'object-fit-cover h-100'}
                                style={{width: "30%"}}
                         />
-                        <div className={'ms-3 content-hotel'} style={{maxWidth: "50%", maxHeight: "100%"}}>
+                        <div className={'ms-3 content-hotel'} style={{width: "50%", maxHeight: "100%"}}>
                             <h5 className={'custom-inline'}>
                                 {hotel.name}
                             </h5>
