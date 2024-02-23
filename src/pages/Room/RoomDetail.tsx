@@ -6,19 +6,62 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { differenceInDays } from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
+import {initEcho} from "../../services/ws.service";
+import {IUser} from "../../redux/types/user";
 
 const RoomDetail = ({show, handleClose, roomData}) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [dayNumbers, setDayNumbers] = useState(0);
+    const [dayNumbers, setDayNumbers] = useState<number>(0);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
 
-    console.log(roomData)
+    const [usersRoom, setUsersRoom] = useState<IUser[]>([]);
+    const [roomSelected, setRoomSelected] = useState(null);
+    const [roomOldSelected, setRoomOldSelected] = useState(null);
+
+    useEffect(() => {
+        if (!(window as any).Echo) {
+            (window as any).Echo = initEcho();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (roomSelected) {
+            setRoomOldSelected(roomSelected);
+        }
+        setRoomSelected(roomData.id)
+    }, [roomData])
+
+    useEffect(() => {
+        if (roomSelected) {
+            applyJoin();
+        }
+    }, [roomSelected])
 
     useEffect(() => {
         if (startDate && endDate) {
             setDayNumbers(differenceInDays(endDate, startDate) + 1);
         }
     }, [endDate, startDate])
+
+    useEffect(() => {
+        setTotalPrice(Number(roomData?.room_type?.price) * dayNumbers)
+    }, [dayNumbers, roomData])
+
+    const applyJoin = () => {
+        (window as any).Echo?.leave(`presence.room.${roomOldSelected}`);
+
+        (window as any).Echo?.join(`presence.room.${roomSelected}`)
+            .here((users) => {
+                setUsersRoom(users);
+            })
+            .joining((user) => {
+                setUsersRoom(prevState => [...prevState, user]);
+            })
+            .leaving((user) => {
+                setUsersRoom(prevState => prevState.filter(u => u.id !== user.id));
+            });
+    }
 
     const setDateRange = (update) => {
         if (update && update.length === 2) {
@@ -27,8 +70,7 @@ const RoomDetail = ({show, handleClose, roomData}) => {
         }
     };
 
-    console.log(startDate)
-    console.log(endDate)
+    console.log('user view: ', usersRoom)
 
     return (
         <>
@@ -37,21 +79,21 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                            onHide={handleClose}
                            style={{width: '30%'}}
                            placement={'end'}>
-                    <Offcanvas.Header className={'shadow-sm'}>
-                        <div className={'room-detail-header'}>
-                            <div className={'me-2'}>
-                                <h4>Your brand</h4>
-                            </div>
-                            <div>
-                                <Image src={"https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg"}
-                                       rounded
-                                       fluid
-                                       height={100}
-                                       width={100}
-                                />
-                            </div>
-                        </div>
-                    </Offcanvas.Header>
+                    {/*<Offcanvas.Header className={'shadow-sm'}>*/}
+                    {/*    <div className={'room-detail-header'}>*/}
+                    {/*        <div className={'me-2'}>*/}
+                    {/*            <h4>Your brand</h4>*/}
+                    {/*        </div>*/}
+                    {/*        <div>*/}
+                    {/*            <Image src={"https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg"}*/}
+                    {/*                   rounded*/}
+                    {/*                   fluid*/}
+                    {/*                   height={100}*/}
+                    {/*                   width={100}*/}
+                    {/*            />*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</Offcanvas.Header>*/}
 
                     <Offcanvas.Body>
                         <hr/>
@@ -66,7 +108,7 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                                 </div>
                                 <div className={'d-flex align-items-center'}>
                                     <IoEyeOutline />
-                                    <div className={'ms-1'}>23 views</div>
+                                    <div className={'ms-1'}>{usersRoom.length} views</div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +177,7 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                                 <hr />
                                 <div className={'d-flex justify-content-between'}>
                                     <div>Room rates</div>
-                                    <div>$80.00</div>
+                                    <div>${roomData?.room_type?.price}.00</div>
                                 </div>
                                 <div className={'d-flex justify-content-between'}>
                                     <div>Days</div>
@@ -148,7 +190,7 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                                 <hr />
                                 <div className={'d-flex justify-content-between'}>
                                     <div>Total: </div>
-                                    <div>00.00</div>
+                                    <div>${totalPrice}.00</div>
                                 </div>
                             </div>
 

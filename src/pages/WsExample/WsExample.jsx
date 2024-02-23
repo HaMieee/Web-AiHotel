@@ -42,6 +42,8 @@ const WsExample = () => {
       });
   }
 
+  console.log('users room: ', usersRoom)
+
   return <>
     <select onChange={(event) => setHotelSelected(parseInt(event?.target?.value))}>Hotel
       <option value="0">Select Hotel</option>
@@ -49,8 +51,10 @@ const WsExample = () => {
         return <option value={item.id} key={`hotel_${item.id}`}>{item.name}</option>
       })}
     </select>
+
     <br/>
     <br/>
+
     {hotelSelected && <select onChange={(e) => {
       if (roomSelected) {
         setRoomOldSelected(roomSelected);
@@ -64,19 +68,26 @@ const WsExample = () => {
         return <option value={item.id} key={`hotel_${item.id}`}>{item.name}</option>
       }).value()}
     </select>}
+
     <br/>
     <br/>
+
     HotelId {hotelSelected} - RoomId {roomSelected}
+
     <br/>
     <br/>
+
     {hotelSelected && roomSelected && <a href="#" onClick={applyJoin}>Join</a>}
+
     <br/>
     User In Room
+
     {map(usersRoom, function (item) {
       return <div key={item.id}>
         - {item.name}
       </div>
     })}
+
   </>;
 }
 

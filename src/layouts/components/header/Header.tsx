@@ -123,7 +123,7 @@ const Header: React.FC<IHeader> = ({
                 <li>Ưu đãi</li>
                 <li>Tin Tức</li>
                 <li>Liên Hệ</li>
-                <li>Khác</li>
+                <li onClick={() => navigate('/ws-example')}>Khác</li>
               </ul>
             </div>
             <div className="header_item2">

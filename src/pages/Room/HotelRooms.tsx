@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Image, Offcanvas, Row} from "react-bootstrap";
 import './HotelRooms.css'
 import RoomDetail from "./RoomDetail";
-import { IoPeopleSharp } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
 import {IRoom} from "../../redux/types/room";
 import {isEmpty} from "lodash";
@@ -17,6 +16,7 @@ const HotelRooms: React.FC<IHotelRooms> = ({
     const [show, setShow] = useState(false);
     const [groupedRooms, setGroupedRooms] = useState({});
     const [roomDetail, setRoomDetail] = useState({});
+    const [userViews, setUserViews] = useState<number>(0);
 
     useEffect(() => {
         setGroupedRooms(groupRoomsByFloor(roomsData))
@@ -40,8 +40,6 @@ const HotelRooms: React.FC<IHotelRooms> = ({
         setRoomDetail(room)
     }
 
-    console.log(groupedRooms)
-
     return (
         <>
             <div className={'container-fluid'}>
@@ -52,47 +50,51 @@ const HotelRooms: React.FC<IHotelRooms> = ({
                         </div>
                         <div className={"rooms container-fluid"}>
                             <Row>
-                                {groupedRooms[floor].map(room => (
-                                    <Col sm={4}>
-                                        <div className={"room"}>
-                                            <Row>
-                                                <Col>
-                                                    <Image
-                                                        src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
-                                                        rounded
-                                                        fluid
-                                                    />
-                                                </Col>
-                                                <Col>
-                                                    <div className={"room-code"}>
-                                                        <h4>P.{room.code}</h4>
+                                {groupedRooms[floor].map((room, r_index) => (
+                                    <>
+                                        <Col sm={4} key={r_index}>
+                                            <div className={'container-room'}>
+                                                <Image
+                                                    src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                                                    rounded
+                                                    className={'object-fit-cover h-100'}
+                                                    style={{width: "40%"}}
+                                                />
+                                                <div className={'ms-3'} style={{width: "60%", height: "100%"}}>
+                                                    <div>
+                                                        <h4 className={'custom-inline'}>
+                                                            P.{room.code}
+                                                        </h4>
+                                                        <div className={"room-title"}>
+                                                            <div>{room.room_type.name}</div>
+                                                        </div>
+                                                        <p style={{
+                                                            marginTop: "3%",
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            display: "-webkit-box",
+                                                            WebkitLineClamp: 2,
+                                                            WebkitBoxOrient: "vertical",
+                                                            maxHeight: "100%",
+                                                            fontSize: "13px"
+                                                        }}>
+                                                            {room.room_type.description}
+                                                        </p>
                                                     </div>
-                                                    <div className={"room-title"}>
-                                                        <div>{room.room_type.name}</div>
-                                                        {/*<div className={'d-flex align-items-center'}>*/}
-                                                        {/*    <div className={'me-1'}>4</div>*/}
-                                                        {/*    <IoPeopleSharp />*/}
-                                                        {/*</div>*/}
-                                                    </div>
-                                                    <div className={"room-description"}>
-                                                        <p>{room.room_type.description}</p>
-                                                    </div>
-                                                    <div className={"room-price"}>${room.room_type.price}</div>
                                                     <div className={"d-flex"}
                                                          style={{justifyContent: "space-between", alignItems: "center"}}
                                                     >
-                                                        <div className={'d-flex align-items-center'}>
-                                                            <IoEyeOutline />
-                                                            <div className={'ms-2'}>23</div>
-                                                        </div>
+                                                        <div className={"room-price"}>${room.room_type.price}</div>
                                                         <div>
-                                                            <Button onClick={() => handleShowDetail(room)}>Detail</Button>
+                                                            <Button
+                                                                size={'sm'}
+                                                                onClick={() => handleShowDetail(room)}>Detail</Button>
                                                         </div>
                                                     </div>
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                    </Col>
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </>
                                 ))}
                             </Row>
                         </div>
