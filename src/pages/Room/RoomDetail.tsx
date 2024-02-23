@@ -110,13 +110,13 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                             <div className={'container-fluid'}>
                                 <label className={'title-description'}>Description</label>
                                 <div className={'room-detail-description'}>
-                                    <p>{roomData.room_type.description}</p>
+                                    <p>{roomData?.room_type?.description}</p>
                                 </div>
                             </div>
 
                             <div className={'custom-title d-flex justify-content-between'}>
                                 <div>Price</div>
-                                <div>${roomData.room_type.price}.00/day</div>
+                                <div>${roomData?.room_type?.price}.00/day</div>
                             </div>
 
                             <div>
