@@ -9,13 +9,11 @@ type ICreateUserModal = {
     isShow: boolean;
     onClose: () => void;
     onCreateUser: (payload: ICreateUser) => void;
-    onClearValue: boolean;
 }
 const CreateUserModal: React.FC<ICreateUserModal> = ({
     isShow = false,
     onClose,
     onCreateUser,
-    onClearValue = false,
 }) => {
     const [formCreateUser, setFormCreateUser] = useState<ICreateUser>({
         name:'',
@@ -27,18 +25,17 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
         password:'',
         role_type: ''
     });
-
-    useEffect(() => {
-        if (onClearValue) {            
-            handleClearValue();
-        }
-    }, [onClearValue])
-
     const [selectedRole, setSelectedRole] = useState('customer');
 
     const handleRoleChange = (event) => {
         setSelectedRole(event.target.value);
     };
+
+    useEffect(() => {
+        if (!isShow) {
+            handleClearValue()
+        }
+    }, [isShow])
 
     const handleClearValue = () => {
         setFormCreateUser({
@@ -69,7 +66,8 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
     
     return(
         <>
-            <Modal show={isShow} onHide={onClose} size={'lg'}>
+            <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>Create</Modal.Title>
                 </Modal.Header>
@@ -88,7 +86,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         name: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -103,7 +100,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         address: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -118,7 +114,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         phone: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -133,7 +128,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         identification: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -148,7 +142,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         email: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -163,7 +156,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                         age: Number(e.target.value),
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
@@ -178,7 +170,6 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                                        password: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
                         </Row>
                         <Form.Select aria-label="Default select example" onChange={handleRoleChange} defaultValue={selectedRole}>

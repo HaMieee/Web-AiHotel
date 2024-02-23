@@ -10,17 +10,15 @@ import CreateUserModal from "../../../layouts/components/modals/CreateUserModal"
 import { ICreateUser } from "../../../redux/types/dtos/createUser";
 import { manageUserActions } from "../../../redux/slices/manageUser.slice";
 import { IUser } from "../../../redux/types/user";
-import { toast } from "react-toastify";
 
 const typeActions = ['delete', 'detail'];
 
 const ManageUser = () => {
-    const manageUserState = useSelector((state: RootState) => state.manageUser);
+    const manageUserState = useSelector((state: RootState) => state.manageUser.users);
     const dispatch = useDispatch()
     const [showCreate, setShowCreate] = useState(false);
     const [userData, setUserData] = useState<IUser[]>([]);
     const [roleType, setRoleType] = useState('customer');
-    const [clearValue, setClearValue] = useState<boolean>(false);
     const navigate = useNavigate();
 
     
@@ -28,7 +26,7 @@ const ManageUser = () => {
         dispatch({
             type: `${manageUserActions.getListUserPending}_saga`,
             payload: {
-                per_page: 3,
+                per_page: 5,
                 page: 1,
                 role_type: roleType,
             }
@@ -36,16 +34,9 @@ const ManageUser = () => {
     }, [])
 
     useEffect(() => {
-        setUserData(buildUserData(manageUserState.users));
+        setUserData(buildUserData(manageUserState));
+        setShowCreate(false);
     }, [manageUserState])
-
-    useEffect(() => {
-        if (manageUserState.isError) {
-            setShowCreate(true)
-        } else {
-            setShowCreate(false)
-        }
-    }, [manageUserState.isError])
 
     const buildUserData = (data: IUser[]) => {
         const newData = data.map(c => {
@@ -74,16 +65,6 @@ const ManageUser = () => {
         setRoleType(roleType)
     }
 
-    const handleShowCreate = () => {
-        setShowCreate(true);
-        setClearValue(true);
-    }
-
-    const handleCloseModal = () => {
-        setShowCreate(false);
-        setClearValue(false)
-    }
-
     const handleOnAction = (recordId, action) => {
         if (action === 'detail') {
             return navigate(`/manage-customer/${recordId}`)
@@ -104,7 +85,7 @@ const ManageUser = () => {
                     <button className={roleType === 'employee' ? 'active' : ''} onClick={() => handleFetchDataUsers('employee')}>Nhân viên </button>
             </div>
 
-            <div className={'d-flex float-end p-2'} onClick={handleShowCreate}>
+            <div className={'d-flex float-end p-2'} onClick={() => setShowCreate(true)}>
                 <Button variant={'success'}
                         className={'d-flex align-items-center'}
                         style={{marginTop:'14px', marginRight:'15px'}}
@@ -123,9 +104,8 @@ const ManageUser = () => {
 
             <CreateUserModal
                 isShow={showCreate}
-                onClose={handleCloseModal}
+                onClose={() => setShowCreate(false)}
                 onCreateUser={handleCreateUser}
-                onClearValue={clearValue}
             />
         </>
     )
