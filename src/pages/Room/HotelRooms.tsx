@@ -15,14 +15,14 @@ const HotelRooms: React.FC<IHotelRooms> = ({
     roomsData = [],
                                            }) => {
     const [show, setShow] = useState(false);
-    const [groupedRooms, setGroupedRooms] = useState({})
+    const [groupedRooms, setGroupedRooms] = useState({});
+    const [roomDetail, setRoomDetail] = useState({});
 
     useEffect(() => {
         setGroupedRooms(groupRoomsByFloor(roomsData))
     }, [roomsData])
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const groupRoomsByFloor = (rooms) => {
         const groupedRooms = {};
@@ -35,12 +35,10 @@ const HotelRooms: React.FC<IHotelRooms> = ({
         return groupedRooms;
     };
 
-    Object.keys(groupedRooms).map(floor => {
-        console.log(`Tầng ${floor}:`);
-        groupedRooms[floor].map(room => {
-            console.log(room.name);
-        });
-    });
+    const handleShowDetail = (room) => {
+        setShow(true)
+        setRoomDetail(room)
+    }
 
     console.log(groupedRooms)
 
@@ -69,18 +67,17 @@ const HotelRooms: React.FC<IHotelRooms> = ({
                                                     <div className={"room-code"}>
                                                         <h4>P.{room.code}</h4>
                                                     </div>
-                                                    {/*{groupedRooms[room_type]}*/}
                                                     <div className={"room-title"}>
-                                                        <div>{}</div>
-                                                        <div className={'d-flex align-items-center'}>
-                                                            <div className={'me-1'}>4</div>
-                                                            <IoPeopleSharp />
-                                                        </div>
+                                                        <div>{room.room_type.name}</div>
+                                                        {/*<div className={'d-flex align-items-center'}>*/}
+                                                        {/*    <div className={'me-1'}>4</div>*/}
+                                                        {/*    <IoPeopleSharp />*/}
+                                                        {/*</div>*/}
                                                     </div>
                                                     <div className={"room-description"}>
-                                                        <p>2 phong co king, 1 phong tam</p>
+                                                        <p>{room.room_type.description}</p>
                                                     </div>
-                                                    <div className={"room-price"}>$150.00</div>
+                                                    <div className={"room-price"}>${room.room_type.price}</div>
                                                     <div className={"d-flex"}
                                                          style={{justifyContent: "space-between", alignItems: "center"}}
                                                     >
@@ -89,7 +86,7 @@ const HotelRooms: React.FC<IHotelRooms> = ({
                                                             <div className={'ms-2'}>23</div>
                                                         </div>
                                                         <div>
-                                                            <Button onClick={handleShow}>Detail</Button>
+                                                            <Button onClick={() => handleShowDetail(room)}>Detail</Button>
                                                         </div>
                                                     </div>
                                                 </Col>
@@ -105,6 +102,7 @@ const HotelRooms: React.FC<IHotelRooms> = ({
 
             <RoomDetail show={show}
                         handleClose={handleClose}
+                        roomData={roomDetail}
             />
         </>
     )

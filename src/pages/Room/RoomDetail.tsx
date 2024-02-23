@@ -7,13 +7,12 @@ import { differenceInDays } from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
 
-const RoomDetail = ({show, handleClose}) => {
+const RoomDetail = ({show, handleClose, roomData}) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [dayNumbers, setDayNumbers] = useState(0);
 
-    console.log(startDate)
-    console.log(endDate)
+    console.log(roomData)
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -27,6 +26,9 @@ const RoomDetail = ({show, handleClose}) => {
             setEndDate(update[1]);
         }
     };
+
+    console.log(startDate)
+    console.log(endDate)
 
     return (
         <>
@@ -54,9 +56,9 @@ const RoomDetail = ({show, handleClose}) => {
                     <Offcanvas.Body>
                         <hr/>
                         <div className={'room-status'}>
-                            <div className={'custom-fill'}>Tang 1</div>
+                            <div className={'custom-fill'}>Tầng {roomData.floor}</div>
                             <hr style={{color: 'black'}}/>
-                            <div className={'custom-stroke'}>P.101</div>
+                            <div className={'custom-stroke'}>P.{roomData.code}</div>
                             <div>
                                 <div className={'d-flex align-items-center'}>
                                     <TbHomeDot style={{color: 'green'}}/>
@@ -95,26 +97,26 @@ const RoomDetail = ({show, handleClose}) => {
                                 </div>
                             </div>
 
-                            <div className={'custom-title'}>Phong doi</div>
+                            <div className={'custom-title'}>{roomData?.room_type?.name}</div>
 
-                            <div className={'container-fluid mb-2'}>
-                                <Row>
-                                    <Col md={6}>Bao gom bua sang</Col>
-                                    <Col md={6}>Wifi free</Col>
-                                    <Col md={6}>View dep</Col>
-                                </Row>
-                            </div>
+                            {/*<div className={'container-fluid mb-2'}>*/}
+                            {/*    <Row>*/}
+                            {/*        <Col md={6}>Bao gom bua sang</Col>*/}
+                            {/*        <Col md={6}>Wifi free</Col>*/}
+                            {/*        <Col md={6}>View dep</Col>*/}
+                            {/*    </Row>*/}
+                            {/*</div>*/}
 
                             <div className={'container-fluid'}>
                                 <label className={'title-description'}>Description</label>
                                 <div className={'room-detail-description'}>
-                                    <p>description here: ...</p>
+                                    <p>{roomData.room_type.description}</p>
                                 </div>
                             </div>
 
                             <div className={'custom-title d-flex justify-content-between'}>
                                 <div>Price</div>
-                                <div>$80.00/day</div>
+                                <div>${roomData.room_type.price}.00/day</div>
                             </div>
 
                             <div>
