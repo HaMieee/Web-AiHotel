@@ -26,3 +26,19 @@
     padding: 20px;
     border-radius: 10px;
 }
+.user{
+    display: flex;
+    button{
+        border: none;
+        margin-left: 12px;
+        border-radius: 10px;
+        // font-size: 20px;
+        padding: 8px;
+        margin-bottom: 24px;
+        border: 1px solid rgb(214, 214, 214);
+        &.active {
+            background-color: gray; // Màu nền khi được chọn
+            color: #fff; // Màu chữ khi được chọn
+        }
+    }
+}

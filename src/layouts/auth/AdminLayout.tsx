@@ -37,12 +37,12 @@ const AdminLayout = () => {
                         <div className='sidebar-bottom'>
                             <p style={{fontSize:'24px'}}>Menu</p>
                             {/* <hr></hr> */}
-                            <div style={{backgroundColor:'gray' , height:'0.5px'}}></div>
+                            <div style={{backgroundColor:'gainsboro' , height:'0.5px'}}></div>
                             <div>
                                 <i><MdDashboard/></i>
                                 <span>DashBoard</span>
                             </div>
-                            <div>
+                            <div onClick={() => navigate('/manage-user')}>
                                 <i><RiAdminFill/></i>
                                 <span>Quản lý người dùng</span>
                             </div>
@@ -55,16 +55,17 @@ const AdminLayout = () => {
                                 <span>Quản lý phòng</span>
                             </div>
                             <div>
-                                <i><MdPerson3/></i>
-                                <span>Quản lý nhân viên </span>
-                            </div>
-                            <div onClick={() => navigate('/manage-customer')}>
                                 <i><RiTeamFill/></i>
-                                <span>Quản lý khách hàng</span>
+                                <span>Quản lý đơn đặt phòng</span>
                             </div>
                             <div>
                                 <i><RiBillLine/></i>
                                 <span>Quản lý hóa đơn</span>
+                            </div>
+
+                            <div>
+                                <i><MdPerson3/></i>
+                                <span>Thống kê</span>
                             </div>
                         </div>
                     </div>
