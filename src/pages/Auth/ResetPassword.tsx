@@ -3,7 +3,7 @@ import react, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router"
 import { toast } from "react-toastify";
-import { IResetPassword } from "../../redux/types/resetPassword";
+import { IResetPassword } from "../../redux/types/dtos/resetPassword";
 import { authActions } from "../../redux/slices/auth.slice";
 
 const ResetPassword = () => {

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './UpdateInfo.scss'
 import { IUser } from '../../../redux/types/user'
 import { useDispatch } from 'react-redux';
-import { IUpdateInfo } from '../../../redux/types/updateInfo';
+import { IUpdateInfo } from '../../../redux/types/dtos/updateInfo';
 import { authActions } from '../../../redux/slices/auth.slice';
 import { isEmpty } from 'lodash';
 import { toast } from 'react-toastify';

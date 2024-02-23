@@ -5,5 +5,6 @@ export type IHotel = {
     name?: string;
     address?: string;
     description?: string;
+    files?: [];
     room_types?: IRoomType[];
 }

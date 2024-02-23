@@ -4,8 +4,8 @@ import {ILogin} from "../types/dtos/login";
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import axiosInstance from '../../services/axios.service';
-import { IUpdateInfo } from '../types/updateInfo';
-import { IResetPassword } from '../types/resetPassword';
+import { IUpdateInfo } from '../types/dtos/updateInfo';
+import { IResetPassword } from '../types/dtos/resetPassword';
 import { IRegister } from '../types/dtos/register';
 import { IChangePassword } from '../types/dtos/changePassword';
 
