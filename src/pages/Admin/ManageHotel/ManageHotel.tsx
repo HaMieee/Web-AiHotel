@@ -1,6 +1,6 @@
 import TableManage from "../../../layouts/components/table/TableManage";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {manageHotelActions} from "../../../redux/slices/manageHotel.slice";
 import {RootState} from "../../../redux/store";
 import {IHotel} from "../../../redux/types/hotel";
@@ -12,6 +12,8 @@ import CreateHotelModal from "../../../layouts/components/modals/CreateHotelModa
 import {manageRoomTypeActions} from "../../../redux/slices/manageRoomType.slice";
 import {IRoomType} from "../../../redux/types/roomType";
 import {ICreateHotel} from "../../../redux/types/dtos/createHotel";
+import PaginationComponent from "../../../layouts/components/pagination/PaginationComponent";
+import {IPaginateResponse} from "../../../redux/types/page";
 
 
 const typeActions = ['delete', 'detail'];
@@ -20,26 +22,34 @@ const ManageHotel = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const hotelsState: IHotel[] = useSelector((state: RootState) => state.manageHotel.hotels);
+    const metaState = useSelector((state: RootState) => state.manageHotel.paginate);
     const roomTypesState: IRoomType[] = useSelector((state: RootState) => state.manageRoomType.room_types);
+
     const [hotelsData, setHotelsData] = useState<IHotel[]>([]);
     const [roomTypesData, setRoomTypesData] = useState<IRoomType[]>([]);
     const [showCreate, setShowCreate] = useState(false);
+    const [metaData, setMetaData] = useState<IPaginateResponse>({});
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {
-        dispatch({
-            type: `${manageHotelActions.getListHotelPending}_saga`,
-            payload: {
-                per_page: 5,
-                page: 1,
-            }
-        });
         dispatch({
             type: `${manageRoomTypeActions.getListRoomTypePending}_saga`,
         })
     }, [])
 
     useEffect(() => {
+        dispatch({
+            type: `${manageHotelActions.getListHotelPending}_saga`,
+            payload: {
+                per_page: 2,
+                page: currentPage,
+            }
+        });
+    }, [currentPage])
+
+    useEffect(() => {
         setHotelsData(buildUserData(hotelsState));
+        setMetaData(metaState);
         setRoomTypesData(roomTypesState);
     }, [hotelsState, roomTypesState])
 
@@ -64,6 +74,10 @@ const ManageHotel = () => {
                 payload: recordId,
             })
         }
+    }
+
+    const handleChangePage = (page: number) => {
+        setCurrentPage(page)
     }
 
     const handleCreateHotel = (createHotelData: ICreateHotel) => {
@@ -92,6 +106,10 @@ const ManageHotel = () => {
                 actions={map(typeActions, (action) => ({ type: action }))}
                 onAction={handleOnAction}
             />
+
+            <div className={'d-flex justify-content-center'}>
+                <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
+            </div>
 
             <CreateHotelModal
                 isShow={showCreate}
