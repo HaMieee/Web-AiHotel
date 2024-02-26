@@ -35,7 +35,7 @@ const ReservationConfirmModal: React.FC<IReservationConfirmModal> = ({
                     <div className={'d-flex justify-content-center mb-3'}>
                         <div className={''}>
                             <div className={'custom-fill'}>
-                                P.202
+                                P.{data.room_code}
                             </div>
                         </div>
                     </div>

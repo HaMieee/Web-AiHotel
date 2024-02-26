@@ -103,7 +103,7 @@ const RoomDetail = ({show, handleClose, roomData}) => {
         if (startDate && endDate) {
             if (inValidDate()) {
                 setReservationData({
-                    room_code: roomData.id,
+                    room_code: roomData.code,
                     start_date: formatDate(startDate),
                     end_date: formatDate(endDate),
                     room_price: roomData.room_type?.price,
