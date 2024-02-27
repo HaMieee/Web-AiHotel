@@ -4,6 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 type IInitialState = {
     rooms: IRoom[];
+    roomDetail: IRoom;
     isLoading: boolean;
     isError: boolean;
     message: string;
@@ -12,6 +13,7 @@ type IInitialState = {
 
 const initialState: IInitialState = {
     rooms: [],
+    roomDetail: {},
     isLoading: false,
     isError: false,
     message: '',
@@ -42,8 +44,14 @@ const requestError = (
 
 const getListRoomPending = requestPending;
 const getListRoomError = requestError;
+const getRoomDetailPending = requestPending;
+const getRoomDetailError = requestError;
 const createRoomPending = requestPending;
 const createRoomError = requestError;
+const updateRoomError = requestError;
+const updateRoomPending = requestPending;
+const deleteRoomPending = requestPending;
+const deleteRoomError = requestError;
 
 const getListRoomSuccess = (
     state: IInitialState,
@@ -60,6 +68,17 @@ const getListRoomSuccess = (
     state.isError = false;
 }
 
+const getRoomDetailSuccess = (
+    state: IInitialState,
+    action: {
+    type: string;
+    payload: IRoom;
+}
+) => {
+state.roomDetail = action.payload;
+state.isLoading = false;
+state.isError = false;
+}
 
 const createRoomSuccess = (
     state: IInitialState,
@@ -72,6 +91,31 @@ const createRoomSuccess = (
     state.isLoading = false;
     state.isError = false;
 }
+const updateRoomSuccess = (
+    state: IInitialState,
+    action:{
+        type: string;
+        payload: IRoom;
+    }
+) =>{
+    const userIndex = state.rooms.findIndex(user => user.id === action.payload.id);
+    if (userIndex !== -1) {
+        state.rooms[userIndex] = action.payload;
+    }
+    state.isLoading = false;
+    state.isError = false;
+}
+const deleteRoomSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: number;
+    }
+) => {
+    state.rooms = state.rooms.filter(user => user.id !== action.payload);
+    state.isLoading = false;
+    state.isError = false;
+}
 
 const manageRoomSlice = createSlice({
     name: 'rooms',
@@ -80,9 +124,18 @@ const manageRoomSlice = createSlice({
         getListRoomPending,
         getListRoomError,
         getListRoomSuccess,
+        getRoomDetailError,
+        getRoomDetailPending,
+        getRoomDetailSuccess,
         createRoomPending,
         createRoomError,
         createRoomSuccess,
+        updateRoomError,
+        updateRoomPending,
+        updateRoomSuccess,
+        deleteRoomError,
+        deleteRoomPending,
+        deleteRoomSuccess
     }
 });
 

@@ -4,6 +4,7 @@ import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageRoomActions} from "../slices/manageRoom.slice";
 import { ICreateRoom } from '../types/createRoom';
+import { IUpdateRoom } from '../types/updateRoom';
 
 const getListRoom = async (payload: {
     per_page?: number;
@@ -17,9 +18,25 @@ const getListRoom = async (payload: {
     })
 }
 
+const getRoom = async (roomId: number) => {    
+    return axiosInstance.get('', {
+        params:{
+            room_id :roomId,
+        }
+    })
+}
+
 const createRoom = async (createRoom: ICreateRoom) => {
     
     return axiosInstance.post('/api/room/create', createRoom)
+}
+const updateRoom = async (updateRoom: IUpdateRoom) => {
+    
+    return axiosInstance.put('', updateRoom)
+}
+const deleteRoom = async (room_id: number) => {
+    const data = {room_id: room_id}
+    return axiosInstance.delete('',{data})
 }
 
 const handleCreateRoom = function* (action) {
@@ -49,6 +66,30 @@ const handleCreateRoom = function* (action) {
     }
 }
 
+const handleGetRoom = function* (action){
+    try{
+        yield put({
+            type: manageRoomActions.getRoomDetailPending.type,
+        })
+
+        const response = yield call( getRoom, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageRoomActions.getRoomDetailSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageRoomActions.getRoomDetailError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        console.log(err);
+        
+    }
+}
+
 const handleGetListRoomByIdHotel = function* (action) {
     try {
         yield put({
@@ -73,6 +114,57 @@ const handleGetListRoomByIdHotel = function* (action) {
     }
 };
 
+const handleUpdateRoom = function* (action) {
+    try{
+        yield put({
+            type: manageRoomActions.updateRoomPending.type,
+        })
+        const response = yield call(updateRoom, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageRoomActions.updateRoomSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success('Cập nhật thông tin phòng thành công')
+        }
+    } catch(err){
+        yield put({
+            type: manageRoomActions.getListRoomError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
+        
+    }
+}
+
+const handleDeleteRoom = function* (action) {
+    try {
+        yield put({
+            type: manageRoomActions.deleteRoomPending.type,
+        })
+        const response = yield call(deleteRoom, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageRoomActions.deleteRoomSuccess.type,
+                payload: action.payload,
+            })
+            toast.success(`Xóa thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageRoomActions.deleteRoomError.type,
+            payload: {message: get(err, 'response.data.message')}
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+
 const manageRoomSaga = function* () {
     yield takeLatest(
         `${manageRoomActions.getListRoomPending}_saga`,
@@ -81,6 +173,18 @@ const manageRoomSaga = function* () {
     yield takeLatest(
         `${manageRoomActions.createRoomPending}_saga`,
         handleCreateRoom
+    );
+    yield takeLatest(
+        `${manageRoomActions.getRoomDetailPending}_saga`,
+        handleGetRoom
+    );
+    yield takeLatest(
+        `${manageRoomActions.updateRoomPending}_saga`,
+        handleUpdateRoom
+    )
+    yield takeLatest(
+        `${manageRoomActions.deleteRoomPending}_saga`,
+        handleDeleteRoom
     )
 };
 

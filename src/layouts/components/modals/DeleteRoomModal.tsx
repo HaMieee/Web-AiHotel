@@ -1,0 +1,33 @@
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
+function DeleteRoomModal({
+  isShow,
+  onClose,
+  userDelete,
+  onConfirm,
+}) {
+
+  return (
+    <>
+
+      <Modal show={isShow} onHide={onClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Xóa phòng</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Bạn chắc chắn muốn xóa phòng!!!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Đóng
+          </Button>
+          <Button variant="primary" onClick={() => onConfirm(userDelete.id)}>
+            Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+export default DeleteRoomModal;

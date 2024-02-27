@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRoomType } from "../../../redux/types/roomType";
 import { IPaginateResponse } from "../../../redux/types/page";
 import PaginationComponent from "../../../layouts/components/pagination/PaginationComponent";
-import { manageRoomTypeActions } from "../../../redux/slices/manageRoomType.slice";
 import { manageRoomActions } from "../../../redux/slices/manageRoom.slice";
 import { manageHotelActions } from "../../../redux/slices/manageHotel.slice";
 import CreateRoomModal from "../../../layouts/components/modals/CreateRoomModal";
 import { ICreateRoom } from "../../../redux/types/createRoom";
 import { IHotel } from "../../../redux/types/hotel";
+import DeleteRoomModal from "../../../layouts/components/modals/DeleteRoomModal";
 
 const typeActions = ['delete', 'edit'];
 
@@ -28,6 +28,8 @@ const ManageRoom = () => {
     const [metaData, setMetaData] = useState<IPaginateResponse>({});
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [roomDetail, setRoomDetail] = useState<IRoom>({});
+
+    const [showDelete, setShowDelete] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -53,8 +55,21 @@ const ManageRoom = () => {
 
 
 
-    const handleOnAction = () => {
-
+    const handleOnAction = (recordId, action) => {
+        if( action === 'edit') {            
+            dispatch({
+                type:`${manageRoomActions.getRoomDetailPending}_saga`,
+                payload: recordId
+            })
+            setShowCreate(true)
+        }
+        if (action === 'delete') {
+            dispatch({
+                type:`${manageRoomActions.getRoomDetailPending}_saga`,
+                payload: recordId
+            })
+            setShowDelete(true)
+        }
     }
 
     const handleCreateRoom = (createRoomData: ICreateRoom) => {
@@ -78,6 +93,15 @@ const ManageRoom = () => {
             }
         });
     }
+
+    const confirmDelete = (recordId: number) => {
+        dispatch({
+            type: `${manageRoomActions.deleteRoomPending}_saga`,
+            payload: recordId,
+        })
+        setShowDelete(false);
+    }
+
     return(
         <>
             <div className={'float-end p-2'}>
@@ -106,11 +130,13 @@ const ManageRoom = () => {
                 hotelsData={hotelsState}
             />
 
+
+
             <div className={'d-flex justify-content-center'}>
                 <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
             </div>
 
-
+            <DeleteRoomModal isShow={showDelete} onClose={() => setShowDelete(false)} userDelete={roomDetail} onConfirm={confirmDelete}/>
         </>
     )
 }
