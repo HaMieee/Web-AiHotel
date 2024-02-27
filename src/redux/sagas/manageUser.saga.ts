@@ -4,6 +4,10 @@ import { get} from 'lodash';
 import { toast } from 'react-toastify';
 import { ICreateUser } from '../types/dtos/createUser';
 import { manageUserActions } from '../slices/manageUser.slice';
+import { IUpdateInfo } from '../types/dtos/updateInfo';
+import { useState } from 'react';
+
+
 
 const getListUser = async (payload: {
     per_page: number;
@@ -23,6 +27,25 @@ const createUser = async (createUser: ICreateUser) => {
     console.log(createUser);
     
     return axiosInstance.post('/api/auth/create-user', createUser)
+}
+
+const getUser = async (userId: number) => {    
+    return axiosInstance.get('/api/auth/user-information', {
+        params:{
+            user_id: userId,
+        }
+    })
+}
+
+const updateUser = async (updateUser: IUpdateInfo) => {
+    console.log('user update: ', updateUser);
+    
+    return axiosInstance.put('/api/auth/update-user', updateUser)
+}
+
+const deleteUser = async (user_id: number) => {
+    const data = {user_id: user_id}
+    return axiosInstance.delete('/api/auth/delete-user',{data})
 }
 
 const handleGetListUser = function* (action) {
@@ -78,6 +101,75 @@ const handleCreateUser = function* (action) {
     }
 }
 
+const handleGetUser = function* (action){
+    try{
+        yield put({
+            type: manageUserActions.getUserDetailPending.type,
+        })
+
+        const response = yield call( getUser, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageUserActions.getUserDetailSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageUserActions.getUserDetailError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        console.log(err);
+        
+    }
+}
+
+const handleUpdateUser = function* (action) {
+    try{
+        yield put({
+            type: manageUserActions.updateUserPending.type,
+        })
+        const response = yield call(updateUser, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageUserActions.updateUserSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success('Cập nhật thông tin người dùng thành công')
+        }
+    } catch(err){
+        yield put({
+            type: manageUserActions.getListUserError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        console.log(err);
+        
+    }
+}
+
+const handleDeleteUser = function* (action) {
+    try {
+        yield put({
+            type: manageUserActions.deleteUserPending.type,
+        })
+        const response = yield call(deleteUser, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageUserActions.deleteUserSuccess.type,
+                payload: action.payload,
+            })
+            toast.success(`Xóa thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageUserActions.deleteUserError.type,
+            payload: {message: get(err, 'response.data.message')}
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
 const manageUserSaga = function* () {
     yield takeLatest(
         `${manageUserActions.getListUserPending}_saga`,
@@ -86,6 +178,19 @@ const manageUserSaga = function* () {
     yield takeLatest(
         `${manageUserActions.createUserPending}_saga`,
         handleCreateUser
+    )
+    yield takeLatest(
+        `${manageUserActions.getUserDetailPending}_saga`,
+        handleGetUser
+    
+    )
+    yield takeLatest(
+        `${manageUserActions.updateUserPending}_saga`,
+        handleUpdateUser
+    )
+    yield takeLatest(
+        `${manageUserActions.deleteUserPending}_saga`,
+        handleDeleteUser
     )
 }
 

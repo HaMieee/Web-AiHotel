@@ -8,4 +8,5 @@ export type IUpdateInfo = {
     email?:string;
     age?: number;
     password?: string;
+    user_id?: number;
 }

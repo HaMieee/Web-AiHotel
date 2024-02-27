@@ -10,18 +10,25 @@ import CreateUserModal from "../../../layouts/components/modals/CreateUserModal"
 import { ICreateUser } from "../../../redux/types/dtos/createUser";
 import { manageUserActions } from "../../../redux/slices/manageUser.slice";
 import { IUser } from "../../../redux/types/user";
+import { IUpdateInfo } from "../../../redux/types/dtos/updateInfo";
+import DeleteUserModal from "../../../layouts/components/modals/DeleteUserModal";
 
-const typeActions = ['delete', 'detail'];
+const typeActions = ['edit', 'delete'];
 
 const ManageUser = () => {
     const manageUserState = useSelector((state: RootState) => state.manageUser.users);
+    const userDetailState = useSelector((state: RootState) => state.manageUser.userDetail);
+
     const dispatch = useDispatch()
     const [showCreate, setShowCreate] = useState(false);
     const [userData, setUserData] = useState<IUser[]>([]);
     const [roleType, setRoleType] = useState('customer');
+    const [userDetail, setUserDetail] = useState<IUser>({});
     const navigate = useNavigate();
 
-    
+    const [showDelete, setShowDelete] = useState(false)
+
+
     useEffect(() => {
         dispatch({
             type: `${manageUserActions.getListUserPending}_saga`,
@@ -37,6 +44,10 @@ const ManageUser = () => {
         setUserData(buildUserData(manageUserState));
         setShowCreate(false);
     }, [manageUserState])
+
+    useEffect(() => {
+        setUserDetail(userDetailState);
+    }, [userDetailState])
 
     const buildUserData = (data: IUser[]) => {
         const newData = data.map(c => {
@@ -66,8 +77,19 @@ const ManageUser = () => {
     }
 
     const handleOnAction = (recordId, action) => {
-        if (action === 'detail') {
-            return navigate(`/manage-customer/${recordId}`)
+        if( action === 'edit') {            
+            dispatch({
+                type:`${manageUserActions.getUserDetailPending}_saga`,
+                payload: recordId
+            })
+            setShowCreate(true)
+        }
+        if (action === 'delete') {
+            dispatch({
+                type:`${manageUserActions.getUserDetailPending}_saga`,
+                payload: recordId
+            })
+            setShowDelete(true)
         }
     }
 
@@ -77,6 +99,26 @@ const ManageUser = () => {
             payload: createUserData,
         })
     }
+
+    const handleUpdateUser = (updateUserData: IUpdateInfo) => {
+        dispatch({
+            type: `${manageUserActions.updateUserPending}_saga`,
+            payload: updateUserData
+        })
+    }
+
+    const confirmDelete = (recordId: number) => {
+        dispatch({
+            type: `${manageUserActions.deleteUserPending}_saga`,
+            payload: recordId,
+        })
+        setShowDelete(false);
+    }
+
+    console.log('user detail: ', userDetail);
+    
+    
+   
     return(
         <>
             
@@ -106,7 +148,10 @@ const ManageUser = () => {
                 isShow={showCreate}
                 onClose={() => setShowCreate(false)}
                 onCreateUser={handleCreateUser}
+                userData={userDetail}
+                onUpdateUser={handleUpdateUser}
             />
+            <DeleteUserModal isShow={showDelete} onClose={() => setShowDelete(false)} userDelete={userDetail} onConfirm={confirmDelete}/>
         </>
     )
 }
