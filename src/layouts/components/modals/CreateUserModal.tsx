@@ -4,16 +4,25 @@ import Modal from 'react-bootstrap/Modal';
 import {Col, Row} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { ICreateUser } from '../../../redux/types/dtos/createUser';
+import { IUser } from '../../../redux/types/user';
+import { IUpdateInfo } from '../../../redux/types/dtos/updateInfo';
+import { isEmpty } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { manageUserActions } from '../../../redux/slices/manageUser.slice';
 
 type ICreateUserModal = {
     isShow: boolean;
     onClose: () => void;
     onCreateUser: (payload: ICreateUser) => void;
+    onUpdateUser: (payload: IUpdateInfo) => void;
+    userData: IUser;
 }
 const CreateUserModal: React.FC<ICreateUserModal> = ({
     isShow = false,
     onClose,
     onCreateUser,
+    onUpdateUser,
+    userData,
 }) => {
     const [formCreateUser, setFormCreateUser] = useState<ICreateUser>({
         name:'',
@@ -36,6 +45,21 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
             handleClearValue()
         }
     }, [isShow])
+
+    useEffect(() => {
+        if (userData) {
+            setFormCreateUser({
+                name: userData.name,
+                address: userData.address,
+                age: userData.age,
+                email: userData.email,
+                phone: userData.phone,
+                identification: userData.identification,
+                id: userData.id,
+                role_type: userData.role_type,
+            })
+        }
+    }, [userData])
 
     const handleClearValue = () => {
         setFormCreateUser({
@@ -63,13 +87,31 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
         }
         onCreateUser(userData);
     }
+
+    const dispatch = useDispatch()
+    const handleUpdateUser = () => {
+        const payload: IUpdateInfo = {
+            user_id:formCreateUser?.id,
+            address: formCreateUser.address,
+            name: formCreateUser.name,
+            // identification:userData.identification,
+            age:formCreateUser.age
+        }
+        console.log(payload);
+        dispatch({
+            type:`${manageUserActions.updateUserPending}_saga`,
+            payload:payload
+        })
+    }
+
+    
     
     return(
         <>
             <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Create</Modal.Title>
+                    {isEmpty(userData) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update</Modal.Title>}*
                 </Modal.Header>
                 <Modal.Body>
                     <div className={'container-fluid'}>
@@ -119,6 +161,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>CCCD</Form.Label>
                                 <Form.Control
+                                    readOnly
                                     required
                                     type="text"
                                     placeholder="CCCD"
@@ -133,6 +176,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
+                                    readOnly
                                     required
                                     type="text"
                                     placeholder="Email"
@@ -183,9 +227,15 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                     <Button variant="secondary" onClick={onClose}>
                         Đóng
                     </Button>
-                    <Button variant="success" onClick={handleCreateUser}>
-                        Xác nhận
-                    </Button>
+                    {isEmpty(userData) ? 
+                                    <Button variant="success" onClick={handleCreateUser}>
+                                        Tạo
+                                    </Button>    
+                                    :
+                                    <Button variant="success" onClick={handleUpdateUser}>
+                                        Cập nhật
+                                    </Button>
+                }
                 </Modal.Footer>
             </Modal>
         </>

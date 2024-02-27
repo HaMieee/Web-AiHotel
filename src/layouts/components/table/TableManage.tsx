@@ -3,8 +3,9 @@ import Table from 'react-bootstrap/Table';
 import {isEmpty, map} from "lodash";
 import {Button, Pagination} from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEdit  } from "react-icons/fa";
 import './TableManage.scss';
+import { FaRegEdit } from "react-icons/fa";
 
 type ITableManage = {
     headers: string[];
@@ -40,18 +41,17 @@ const TableManage: React.FC<ITableManage> = ({
         return map(actions, action => {
             switch (action.type) {
                 case 'edit':
-                    return <Button key={`edit_${recordId}`} variant="warning" title='Edit' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}></Button>
+                    return <Button key={`edit_${recordId}`} variant="danger" title='Edit' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><FaEdit/></Button>
                 case 'delete':
                     return <Button key={`delete${recordId}`} variant="secondary" title='Delete' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><MdDelete /></Button>
                 case 'detail':
-                    return <Button key={`detail${recordId}`} variant="success" title='Detail' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><FaEye /></Button>
+                    return <Button key={`detail${recordId}`} variant="success" title='Detail' className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><FaEye/></Button>
                 default:
                     return <></>
             }
         })
     }
 
-    const [currentPage, setCurrentPage] = useState(1);
     return (
         <div className='table'>
             <hr></hr>
@@ -75,16 +75,8 @@ const TableManage: React.FC<ITableManage> = ({
             ))}
             </tbody>
         </Table>
-      </div>
-       {/* <div className='d-flex float-end'>
-       <Pagination>
-                            <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
-                            <Pagination.Item onClick={() => setCurrentPage(1)} active={currentPage === 1}>1</Pagination.Item>
-                            <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
-        </Pagination>
-       </div> */}
-        
-        </div>
+      </div> 
+    </div>
     );
 }
 

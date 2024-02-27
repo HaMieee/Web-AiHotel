@@ -10,7 +10,6 @@ type IInitialState = {
     isError: boolean;
     message: string;
 }
-
 const initialState: IInitialState = {
     users: [],
     userDetail:{},
@@ -40,6 +39,10 @@ const getUserDetailPending = requestPending;
 const getUserDetailError = requestError;
 const createUserError = requestError;
 const createUserPending = requestPending;
+const updateUserError = requestError;
+const updateUserPending = requestPending;
+const deleteUserError = requestError;
+const deleteUserPending = requestPending;
 
 const getListUserSuccess = (
     state: IInitialState,
@@ -52,18 +55,6 @@ const getListUserSuccess = (
     state.isLoading = false;
 }
 
-const getUserDetailSuccess = (
-    state: IInitialState,
-    action: {
-        type: string;
-        payload: IHotel;
-    }
-) => {
-    state.userDetail = action.payload;
-    state.isLoading = false;
-};
-
-
 const createUserSuccess = (
     state: IInitialState,
     action: {
@@ -75,8 +66,44 @@ const createUserSuccess = (
     state.isLoading = false;
     state.isError = false;
 }
+const getUserDetailSuccess =(
+    state: IInitialState,
+    action: {
+    type: string;
+    payload: IUser;
+}
+) => {
+state.userDetail = action.payload;
+state.isLoading = false;
+state.isError = false;
+}
 
+const updateUserSuccess = (
+    state: IInitialState,
+    action:{
+        type: string;
+        payload: IUser;
+    }
+) =>{
+    const userIndex = state.users.findIndex(user => user.id === action.payload.id);
+    if (userIndex !== -1) {
+        state.users[userIndex] = action.payload;
+    }
+    state.isLoading = false;
+    state.isError = false;
+}
 
+const deleteUserSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: number;
+    }
+) => {
+    state.users = state.users.filter(user => user.id !== action.payload);
+    state.isLoading = false;
+    state.isError = false;
+}
 const manageUser = createSlice({
     name: 'users',
     initialState: initialState,
@@ -84,12 +111,18 @@ const manageUser = createSlice({
         getListUserError,
         getListUserPending,
         getListUserSuccess,
+        createUserError,
+        createUserPending,
+        createUserSuccess,
         getUserDetailError,
         getUserDetailPending,
         getUserDetailSuccess,
-        createUserError,
-        createUserPending,
-        createUserSuccess
+        updateUserError,
+        updateUserPending,
+        updateUserSuccess,
+        deleteUserError,
+        deleteUserPending,
+        deleteUserSuccess,
        
     }
 })
