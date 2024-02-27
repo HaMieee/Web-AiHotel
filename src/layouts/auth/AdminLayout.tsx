@@ -50,7 +50,7 @@ const AdminLayout = () => {
                                 <i><RiHotelFill /></i>
                                 <span>Quản lý khách sạn</span>
                             </div>
-                            <div>
+                            <div onClick={() => navigate('/manage-room')}>
                                 <i><BiHomeHeart/></i>
                                 <span>Quản lý phòng</span>
                             </div>

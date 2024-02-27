@@ -7,13 +7,13 @@ import {IUpdateHotel} from "../types/dtos/updateHotel";
 import {ICreateHotel} from "../types/dtos/createHotel";
 
 const getListHotel = async (payload: {
-    per_page: number;
-    page: number;
+    per_page?: number;
+    page?: number;
 }) => {
     return axiosInstance.get('/api/hotel/list-hotels', {
         params: {
-            per_page: payload.per_page,
-            page: payload.page,
+            per_page: payload?.per_page,
+            page: payload?.page,
         }
     })
 }

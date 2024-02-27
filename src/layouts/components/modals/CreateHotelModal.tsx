@@ -68,7 +68,6 @@ const CreateHotelModal: React.FC<ICreateHotelModal> = ({
                                         name: e.target.value,
                                     })}
                                 />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
