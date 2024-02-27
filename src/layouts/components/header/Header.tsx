@@ -120,10 +120,11 @@ const Header: React.FC<IHeader> = ({
                   <li>Trang Chủ</li>
                 </Link>
                 <li>Phòng</li>
-                <li>Ưu đãi</li>
-                <li>Tin Tức</li>
-                <li>Liên Hệ</li>
-                <li onClick={() => navigate('/ws-example')}>Khác</li>
+                <li onClick={() => navigate('/dashboard')}>Dashboard</li>
+                <li onClick={() => navigate('/admin')}>Admin Manager</li>
+                {/*<li>Tin Tức</li>*/}
+                {/*<li>Liên Hệ</li>*/}
+                <li onClick={() => navigate('/ws-example')}>WS example</li>
               </ul>
             </div>
             <div className="header_item2">

@@ -3,17 +3,29 @@ import React, {useEffect, useState} from "react";
 import './RoomDetail.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { differenceInDays } from 'date-fns';
+import {differenceInDays} from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
 import {initEcho} from "../../services/ws.service";
 import {IUser} from "../../redux/types/user";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import {IReservationCreate} from "../../redux/types/dtos/createReservation";
+import ReservationConfirmModal from "../../layouts/components/modals/ReservationConfirmModal";
+import {manageReservationActions} from "../../redux/slices/manageReservation.slice";
+import {useDispatch} from "react-redux";
+import {toast} from 'react-toastify';
+
 
 const RoomDetail = ({show, handleClose, roomData}) => {
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const dispatch = useDispatch();
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [dayNumbers, setDayNumbers] = useState<number>(0);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [amountPeople, setAmountPeople] = useState<number>(1);
+    const [showReservationConfirm, setShowReservationConfirm] = useState(false);
+    const [reservationData, setReservationData] = useState({});
 
     const [usersRoom, setUsersRoom] = useState<IUser[]>([]);
     const [roomSelected, setRoomSelected] = useState(null);
@@ -70,7 +82,57 @@ const RoomDetail = ({show, handleClose, roomData}) => {
         }
     };
 
-    console.log('user view: ', usersRoom)
+    const inValidDate = () => {
+        let isCheck;
+        const currentDate = new Date();
+        const startDateObj = new Date(startDate);
+        const startDateDateOnly = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+        const currentDateDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+        isCheck = startDateDateOnly >= currentDateDateOnly;
+        return isCheck;
+    }
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    const handleBookRoom = () => {
+        if (startDate && endDate) {
+            if (inValidDate()) {
+                setReservationData({
+                    room_code: roomData.code,
+                    start_date: formatDate(startDate),
+                    end_date: formatDate(endDate),
+                    room_price: roomData.room_type?.price,
+                    days: dayNumbers,
+                    total: totalPrice,
+                    amount_person: amountPeople,
+                })
+                setShowReservationConfirm(true)
+            } else {
+                toast.error('Chọn ngày lớn hơn hoặc bằng hiện tại!')
+            }
+        } else {
+            toast.error('Vui lòng chọn ngày đặt!')
+        }
+    }
+
+    const handleConfirm = () => {
+        const payload: IReservationCreate = {
+            room_id: roomData.id,
+            start_date: formatDate(startDate),
+            end_date: formatDate(endDate),
+            amount_person: amountPeople,
+        };
+        dispatch({
+            type: `${manageReservationActions.createReservationPending}_saga`,
+            payload: payload,
+        })
+        setShowReservationConfirm(false);
+    }
 
     return (
         <>
@@ -79,22 +141,6 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                            onHide={handleClose}
                            style={{width: '30%'}}
                            placement={'end'}>
-                    {/*<Offcanvas.Header className={'shadow-sm'}>*/}
-                    {/*    <div className={'room-detail-header'}>*/}
-                    {/*        <div className={'me-2'}>*/}
-                    {/*            <h4>Your brand</h4>*/}
-                    {/*        </div>*/}
-                    {/*        <div>*/}
-                    {/*            <Image src={"https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg"}*/}
-                    {/*                   rounded*/}
-                    {/*                   fluid*/}
-                    {/*                   height={100}*/}
-                    {/*                   width={100}*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</Offcanvas.Header>*/}
-
                     <Offcanvas.Body>
                         <hr/>
                         <div className={'room-status'}>
@@ -141,14 +187,6 @@ const RoomDetail = ({show, handleClose, roomData}) => {
 
                             <div className={'custom-title'}>{roomData?.room_type?.name}</div>
 
-                            {/*<div className={'container-fluid mb-2'}>*/}
-                            {/*    <Row>*/}
-                            {/*        <Col md={6}>Bao gom bua sang</Col>*/}
-                            {/*        <Col md={6}>Wifi free</Col>*/}
-                            {/*        <Col md={6}>View dep</Col>*/}
-                            {/*    </Row>*/}
-                            {/*</div>*/}
-
                             <div className={'container-fluid'}>
                                 <label className={'title-description'}>Description</label>
                                 <div className={'room-detail-description'}>
@@ -173,6 +211,18 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                                 />
                             </div>
 
+                            <div>
+                                <FloatingLabel label="Amount people">
+                                    <Form.Select value={amountPeople}
+                                                 onChange={(e) => setAmountPeople(parseInt(e.target.value))}>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                            </div>
+
                             <div className={'container-fluid mb-2'}>
                                 <hr />
                                 <div className={'d-flex justify-content-between'}>
@@ -195,13 +245,20 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                             </div>
 
                             <div className={'d-flex justify-content-center'}>
-                                <Button>Book room</Button>
+                                <Button onClick={handleBookRoom}>Book room</Button>
                             </div>
 
                         </div>
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>
+
+            <ReservationConfirmModal
+                isShow={showReservationConfirm}
+                onClose={() => setShowReservationConfirm(false)}
+                data={reservationData}
+                onConfirm={handleConfirm}
+            />
         </>
     )
 }
