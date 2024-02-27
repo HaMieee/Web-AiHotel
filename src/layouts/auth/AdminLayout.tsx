@@ -54,7 +54,7 @@ const AdminLayout = () => {
                                 <i><BiHomeHeart/></i>
                                 <span>Quản lý phòng</span>
                             </div>
-                            <div>
+                            <div onClick={() => navigate('/manage-reservation')}>
                                 <i><RiTeamFill/></i>
                                 <span>Quản lý đơn đặt phòng</span>
                             </div>

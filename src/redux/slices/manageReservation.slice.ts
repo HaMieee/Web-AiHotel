@@ -44,6 +44,8 @@ const requestError = (
 
 const createReservationPending = requestPending;
 const createReservationError = requestError;
+const getListReservationPending = requestPending;
+const getListReservationError = requestError;
 
 const createReservationSuccess = (
     state: IInitialState,
@@ -57,6 +59,22 @@ const createReservationSuccess = (
     state.isError = false;
 };
 
+const getListReservationSuccess = (
+    state: IInitialState,
+    action: {
+        type: string,
+        payload: {
+            reservations: IReservation[],
+            meta: IPaginateResponse,
+        },
+    }
+) => {
+    state.reservations = action.payload.reservations;
+    state.paginate = action.payload.meta;
+    state.isLoading = false;
+    state.isError = false;
+}
+
 const manageReservation = createSlice({
     name: 'reservation',
     initialState: initialState,
@@ -64,6 +82,9 @@ const manageReservation = createSlice({
         createReservationPending,
         createReservationError,
         createReservationSuccess,
+        getListReservationPending,
+        getListReservationError,
+        getListReservationSuccess,
     }
 });
 

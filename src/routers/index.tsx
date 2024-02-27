@@ -16,6 +16,7 @@ import ResetPassword from '../pages/Auth/ResetPassword';
 import Hotel from "../pages/Hotel/Hotel";
 import HotelDetail from "../pages/Hotel/HotelDetail";
 import ManageUser from '../pages/Admin/ManageUser/ManageUser';
+import ManageReservation from "../pages/Admin/ManageReservation/ManageReservation";
 
 const Router = () => {
     return useRoutes([
@@ -62,6 +63,10 @@ const Router = () => {
                 {
                     path: '/manage-user',
                     element: <ManageUser/>
+                },
+                {
+                    path: '/manage-reservation',
+                    element: <ManageReservation />
                 },
             ]
         },

@@ -8,7 +8,7 @@ import './TableManage.scss';
 
 type ITableManage = {
     headers: string[];
-    data: any[];
+    data?: any[];
     actions?: {type: string}[];
     onAction?: (id: number, action: string) => void;
     useIdx?: boolean;
