@@ -16,7 +16,7 @@ import {manageReservationActions} from "../../redux/slices/manageReservation.sli
 import {useDispatch} from "react-redux";
 import {toast} from 'react-toastify';
 import {IRoomDetail} from "../../redux/types/dtos/roomDetail";
-import { eachDayOfInterval, format } from 'date-fns';
+import { eachDayOfInterval } from 'date-fns';
 
 
 type IRoomDetailComponent = {
@@ -71,9 +71,17 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     }, [roomSelected])
 
     useEffect(() => {
-        if (startDate && endDate) {
-            setDayNumbers(differenceInDays(endDate, startDate) + 1);
+        const isDisabled = isRangeDisabled(startDate, endDate, disabledDates);
+        if (!isDisabled) {
+            if (startDate && endDate) {
+                setDayNumbers(differenceInDays(endDate, startDate) + 1);
+            }
+        } else {
+            setStartDate('');
+            setEndDate('');
+            toast.error('Vui lòng chọn ngày trống!')
         }
+
     }, [endDate, startDate])
 
     useEffect(() => {
@@ -95,13 +103,6 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
             });
     }
 
-    const setDateRange = (update) => {
-        if (update && update.length === 2) {
-            setStartDate(update[0]);
-            setEndDate(update[1]);
-        }
-    };
-
     const inValidDate = () => {
         let isCheck;
         const currentDate = new Date();
@@ -112,11 +113,35 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
         return isCheck;
     }
 
+    const isRangeDisabled = (startDate, endDate, disabledDates) => {
+        const datesInRange = eachDayOfInterval({ start: startDate, end: endDate });
+        const dateStringArray = disabledDates.map(date => date.toISOString().split('T')[0]);
+        return datesInRange.some(date => dateStringArray.includes(date.toISOString().split('T')[0]));
+    };
+
     const formatDate = (date) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
+    }
+
+    const setDateRange = (update) => {
+        if (update && update.length === 2) {
+            setStartDate(update[0]);
+            setEndDate(update[1]);
+        }
+    };
+
+    const buildDateBooked = (dateBooked) => {
+        const newDisabledDates: Date[] = [];
+        dateBooked.forEach(booking => {
+            const startDate = new Date(booking.start_date);
+            const endDate = new Date(booking.end_date);
+            const datesInBooking = eachDayOfInterval({ start: startDate, end: endDate });
+            newDisabledDates.push(...datesInBooking);
+        });
+        setDisabledDates(newDisabledDates);
     }
 
     const handleBookRoom = () => {
@@ -133,6 +158,8 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                 })
                 setShowReservationConfirm(true)
             } else {
+                setStartDate('');
+                setEndDate('');
                 toast.error('Chọn ngày lớn hơn hoặc bằng hiện tại!')
             }
         } else {
@@ -161,17 +188,6 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
         setEndDate('');
         setDayNumbers(0);
         setAmountPeople(1);
-    }
-
-    const buildDateBooked = (dateBooked) => {
-        const newDisabledDates: Date[] = [];
-        dateBooked.forEach(booking => {
-            const startDate = new Date(booking.start_date);
-            const endDate = new Date(booking.end_date);
-            const datesInBooking = eachDayOfInterval({ start: startDate, end: endDate });
-            newDisabledDates.push(...datesInBooking);
-        });
-        setDisabledDates(newDisabledDates);
     }
 
     return (
