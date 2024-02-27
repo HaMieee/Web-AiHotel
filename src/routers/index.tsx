@@ -17,6 +17,7 @@ import Hotel from "../pages/Hotel/Hotel";
 import HotelDetail from "../pages/Hotel/HotelDetail";
 import ManageUser from '../pages/Admin/ManageUser/ManageUser';
 import ManageReservation from "../pages/Admin/ManageReservation/ManageReservation";
+import ManageRoom from '../pages/Admin/ManageRoom/ManageRoom';
 
 const Router = () => {
     return useRoutes([
@@ -68,6 +69,10 @@ const Router = () => {
                     path: '/manage-reservation',
                     element: <ManageReservation />
                 },
+                {
+                    path:'/manage-room',
+                    element:<ManageRoom/>
+                }
             ]
         },
         {

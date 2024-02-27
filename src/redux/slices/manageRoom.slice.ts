@@ -42,15 +42,33 @@ const requestError = (
 
 const getListRoomPending = requestPending;
 const getListRoomError = requestError;
+const createRoomPending = requestPending;
+const createRoomError = requestError;
 
 const getListRoomSuccess = (
     state: IInitialState,
     action: {
         type: string;
-        payload: IRoom[];
+        payload: {
+            rooms: IRoom[],
+            meta: IPaginateResponse,
+        };
     }
 ) => {
-    state.rooms = action.payload;
+    state.rooms = action.payload.rooms;
+    state.isLoading = false;
+    state.isError = false;
+}
+
+
+const createRoomSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IRoom;
+    }
+) => {
+    state.rooms.push(action.payload);
     state.isLoading = false;
     state.isError = false;
 }
@@ -62,6 +80,9 @@ const manageRoomSlice = createSlice({
         getListRoomPending,
         getListRoomError,
         getListRoomSuccess,
+        createRoomPending,
+        createRoomError,
+        createRoomSuccess,
     }
 });
 
