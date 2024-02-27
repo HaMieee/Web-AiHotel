@@ -4,6 +4,7 @@ import {put, call, takeLatest} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageReservationActions} from "../slices/manageReservation.slice";
+import { IReservationEdit } from "../types/dtos/editReservation";
 
 const createReservation = async (payload: IReservationCreate) => {
     return axiosInstance.post('/api/reservation/create', payload)
@@ -21,6 +22,44 @@ const getListReservation = async (payload: {
     })
 };
 
+const getReservation  = async (reservationId: number) => {    
+    return axiosInstance.get('/api/reservation/detail', {
+        params:{
+            reservation_id: reservationId,
+        }
+    })
+}
+
+const editReservation  = async  (editReservation: IReservationEdit) => {
+    console.log('user update: ', editReservation);
+    
+    return axiosInstance.put('/api/reservation/update', editReservation)
+
+}
+
+const handleGetReservation = function* (action) {
+    try{
+        yield put({
+            type: manageReservationActions.getReservationPending.type,
+        })
+
+        const response = yield call( getReservation, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.getReservationSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.getReservationError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        console.log(err)
+        
+    }
+}
 const handleCreateReservation = function* (action) {
     try {
         yield put({
@@ -77,6 +116,35 @@ const handleGetListReservation = function* (action) {
     }
 }
 
+const handleEditReservation = function* (action) {
+    try{
+        yield put({
+            type: manageReservationActions.editReservationPending.type,
+        })
+        const response = yield call(editReservation, action.payload);
+        if(response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.editReservationSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success('Cập nhật đơn đặt phòng thành công')
+        }
+    } catch(err){
+        yield put({
+            type: manageReservationActions.editReservationError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'))
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
+        
+    }
+}
+
 const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.createReservationPending}_saga`,
@@ -86,6 +154,14 @@ const manageReservationSaga = function* () {
         `${manageReservationActions.getListReservationPending}_saga`,
         handleGetListReservation,
     );
+    yield takeLatest(
+        `${manageReservationActions.getReservationPending}_saga`,
+        handleGetReservation
+    );
+    yield takeLatest(
+        `${manageReservationActions.editReservationPending}_saga`,
+        handleEditReservation
+    )
 }
 
 export default manageReservationSaga;

@@ -66,7 +66,7 @@ const TableManage: React.FC<ITableManage> = ({
             </thead>
             <tbody>
             {!isEmpty(data) && map(data, (row, i_index) => (
-                <tr className='data'>
+                <tr className='data' key={i_index}>
                     {Object.keys(row).map((item) => {
                         return renderTagTd(row[item], item, i_index + 1);
                     })}
