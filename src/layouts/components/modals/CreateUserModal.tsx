@@ -95,7 +95,8 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
             address: formCreateUser.address,
             name: formCreateUser.name,
             // identification:userData.identification,
-            age:formCreateUser.age
+            age:formCreateUser.age,
+            phone: formCreateUser.phone,
         }
         console.log(payload);
         dispatch({

@@ -93,7 +93,6 @@ const handleCreateUser = function* (action) {
         })
         const errorData = get(err, 'response.data.errors', {});
         const errorMessages = Object.values(errorData).flat();
-        const errorMessage = errorMessages.join('\t');
 
         errorMessages.forEach((messageErr) => {
             toast.error(messageErr + '');
@@ -144,7 +143,12 @@ const handleUpdateUser = function* (action) {
             payload: {message: get(err, 'message')},
         })
         toast.error(get(err, 'response.data.message'))
-        console.log(err);
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
         
     }
 }
