@@ -16,6 +16,14 @@ const getListRoom = async (payload: {
             page: payload.page,
         }
     })
+};
+
+const getRoomDetail = async (room_id) => {
+    return axiosInstance.get('/api/room/detail', {
+        params: {
+            room_id: room_id,
+        }
+    })
 }
 
 const handleGetListRoomByIdHotel = function* (action) {
@@ -39,11 +47,40 @@ const handleGetListRoomByIdHotel = function* (action) {
     }
 };
 
+const handleGetRoomDetail = function* (action) {
+    try {
+        yield put({
+            type: manageRoomActions.getRoomDetailPending.type,
+        })
+        const response = yield call(getRoomDetail, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageRoomActions.getRoomDetailSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageRoomActions.getRoomDetailError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
+    }
+};
+
 const manageRoomSaga = function* () {
     yield takeLatest(
         `${manageRoomActions.getListRoomPending}_saga`,
         handleGetListRoomByIdHotel,
     );
+    yield takeLatest(
+        `${manageRoomActions.getRoomDetailPending}_saga`,
+        handleGetRoomDetail,
+    )
 };
 
 export default manageRoomSaga;

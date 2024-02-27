@@ -36,8 +36,6 @@ const HotelDetail = () => {
         setListRoomData(listRoomState);
     }, [listRoomState, hotelDetailState])
 
-    console.log('rooms data: ', listRoomState)
-
     return (
         <>
             <div className={'container-fluid'}>

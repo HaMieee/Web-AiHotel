@@ -4,6 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 type IInitialState = {
     rooms: IRoom[];
+    roomDetail: IRoom;
     isLoading: boolean;
     isError: boolean;
     message: string;
@@ -12,6 +13,7 @@ type IInitialState = {
 
 const initialState: IInitialState = {
     rooms: [],
+    roomDetail: {},
     isLoading: false,
     isError: false,
     message: '',
@@ -42,6 +44,8 @@ const requestError = (
 
 const getListRoomPending = requestPending;
 const getListRoomError = requestError;
+const getRoomDetailPending = requestPending;
+const getRoomDetailError = requestError;
 
 const getListRoomSuccess = (
     state: IInitialState,
@@ -53,6 +57,18 @@ const getListRoomSuccess = (
     state.rooms = action.payload;
     state.isLoading = false;
     state.isError = false;
+};
+
+const getRoomDetailSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IRoom;
+    }
+) => {
+    state.roomDetail = action.payload;
+    state.isLoading = false;
+    state.isError = false;
 }
 
 const manageRoomSlice = createSlice({
@@ -62,6 +78,9 @@ const manageRoomSlice = createSlice({
         getListRoomPending,
         getListRoomError,
         getListRoomSuccess,
+        getRoomDetailPending,
+        getRoomDetailError,
+        getRoomDetailSuccess,
     }
 });
 

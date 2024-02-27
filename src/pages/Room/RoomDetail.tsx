@@ -15,9 +15,20 @@ import ReservationConfirmModal from "../../layouts/components/modals/Reservation
 import {manageReservationActions} from "../../redux/slices/manageReservation.slice";
 import {useDispatch} from "react-redux";
 import {toast} from 'react-toastify';
+import {IRoomDetail} from "../../redux/types/dtos/roomDetail";
+import { eachDayOfInterval, format } from 'date-fns';
 
 
-const RoomDetail = ({show, handleClose, roomData}) => {
+type IRoomDetailComponent = {
+    show: boolean;
+    handleClose: () => void;
+    roomData: IRoomDetail;
+}
+const RoomDetail: React.FC<IRoomDetailComponent> = ({
+                                               show,
+                                               handleClose,
+                                               roomData = {}
+}) => {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -26,10 +37,11 @@ const RoomDetail = ({show, handleClose, roomData}) => {
     const [amountPeople, setAmountPeople] = useState<number>(1);
     const [showReservationConfirm, setShowReservationConfirm] = useState(false);
     const [reservationData, setReservationData] = useState({});
+    const [disabledDates, setDisabledDates] = useState<Date[]>([]);
 
     const [usersRoom, setUsersRoom] = useState<IUser[]>([]);
-    const [roomSelected, setRoomSelected] = useState(null);
-    const [roomOldSelected, setRoomOldSelected] = useState(null);
+    const [roomSelected, setRoomSelected] = useState<number | undefined>(0);
+    const [roomOldSelected, setRoomOldSelected] = useState<number | undefined>(0);
 
     useEffect(() => {
         if (!(window as any).Echo) {
@@ -42,6 +54,14 @@ const RoomDetail = ({show, handleClose, roomData}) => {
             setRoomOldSelected(roomSelected);
         }
         setRoomSelected(roomData.id)
+
+        if (roomData && roomData.reservations) {
+            const date = roomData.reservations.map(r => ({
+                start_date: r.start_date,
+                end_date: r.end_date,
+            }))
+            buildDateBooked(date)
+        }
     }, [roomData])
 
     useEffect(() => {
@@ -132,6 +152,26 @@ const RoomDetail = ({show, handleClose, roomData}) => {
             payload: payload,
         })
         setShowReservationConfirm(false);
+        const datesInBooking = eachDayOfInterval({ start: startDate, end: endDate });
+        setDisabledDates([
+            ...disabledDates,
+            ...datesInBooking,
+        ])
+        setStartDate('');
+        setEndDate('');
+        setDayNumbers(0);
+        setAmountPeople(1);
+    }
+
+    const buildDateBooked = (dateBooked) => {
+        const newDisabledDates: Date[] = [];
+        dateBooked.forEach(booking => {
+            const startDate = new Date(booking.start_date);
+            const endDate = new Date(booking.end_date);
+            const datesInBooking = eachDayOfInterval({ start: startDate, end: endDate });
+            newDisabledDates.push(...datesInBooking);
+        });
+        setDisabledDates(newDisabledDates);
     }
 
     return (
@@ -208,6 +248,9 @@ const RoomDetail = ({show, handleClose, roomData}) => {
                                     onChange={(update) => setDateRange(update)}
                                     withPortal
                                     className="form-control mb-2"
+                                    excludeDates={disabledDates}
+
+                                    dateFormat="dd/MM/yyyy"
                                 />
                             </div>
 
