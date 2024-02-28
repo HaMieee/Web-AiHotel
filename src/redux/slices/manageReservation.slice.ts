@@ -1,6 +1,7 @@
 import {IPaginateResponse} from "../types/page";
 import {createSlice} from "@reduxjs/toolkit";
 import {IReservation} from "../types/reservation";
+import {IHotel} from "../types/hotel";
 
 type IInitialState = {
     reservations: IReservation[];
@@ -46,6 +47,8 @@ const createReservationPending = requestPending;
 const createReservationError = requestError;
 const getListReservationPending = requestPending;
 const getListReservationError = requestError;
+const getReservationDetailError = requestError;
+const getReservationPending = requestPending;
 
 const createReservationSuccess = (
     state: IInitialState,
@@ -74,7 +77,16 @@ const getListReservationSuccess = (
     state.isLoading = false;
     state.isError = false;
 }
-
+const getReservationSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IHotel;
+    }
+) => {
+    state.reservation = action.payload;
+    state.isLoading = false;
+};
 const manageReservation = createSlice({
     name: 'reservation',
     initialState: initialState,
@@ -85,6 +97,9 @@ const manageReservation = createSlice({
         getListReservationPending,
         getListReservationError,
         getListReservationSuccess,
+        getReservationSuccess,
+        getReservationDetailError,
+        getReservationPending
     }
 });
 

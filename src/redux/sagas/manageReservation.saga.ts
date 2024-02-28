@@ -4,6 +4,7 @@ import {put, call, takeLatest} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageReservationActions} from "../slices/manageReservation.slice";
+import {manageHotelActions} from "../slices/manageHotel.slice";
 
 const createReservation = async (payload: IReservationCreate) => {
     return axiosInstance.post('/api/reservation/create', payload)
@@ -20,7 +21,13 @@ const getListReservation = async (payload: {
         }
     })
 };
-
+const getReservation = async (reservationId: number) => {
+    return axiosInstance.get('/api/reservation/detail',{
+        params: {
+            reservation_id: reservationId,
+        }
+    })
+}
 const handleCreateReservation = function* (action) {
     try {
         yield put({
@@ -76,7 +83,26 @@ const handleGetListReservation = function* (action) {
         });
     }
 }
-
+const handleGetReservation = function* (action) {
+    try {
+        yield put({
+            type: manageReservationActions.getReservationPending.type,
+        })
+        const response = yield call(getReservation, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.getReservationSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.getReservationDetailError.type,
+            payload: {message: get(err, 'message')},
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
 const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.createReservationPending}_saga`,
@@ -85,6 +111,10 @@ const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.getListReservationPending}_saga`,
         handleGetListReservation,
+    );
+    yield takeLatest(
+        `${manageReservationActions.getReservationPending}_saga`,
+        handleGetReservation,
     );
 }
 

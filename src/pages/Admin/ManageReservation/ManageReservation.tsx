@@ -7,11 +7,13 @@ import {manageReservationActions} from "../../../redux/slices/manageReservation.
 import {IPaginateResponse} from "../../../redux/types/page";
 import {IReservation} from "../../../redux/types/reservation";
 import PaginationComponent from "../../../layouts/components/pagination/PaginationComponent";
+import {useNavigate} from "react-router";
 
 const typeActions = ['delete', 'detail'];
 
 const ManageReservation = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const listReservationState = useSelector((state: RootState) => state.manageReservation.reservations);
     const metaState = useSelector((state: RootState) => state.manageHotel.paginate);
 
@@ -50,6 +52,12 @@ const ManageReservation = () => {
 
     const handleChangePage = (page: number) => {
         setCurrentPage(page)
+    }
+
+    const handleOnAction = (recordId: number, actionType: string) => {
+        if (actionType === 'detail') {
+            navigate(`/`)
+        }
     }
 
     return (
