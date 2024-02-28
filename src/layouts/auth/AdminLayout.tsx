@@ -38,9 +38,9 @@ const AdminLayout = () => {
                             <p style={{fontSize:'24px'}}>Menu</p>
                             {/* <hr></hr> */}
                             <div style={{backgroundColor:'gainsboro' , height:'0.5px'}}></div>
-                            <div>
+                            <div onClick={() => navigate('/dashboard')}>
                                 <i><MdDashboard/></i>
-                                <span>DashBoard</span>
+                                <span>Home</span>
                             </div>
                             <div onClick={() => navigate('/manage-user')}>
                                 <i><RiAdminFill/></i>

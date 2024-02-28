@@ -59,7 +59,7 @@ const handleGetListReservation = function* (action) {
                 type: manageReservationActions.getListReservationSuccess.type,
                 payload: {
                     reservations: response.data.data,
-                    meta: response.data.meta,
+                    meta: response.data.meta.pagination,
                 },
             })
         }
