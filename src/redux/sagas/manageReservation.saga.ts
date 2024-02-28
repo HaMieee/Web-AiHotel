@@ -21,6 +21,18 @@ const getListReservation = async (payload: {
     })
 };
 
+const getListReservationFilter = async (payload: {
+    hotel_id?: number;
+    room_type_id?: number;
+    per_page?: number;
+    page?: number;
+}) => {
+    console.log('data: ', payload)
+    return axiosInstance.get('/api/reservation/filter-reservation', {
+        params: payload
+    })
+}
+
 const handleCreateReservation = function* (action) {
     try {
         yield put({
@@ -75,6 +87,35 @@ const handleGetListReservation = function* (action) {
             toast.error(messageErr + '');
         });
     }
+};
+
+const handleGetListReservationFilter = function* (action) {
+    try {
+        yield put({
+            type: manageReservationActions.getListReservationPending.type,
+        })
+        const response = yield call(getListReservationFilter, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.getListReservationSuccess.type,
+                payload: {
+                    reservations: response.data.data,
+                    meta: response.data.meta.pagination,
+                },
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.getListReservationError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
+    }
 }
 
 const manageReservationSaga = function* () {
@@ -85,6 +126,10 @@ const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.getListReservationPending}_saga`,
         handleGetListReservation,
+    );
+    yield takeLatest(
+        `${manageReservationActions.getListReservationPending}_filter_saga`,
+        handleGetListReservationFilter,
     );
 }
 
