@@ -49,6 +49,12 @@ const getListReservationPending = requestPending;
 const getListReservationError = requestError;
 const getReservationDetailError = requestError;
 const getReservationPending = requestPending;
+const checkInReservationPending = requestPending;
+const checkInReservationError = requestError;
+const checkOutReservationPending = requestPending;
+const checkOutReservationError = requestError;
+const updateReservationPending = requestPending;
+const updateReservationError = requestError;
 
 const createReservationSuccess = (
     state: IInitialState,
@@ -81,12 +87,42 @@ const getReservationSuccess = (
     state: IInitialState,
     action: {
         type: string;
-        payload: IHotel;
+        payload: IReservation;
     }
 ) => {
     state.reservation = action.payload;
     state.isLoading = false;
 };
+const checkInReservationSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IReservation;
+    }
+) => {
+    state.reservation = action.payload;
+    state.isLoading = false;
+}
+const checkOutReservationSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IReservation;
+    }
+) => {
+    state.reservation = action.payload;
+    state.isLoading = false;
+}
+const updateReservationSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IReservation;
+    }
+) => {
+    state.reservation = action.payload;
+    state.isLoading = false;
+}
 const manageReservation = createSlice({
     name: 'reservation',
     initialState: initialState,
@@ -99,7 +135,17 @@ const manageReservation = createSlice({
         getListReservationSuccess,
         getReservationSuccess,
         getReservationDetailError,
-        getReservationPending
+        getReservationPending,
+        checkInReservationPending,
+        checkInReservationError,
+        checkOutReservationPending,
+        checkOutReservationError,
+        updateReservationPending,
+        updateReservationError,
+        checkInReservationSuccess,
+        checkOutReservationSuccess,
+        updateReservationSuccess,
+
     }
 });
 

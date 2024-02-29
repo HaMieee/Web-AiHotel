@@ -85,7 +85,6 @@ const ManageHotelDetail = () => {
             description: formValueHotel.description,
             room_types: buildRoomTypeData(formValueHotel.room_types),
         }
-        console.log(updateHotelData)
         dispatch({
             type: `${manageHotelActions.updateHotelPending}_saga`,
             payload: updateHotelData,

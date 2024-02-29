@@ -27,7 +27,6 @@ const getListReservationFilter = async (payload: {
     per_page?: number;
     page?: number;
 }) => {
-    console.log('data: ', payload)
     return axiosInstance.get('/api/reservation/filter-reservation', {
         params: payload
     })
@@ -39,6 +38,20 @@ const getReservation = async (reservationId: number) => {
             reservation_id: reservationId,
         }
     })
+}
+const checkInReservation = async (reservationId: number) => {
+    return axiosInstance.put('/api/reservation/check-in', {
+        reservation_id: reservationId,
+    })
+}
+const checkOutReservation = async (reservationId: number) => {
+    return axiosInstance.put('/api/reservation/check-out', {
+        reservation_id: reservationId,
+    })
+}
+const updateReservation = async (updateReservationData: IReservationCreate) => {
+    return axiosInstance.put('/api/reservation/update', updateReservationData)
+
 }
 const handleCreateReservation = function* (action) {
     try {
@@ -144,6 +157,69 @@ const handleGetReservation = function* (action) {
         toast.error(get(err, 'response.data.message'));
     }
 }
+const handleCheckInReservation = function* (action) {
+    try {
+        yield put({
+            type: manageReservationActions.checkInReservationPending.type,
+        })
+        const response = yield call(checkInReservation, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.checkInReservationSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success(`Check in thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.checkInReservationError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+const handleCheckOutReservation = function* (action) {
+    try {
+        yield put({
+            type: manageReservationActions.checkOutReservationPending.type,
+        })
+        const response = yield call(checkOutReservation, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.checkOutReservationSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success(`Check out thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.checkOutReservationError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
+const handleUpdateReservation = function* (action) {
+    try {
+        yield put({
+            type: manageReservationActions.updateReservationPending.type,
+        })
+        const response = yield call(updateReservation, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageReservationActions.updateReservationSuccess.type,
+                payload: response.data.data,
+            })
+            toast.success(`Cập nhật thành công!`);
+        }
+    } catch (err) {
+        yield put({
+            type: manageReservationActions.updateReservationError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        toast.error(get(err, 'response.data.message'));
+    }
+}
 const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.createReservationPending}_saga`,
@@ -160,6 +236,18 @@ const manageReservationSaga = function* () {
     yield takeLatest(
         `${manageReservationActions.getReservationPending}_saga`,
         handleGetReservation,
+    );
+    yield takeLatest(
+        `${manageReservationActions.checkInReservationPending}_saga`,
+        handleCheckInReservation,
+    );
+    yield takeLatest(
+        `${manageReservationActions.checkOutReservationPending}_saga`,
+        handleCheckOutReservation,
+    );
+    yield takeLatest(
+        `${manageReservationActions.updateReservationPending}_saga`,
+        handleUpdateReservation,
     );
 }
 

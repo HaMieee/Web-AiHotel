@@ -92,9 +92,9 @@ const ManageReservation = () => {
         setCurrentPage(page)
     }
 
-    const handleOnAction = (recordId: number, actionType: string) => {
-        if (actionType === 'detail') {
-            navigate(`/`)
+    const handleOnAction = (recordId, action) => {
+        if (action === 'detail') {
+            return navigate(`/manage-reservation/${recordId}`)
         }
     }
 
@@ -175,6 +175,7 @@ const ManageReservation = () => {
                          actions={map(typeActions, (action) => ({ type: action }))}
                          data={listReservationData}
                          useIdx={true}
+                         onAction={handleOnAction}
             />
 
             <div className={'d-flex justify-content-center'}>
