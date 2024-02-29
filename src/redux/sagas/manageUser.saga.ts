@@ -57,7 +57,10 @@ const handleGetListUser = function* (action) {
         if(response.data.statusCode ===  200) {
             yield put({
                 type: manageUserActions.getListUserSuccess.type,
-                payload: response.data.data
+                payload: {
+                    users: response.data.data,
+                    meta: response.data.meta.pagination,
+                }
             })
             // toast.success('Danh sách người dùng ')
         }

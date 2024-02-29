@@ -5,7 +5,6 @@ import {Button, Pagination} from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { FaEye, FaEdit  } from "react-icons/fa";
 import './TableManage.scss';
-import { FaRegEdit } from "react-icons/fa";
 
 type ITableManage = {
     headers: string[];
