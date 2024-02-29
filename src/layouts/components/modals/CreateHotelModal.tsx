@@ -49,7 +49,7 @@ const CreateHotelModal: React.FC<ICreateHotelModal> = ({
 
     return (
         <>
-            <Modal show={isShow} onHide={onClose} size={'lg'}>
+            <Modal show={isShow} onHide={onClose} size={'lg'} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Khách sạn mới: </Modal.Title>
                 </Modal.Header>

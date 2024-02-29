@@ -109,7 +109,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
     
     return(
         <>
-            <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
+            <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static" centered
             >
                 <Modal.Header closeButton>
                     {isEmpty(userData) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update</Modal.Title>}*

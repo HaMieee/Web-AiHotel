@@ -2,6 +2,7 @@
 import {IHotel} from "../types/hotel";
 import {createSlice} from "@reduxjs/toolkit";
 import { IUser } from "../types/user";
+import {IPaginateResponse} from "../types/page";
 
 type IInitialState = {
     users: IUser[];
@@ -9,6 +10,8 @@ type IInitialState = {
     isLoading: boolean;
     isError: boolean;
     message: string;
+    paginate: IPaginateResponse;
+
 }
 const initialState: IInitialState = {
     users: [],
@@ -16,6 +19,14 @@ const initialState: IInitialState = {
     isLoading: false,
     isError: false,
     message: '',
+    paginate: {
+        count: 0,
+        current_page: 0,
+        per_page: 0,
+        total: 0,
+        total_pages: 0,
+        links: {},
+    },
 }
 
 const requestPending = (state: IInitialState) => {
@@ -48,10 +59,14 @@ const getListUserSuccess = (
     state: IInitialState,
     action: {
         type: string;
-        payload: IHotel[];
+        payload: {
+            users: IUser[];
+            meta: IPaginateResponse;
+        };
     }
 ) => {
-    state.users = action.payload;
+    state.users = action.payload.users;
+    state.paginate = action.payload.meta;
     state.isLoading = false;
 }
 

@@ -88,3 +88,7 @@
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+p {
+  margin-top: auto !important;
+}

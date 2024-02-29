@@ -1,4 +1,3 @@
-import TableManage from "../../../layouts/components/table/TableManage";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {manageHotelActions} from "../../../redux/slices/manageHotel.slice";
@@ -6,14 +5,17 @@ import {RootState} from "../../../redux/store";
 import {IHotel} from "../../../redux/types/hotel";
 import {map} from "lodash";
 import {useNavigate} from "react-router";
-import {Button} from "react-bootstrap";
+import Button from "@mui/material/Button";
 import {BsFillHouseAddFill} from "react-icons/bs";
 import CreateHotelModal from "../../../layouts/components/modals/CreateHotelModal";
 import {manageRoomTypeActions} from "../../../redux/slices/manageRoomType.slice";
 import {IRoomType} from "../../../redux/types/roomType";
 import {ICreateHotel} from "../../../redux/types/dtos/createHotel";
-import PaginationComponent from "../../../layouts/components/pagination/PaginationComponent";
 import {IPaginateResponse} from "../../../redux/types/page";
+import TableThree from "../../../layouts/components/table/TableThree";
+import Pagination from '@mui/material/Pagination';
+import Stack from "@mui/material/Stack";
+import AddHomeIcon from "@mui/icons-material/AddHome";
 
 
 const typeActions = ['delete', 'detail'];
@@ -41,7 +43,7 @@ const ManageHotel = () => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
             payload: {
-                per_page: 2,
+                per_page: 4,
                 page: currentPage,
             }
         });
@@ -76,8 +78,8 @@ const ManageHotel = () => {
         }
     }
 
-    const handleChangePage = (page: number) => {
-        setCurrentPage(page)
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value)
     }
 
     const handleCreateHotel = (createHotelData: ICreateHotel) => {
@@ -89,26 +91,28 @@ const ManageHotel = () => {
 
     return (
         <>
-            <div className={'float-end p-2'}>
-                <Button variant={'success'}
-                        className={'d-flex align-items-center'}
-                        onClick={() => setShowCreate(true)}
-                >
-                    <BsFillHouseAddFill className={'me-2'}/>
-                    Thêm
-                </Button>
+            <div className={'d-flex justify-content-end mb-3'}>
+                <Stack spacing={2} direction="row">
+                    <Button variant="contained"
+                            startIcon={<AddHomeIcon/>}
+                            onClick={() => setShowCreate(true)}>
+                        Thêm
+                    </Button>
+                </Stack>
             </div>
 
-            <TableManage
-                headers={['STT', 'Name', 'Address', 'Description', 'Actions']}
-                data={hotelsData}
-                useIdx={true}
+            <TableThree
+                columns={['STT', 'Name', 'Address', 'Description', 'Actions']}
+                rows={hotelsData}
                 actions={map(typeActions, (action) => ({ type: action }))}
                 onAction={handleOnAction}
             />
 
             <div className={'d-flex justify-content-center'}>
-                <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
+                <Pagination count={metaData.total_pages}
+                            shape="rounded"
+                            onChange={handleChangePage}
+                />
             </div>
 
             <CreateHotelModal

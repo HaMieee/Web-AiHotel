@@ -12,8 +12,21 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {IHotel} from "../../../redux/types/hotel";
 import {manageHotelActions} from "../../../redux/slices/manageHotel.slice";
 import {IRoomType} from "../../../redux/types/roomType";
+import TableTwo from "../../../layouts/components/table/TableTwo";
+import TableThree from "../../../layouts/components/table/TableThree";
+import Pagination from "@mui/material/Pagination";
 
 const typeActions = ['delete', 'detail'];
+const headerData = [
+    { field: 'id', headerName: 'ID', width: 70},
+    { field: 'hotel', headerName: 'Hotel', width: 150},
+    { field: 'room', headerName: 'Room', width: 100},
+    { field: 'user', headerName: 'User'},
+    { field: 'start_date', headerName: 'Start date'},
+    { field: 'end_date', headerName: 'End date'},
+    { field: 'status', headerName: 'Status'},
+    { field: 'actions', headerName: 'Actions'},
+]
 
 const ManageReservation = () => {
     const dispatch = useDispatch();
@@ -86,8 +99,8 @@ const ManageReservation = () => {
         return newData;
     }
 
-    const handleChangePage = (page: number) => {
-        setCurrentPage(page)
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value)
     }
 
     const handleHotelSelection = (event, value) => {
@@ -163,14 +176,16 @@ const ManageReservation = () => {
                 }
             </div>
 
-            <TableManage headers={['STT', 'Khách sạn', 'Phòng', 'Kiểu phòng', 'Người đặt', 'Start', 'End', 'Trạng thái', 'Actions']}
-                         actions={map(typeActions, (action) => ({ type: action }))}
-                         data={listReservationData}
-                         useIdx={true}
+            <TableThree columns={['STT', 'Khách sạn', 'Phòng', 'Loại phòng', 'Người đặt', 'Từ ngày', 'Đến đến', 'Trạng thái', 'Tùy chọn']}
+                        rows={listReservationData}
+                        actions={map(typeActions, (action) => ({ type: action }))}
             />
 
             <div className={'d-flex justify-content-center'}>
-                <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
+                <Pagination count={metaData.total_pages}
+                            shape="rounded"
+                            onChange={handleChangePage}
+                />
             </div>
         </>
     )

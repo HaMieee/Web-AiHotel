@@ -18,6 +18,7 @@ import HotelDetail from "../pages/Hotel/HotelDetail";
 import ManageUser from '../pages/Admin/ManageUser/ManageUser';
 import ManageReservation from "../pages/Admin/ManageReservation/ManageReservation";
 import ManageRoom from '../pages/Admin/ManageRoom/ManageRoom';
+import TestPage from "../pages/Test/TestPage";
 
 const Router = () => {
     return useRoutes([
@@ -43,7 +44,7 @@ const Router = () => {
                 {
                     path: '/',
                     element: <Hotel />
-                }
+                },
             ]
         },
         {
@@ -85,8 +86,11 @@ const Router = () => {
                 {
                     path:'/reset-password',
                     element:<ResetPassword />
+                },
+                {
+                    path: '/test',
+                    element: <TestPage />
                 }
-
             ],
         },
         {
