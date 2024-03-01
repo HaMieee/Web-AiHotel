@@ -110,7 +110,7 @@ const handleGetListRoomByIdHotel = function* (action) {
                 type: manageRoomActions.getListRoomSuccess.type,
                 payload: {
                     rooms: response.data.data,
-                    meta: response.data.meta,
+                    // meta: response.data.meta.pagination,
                 },
             })
         }

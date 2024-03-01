@@ -5,7 +5,6 @@ import {Button, Pagination} from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { FaEye, FaEdit  } from "react-icons/fa";
 import './TableManage.scss';
-import { FaRegEdit } from "react-icons/fa";
 
 type ITableManage = {
     headers: string[];
@@ -66,7 +65,7 @@ const TableManage: React.FC<ITableManage> = ({
             </thead>
             <tbody>
             {!isEmpty(data) && map(data, (row, i_index) => (
-                <tr className='data'>
+                <tr className='data' key={i_index}>
                     {Object.keys(row).map((item) => {
                         return renderTagTd(row[item], item, i_index + 1);
                     })}

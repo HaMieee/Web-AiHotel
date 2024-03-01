@@ -56,6 +56,10 @@
   color: #282c34 !important;
 }
 
+.MuiInputBase-input {
+  color: black !important;
+}
+
 .custom-stroke {
   border: solid 2px #CAB39E;
   border-radius: 5px;
@@ -83,4 +87,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+}
+
+p {
+  margin-top: auto !important;
 }

@@ -3,21 +3,90 @@ import React from "react";
 import BlankLayout from "../blankLayout/BlankLayout";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import logo from "../../img/logo.jpg";
-import {GoProjectRoadmap} from "react-icons/go";
-import {MdDashboard, MdPerson3} from "react-icons/md";
-import {RiAdminFill, RiBillLine, RiTeamFill} from "react-icons/ri";
-import {BiHomeHeart} from "react-icons/bi";
-import { RiHotelFill } from "react-icons/ri";
-import { RiAccountCircleFill } from "react-icons/ri";
-import { RiCalendar2Line } from "react-icons/ri";
-import { FaRegBell } from "react-icons/fa";
+import {createTheme, styled, ThemeProvider} from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import {mainListItems, secondaryListItems} from "../components/header/ListItems";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar/AppBar";
+import MuiAppBar from "@mui/material/AppBar";
+import MuiDrawer from "@mui/material/Drawer";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Button from "@mui/material/Button";
 
 
+const drawerWidth: number = 300;
+
+interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+            position: 'relative',
+            whiteSpace: 'nowrap',
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+        },
+    }),
+);
+
+const defaultTheme = createTheme();
 
 const AdminLayout = () => {
     const roleState = useSelector((state: RootState) => state.auth.userInfo.role_type);
-    const navigate = useNavigate();
+
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
+
+    const goBack = () => window.history.back();
 
     if (roleState !== 'admin') {
         return <Navigate to={'/404'} replace />
@@ -25,77 +94,97 @@ const AdminLayout = () => {
 
     return (
         <BlankLayout>
-            <div className="dash_board">
-                <div className="warper_board">
-                    <div className="sidebar" >
-                        <div className='sidebar-top'>
+            <ThemeProvider theme={defaultTheme}>
+                <Box sx={{ display: 'flex' }}>
+                    <CssBaseline />
+                    <AppBar position="absolute" open={open}>
+                        <Toolbar
+                            sx={{
+                                pr: '24px',
+                            }}
+                        >
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={toggleDrawer}
+                                sx={{
+                                    marginRight: '36px',
+                                    ...(open && { display: 'none' }),
+                                }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography
+                                component="h1"
+                                variant="h6"
+                                color="inherit"
+                                noWrap
+                                sx={{ flexGrow: 1 }}
+                            >
+                                Dashboard Admin
+                            </Typography>
+                            <IconButton color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
+                    <Drawer variant="permanent" open={open}>
+                        <Toolbar
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                px: [1],
+                            }}
+                        >
+                            <Button onClick={toggleDrawer}>
+                                <ChevronLeftIcon />
+                            </Button>
+                        </Toolbar>
+                        <Divider />
+                        <List component="nav">
+                            {mainListItems}
+                            <Divider sx={{ my: 1 }} />
+                            {secondaryListItems}
+                        </List>
+                    </Drawer>
+                    <Box
+                        component="main"
+                        sx={{
+                            backgroundColor: (theme) =>
+                                theme.palette.mode === 'light'
+                                    ? theme.palette.grey[100]
+                                    : theme.palette.grey[900],
+                            flexGrow: 1,
+                            height: '100vh',
+                            overflow: 'auto',
+                        }}
+                    >
+                        <Toolbar />
 
-                            <img src ={logo} alt='logo'/>
-                            <i style={{fontSize:'24px'}}><GoProjectRoadmap/></i>
+                        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
 
-                        </div>
-                        <div className='sidebar-bottom'>
-                            <p style={{fontSize:'24px'}}>Menu</p>
-                            {/* <hr></hr> */}
-                            <div style={{backgroundColor:'gainsboro' , height:'0.5px'}}></div>
-                            <div>
-                                <i><MdDashboard/></i>
-                                <span>DashBoard</span>
-                            </div>
-                            <div onClick={() => navigate('/manage-user')}>
-                                <i><RiAdminFill/></i>
-                                <span>Quản lý người dùng</span>
-                            </div>
-                            <div onClick={() => navigate('/manage-hotel')}>
-                                <i><RiHotelFill /></i>
-                                <span>Quản lý khách sạn</span>
-                            </div>
-                            <div onClick={() => navigate('/manage-room')}>
-                                <i><BiHomeHeart/></i>
-                                <span>Quản lý phòng</span>
-                            </div>
-                            <div onClick={() => navigate('/manage-reservation')}>
-                                <i><RiTeamFill/></i>
-                                <span>Quản lý đơn đặt phòng</span>
-                            </div>
-                            <div>
-                                <i><RiBillLine/></i>
-                                <span>Quản lý hóa đơn</span>
-                            </div>
+                                    <Button className={'mb-3'}
+                                            variant={'contained'}
+                                            startIcon={<ArrowBackIcon/>}
+                                            onClick={goBack}>
+                                        Quay lại
+                                    </Button>
 
-                            <div>
-                                <i><MdPerson3/></i>
-                                <span>Thống kê</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='sidebar_nav'>
-                        <div>
-                            <div className='d-flex justify-content-between sidebar_nav-top'>
-                                <input placeholder='Search...'/>
-                              <div>
-                              <i style ={{fontSize:'22px'}}>< RiCalendar2Line/></i>
-                              <i style ={{fontSize:'22px'}}>< FaRegBell/></i>
-                              <i style ={{fontSize:'22px'}}>< FaRegBell/></i>
-                              <i style ={{fontSize:'36px'}}>< RiAccountCircleFill/></i>
-                              </div>
-                            </div>
-                            <hr/>
-                        </div>
-                        <div className='d-flex justify-content-between sidebar_nav-topOne'>
-                           <div className=''>
-                               <div>Quản lý khách sạn</div>
-                               <span style={{fontSize:'0.8rem'}}>Home </span>
-                               <span> - </span>
-                               <span style={{fontSize:'0.8rem'}}> Quản lý khách sạn</span>
-                           </div>
-                        </div>
-
-                        <Outlet />
-
-                    </div>
-                </div>
-            </div>
+                                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                                        <Outlet />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </Container>
+                    </Box>
+                </Box>
+            </ThemeProvider>
         </BlankLayout>
     )
 }

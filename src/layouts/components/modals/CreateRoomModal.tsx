@@ -112,7 +112,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
     }
     return (
         <>
-            <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
+            <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static" centered
             >
                 <Modal.Header closeButton>
                     {isEmpty(roomDetail) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update - P.{roomDetail.code}</Modal.Title>}

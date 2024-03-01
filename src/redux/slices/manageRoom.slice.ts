@@ -64,6 +64,7 @@ const getListRoomSuccess = (
     }
 ) => {
     state.rooms = action.payload.rooms;
+    state.paginate = action.payload.meta;
     state.isLoading = false;
     state.isError = false;
 }
