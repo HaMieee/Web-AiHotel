@@ -39,7 +39,6 @@ const getUser = async (userId: number) => {
 
 const updateUser = async (updateUser: IUpdateInfo) => {
     console.log('user update: ', updateUser);
-    
     return axiosInstance.put('/api/auth/update-user', updateUser)
 }
 

@@ -3,174 +3,188 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Col, Row} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { ICreateRoom } from '../../../redux/types/createRoom';
-import { IRoom } from '../../../redux/types/room';
+import {ICreateRoom} from '../../../redux/types/createRoom';
+import {IRoom} from '../../../redux/types/room';
+import {toast} from 'react-toastify';
+import {isEmpty, map} from 'lodash';
+import {IRoomType} from '../../../redux/types/roomType';
+import {IHotel} from '../../../redux/types/hotel';
+import { IUpdateRoom } from '../../../redux/types/updateRoom';
 import { useDispatch } from 'react-redux';
-import { isEmpty, map } from 'lodash';
-import { IRoomType } from '../../../redux/types/roomType';
-import { IHotel } from '../../../redux/types/hotel';
+import { manageRoomActions } from '../../../redux/slices/manageRoom.slice';
 
 type ICreateRoomModal = {
     isShow: boolean;
     onClose: () => void;
     onCreateRoom: (payload: ICreateRoom) => void;
+    onUpdateRoom: (payload: IUpdateRoom) => void;
     hotelsData: IHotel[];
     roomData: IRoom;
 }
 
 const CreateRoomModal: React.FC<ICreateRoomModal> = ({
-    isShow = false,
-    onClose,
-    onCreateRoom,
-    hotelsData = [],
-    roomData,
-}) => {
+                                                         isShow = false,
+                                                         onClose,
+                                                         onCreateRoom,
+                                                         onUpdateRoom,
+                                                         hotelsData = [],
+                                                         roomData,
+                                                     }) => {
     const [formCreateRoom, setFormCreateRoom] = useState<ICreateRoom>({
-        id:0,
-        code:'',
-        floor:0,
-        hotel:'',
-        room_type:'',
+        id: 0,
+        floor: 1,
+        hotel_id: 0,
+        room_type_id: 0,
+        
     });
-    const [hotelId, setHotelId] = useState<number | undefined>(0);
-    const [roomType, setRoomType] = useState<IRoomType[] | undefined>([]);    
-    
+    const [roomType, setRoomType] = useState<IRoomType[] | undefined>([]);
+    const [floors, setFloors] = useState<number>(10);
+    const [roomDetail, setRoomDetail] = useState<IRoom>({});
+
     useEffect(() => {
         if (!isShow) {
             handleClearValue()
         }
     }, [isShow])
-
     useEffect(() => {
-        if (roomData) {
-            setFormCreateRoom({
-                id:roomData.id,
-                code:roomData.code,
-                room_type:roomData.room_type?.name,
-                hotel:roomData.hotel?.name,
-                floor:roomData.floor,
-            })
-        }
-    }, [roomData])
-
-    useEffect(() => {
-        if (hotelId && hotelsData) {
-            const hotel = hotelsData.find(hotel => hotel.id === hotelId)
+        setRoomDetail(roomData)
+        setFormCreateRoom({
+            id: roomData.id,
+            floor: roomData.floor,
+            hotel_id: roomData.hotel?.id,
+            room_type_id: roomData.room_type?.id
+        })
+        if (roomData.hotel?.id) {
+            const hotel = hotelsData.find(hotel => hotel.id === roomData.hotel?.id);
             setRoomType(hotel?.room_types)
         }
-        console.log('in hotel id change');
+        console.log(roomData);
+        if (isEmpty(roomData)) {            
+            handleClearValue()
+        }
         
-    }, [hotelId])
+    }, [roomData])
 
     const handleClearValue = () => {
         setFormCreateRoom({
-            code:'',
-            floor:0,
-            hotel:'',
-            room_type:'',
-        
+            floor: 1,
+            hotel_id: 0,
+            room_type_id: 0,
         })
     }
 
-    console.log(roomType);
-    
-
     const handleCreateRoom = async () => {
         const roomData: ICreateRoom = {
-            code:formCreateRoom.code,
-            floor:formCreateRoom.floor,
-            hotel:formCreateRoom.hotel,
-            room_type:formCreateRoom.room_type,
- 
+            floor: formCreateRoom.floor,
+            hotel_id: formCreateRoom.hotel_id,
+            room_type_id: formCreateRoom.room_type_id,
+
         }
-        onCreateRoom(roomData);
-        onClose()
+        if (!(roomData.hotel_id === 0)) {
+            if (!(roomData.room_type_id === 0)) {
+                onCreateRoom(roomData);
+                onClose()
+            } else {
+                toast.error('Vui lòng chọn loại phòng!')
+            }
+        } else {
+            toast.error('Vui lòng chọn khách sạn!')
+        }
     }
 
-    const dispatch = useDispatch()
+    const handleOnChangeHotel = (hotel_id: number | undefined) => {
+        if (hotel_id) {
+            const hotel = hotelsData.find(hotel => hotel.id === hotel_id);
+            setRoomType(hotel?.room_types)
+        }
+        setFormCreateRoom({
+            ...formCreateRoom,
+            hotel_id: hotel_id,
+        })
+    }
+
     const handleUpdateRoom = () => {
-        
+        const payload: IUpdateRoom = {
+            room_id:formCreateRoom.id,
+            room_type_id: formCreateRoom.room_type_id,
+        }
+        onUpdateRoom(payload);
     }
-
-    
-    
-    return(
+    return (
         <>
             <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
             >
                 <Modal.Header closeButton>
-                    {isEmpty(roomData) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update</Modal.Title>}
+                    {isEmpty(roomDetail) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update - P.{roomDetail.code}</Modal.Title>}
                 </Modal.Header>
                 <Modal.Body>
                     <div className={'container-fluid'}>
                         <Row className="mb-3">
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Khách sạn</Form.Label>
-                                <Form.Select aria-label="Default select example">
-                                            {hotelsData.map((hotel, h_index) => (
-                                                <option 
-                                                    key={h_index}
-                                                    value={hotel.id} 
-                                                    onChange={() => setHotelId(hotel.id)}>
-                                                        {hotel.name}
-                                                </option>
-                                                ))}
-                                        </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group as={Col} md={6}>
-                                <Form.Label>Loại Phòng</Form.Label>
-                                <Form.Select aria-label="Default select example">
+                                <Form.Select value={formCreateRoom.hotel_id} onChange={(e) => handleOnChangeHotel(parseInt(e.target.value))}>
+                                    <option disabled selected>-- Chọn khách sạn --</option>
+                                    {hotelsData.map((hotel, h_index) => (
+                                        <option
+                                            key={h_index}
+                                            value={hotel.id}
+                                        >
+                                            {hotel.name}
+                                        </option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
 
                             <Form.Group as={Col} md={6}>
-                                <Form.Label>Tầng</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    placeholder="Tầng"
-                                    value={formCreateRoom.floor}
-                                    onChange={e => setFormCreateRoom({
-                                        ...formCreateRoom,
-                                        floor:Number( e.target.value),
-                                    })}
-
-                                    
-                                />
+                                <Form.Label>Loại Phòng</Form.Label>
+                                <Form.Select value={formCreateRoom.room_type_id} onChange={(e) => setFormCreateRoom({
+                                    ...formCreateRoom,
+                                    room_type_id: parseInt(e.target.value)
+                                })}>
+                                    <option disabled selected>-- Chọn loại phòng --</option>
+                                    {roomType?.map((type, t_index) => (
+                                        <option
+                                            key={t_index}
+                                            value={type.id}
+                                        >
+                                            {type.name}
+                                        </option>
+                                    ))}
+                                </Form.Select>
                             </Form.Group>
 
-                            <Form.Group as={Col} md={6}>
-                                <Form.Label>Số Phòng</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    placeholder="Số Phòng"
-                                    value={formCreateRoom.code}
-                                    onChange={e => setFormCreateRoom({
-                                        ...formCreateRoom,
-                                        code: e.target.value,
-                                    })}
-                                />
-                            </Form.Group>
+                            {isEmpty(roomData) ?
+                                                            <Form.Group as={Col} md={6}>
+                                                            <Form.Label>Tầng</Form.Label>
+                                                            <Form.Select onChange={(e) => setFormCreateRoom({
+                                                                ...formCreateRoom,
+                                                                floor: parseInt(e.target.value)
+                                                            })}>
+                                                                {Array.from({ length: floors }, (_, index) => (
+                                                                    <option key={index + 1} value={index + 1}>Floor {index + 1}</option>
+                                                                ))}
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                        :
+                                                        ''
+                            }
                         </Row>
-                        
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={onClose}>
                         Đóng
                     </Button>
-                    {isEmpty(roomData)
-                    ? 
-                    <Button variant="success" onClick={handleCreateRoom}>
-                        Tạo
-                    </Button>    
-                    :
-                    <Button variant="success" onClick={handleUpdateRoom}>
-                        Cập nhật
-                    </Button>
-                }
+                    {isEmpty(roomDetail)
+                        ?
+                        <Button variant="success" onClick={handleCreateRoom}>
+                            Tạo
+                        </Button>
+                        :
+                        <Button variant="success" onClick={handleUpdateRoom}>
+                            Cập nhật
+                        </Button>
+                    }
                 </Modal.Footer>
             </Modal>
         </>

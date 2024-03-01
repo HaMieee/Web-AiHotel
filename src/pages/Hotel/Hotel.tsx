@@ -9,6 +9,7 @@ import {IPaginateResponse} from "../../redux/types/page";
 import {isEmpty, map} from "lodash";
 import PaginationComponent from "../../layouts/components/pagination/PaginationComponent";
 import {useNavigate} from "react-router";
+import './Hotel.scss'
 
 const Hotel = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Hotel = () => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
             payload: {
-                per_page: 4,
+                per_page: 2,
                 page: currentPage,
             }
         })
@@ -47,8 +48,29 @@ const Hotel = () => {
         <>
             <div className={"container-fluid mt-3"}>
                 <Row>
-                    <Col md={4} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
-                        <div className={'container-fluid'}>Page support</div>
+                    <Col md={2} style={{border: 'solid 1px #CAB39E', borderRadius: '10px', height:'305px'}}>
+                        <div className={'container-fluid support'}>
+                            <div className="help_support">
+                                Help & Support
+                            </div>
+                            <div className="hotline">Hotline:</div>
+                           <div className="phone">
+                                        <div>
+                                            <span> HÀ Nội</span>
+                                            <span>19002310</span>
+                                        </div>
+                                        <div>
+                                            <span>TP. HCM</span>
+                                            <span>19000711</span>
+                                        </div>
+                                        <div>
+                                            <span>Đà Nẵng</span>
+                                            <span>19000608</span>
+                                        </div>
+                           </div>
+                           <div className="email">Email</div>
+                           <div className="email_contact">aihotel123@gmail.com</div>
+                        </div>
                     </Col>
                     <Col>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>

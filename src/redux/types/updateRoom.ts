@@ -1,8 +1,5 @@
 
 export type IUpdateRoom = {
-    id?: number;
-    code?: string;
-    floor?: number;
-    hotel?: string;
-    room_type?: string;
+    room_id?: number
+    room_type_id?: number;
 }

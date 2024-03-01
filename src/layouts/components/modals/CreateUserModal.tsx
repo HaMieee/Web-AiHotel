@@ -112,7 +112,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
             <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static"
             >
                 <Modal.Header closeButton>
-                    {isEmpty(userData) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update</Modal.Title>}*
+                    {isEmpty(userData) ? <Modal.Title>Create</Modal.Title> : <Modal.Title>Update</Modal.Title>}
                 </Modal.Header>
                 <Modal.Body>
                     <div className={'container-fluid'}>

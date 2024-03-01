@@ -7,19 +7,29 @@ import { ICreateRoom } from '../types/createRoom';
 import { IUpdateRoom } from '../types/updateRoom';
 
 const getListRoom = async (payload: {
+    hotel_id: number;
     per_page?: number;
     page?: number;
 }) => {
     return axiosInstance.get('/api/room/get-list', {
         params: {
+            hotel_id: payload.hotel_id,
             per_page: payload.per_page,
             page: payload.page,
+        }
+    })
+};
+
+const getRoomDetail = async (room_id) => {
+    return axiosInstance.get('/api/room/detail', {
+        params: {
+            room_id: room_id,
         }
     })
 }
 
 const getRoom = async (roomId: number) => {    
-    return axiosInstance.get('', {
+    return axiosInstance.get('/api/room/detail', {
         params:{
             room_id :roomId,
         }
@@ -27,16 +37,15 @@ const getRoom = async (roomId: number) => {
 }
 
 const createRoom = async (createRoom: ICreateRoom) => {
-    
+
     return axiosInstance.post('/api/room/create', createRoom)
 }
 const updateRoom = async (updateRoom: IUpdateRoom) => {
-    
-    return axiosInstance.put('', updateRoom)
+    return axiosInstance.post('/api/room/update', updateRoom)
 }
 const deleteRoom = async (room_id: number) => {
     const data = {room_id: room_id}
-    return axiosInstance.delete('',{data})
+    return axiosInstance.delete('/api/room/delete',{data})
 }
 
 const handleCreateRoom = function* (action) {
@@ -114,6 +123,31 @@ const handleGetListRoomByIdHotel = function* (action) {
     }
 };
 
+const handleGetRoomDetail = function* (action) {
+    try {
+        yield put({
+            type: manageRoomActions.getRoomDetailPending.type,
+        })
+        const response = yield call(getRoomDetail, action.payload);
+        if (response.data.statusCode === 200) {
+            yield put({
+                type: manageRoomActions.getRoomDetailSuccess.type,
+                payload: response.data.data,
+            })
+        }
+    } catch (err) {
+        yield put({
+            type: manageRoomActions.getRoomDetailError.type,
+            payload: {message: get(err, 'response.data.message')},
+        })
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
+    }
+};
+
 const handleUpdateRoom = function* (action) {
     try{
         yield put({
@@ -162,6 +196,12 @@ const handleDeleteRoom = function* (action) {
             payload: {message: get(err, 'response.data.message')}
         })
         toast.error(get(err, 'response.data.message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -185,6 +225,14 @@ const manageRoomSaga = function* () {
     yield takeLatest(
         `${manageRoomActions.deleteRoomPending}_saga`,
         handleDeleteRoom
+    )
+    // yield takeLatest(
+    //     `${manageRoomActions.getRoomDetailPending}_saga`,
+    //     handleGetRoomDetail,
+    // )
+    yield takeLatest(
+        `${manageRoomActions.getRoomDetailPending}_saga`,
+        handleGetRoomDetail,
     )
 };
 

@@ -68,18 +68,6 @@ const getListRoomSuccess = (
     state.isError = false;
 }
 
-const getRoomDetailSuccess = (
-    state: IInitialState,
-    action: {
-    type: string;
-    payload: IRoom;
-}
-) => {
-state.roomDetail = action.payload;
-state.isLoading = false;
-state.isError = false;
-}
-
 const createRoomSuccess = (
     state: IInitialState,
     action: {
@@ -90,7 +78,20 @@ const createRoomSuccess = (
     state.rooms.push(action.payload);
     state.isLoading = false;
     state.isError = false;
+};
+
+const getRoomDetailSuccess = (
+    state: IInitialState,
+    action: {
+        type: string;
+        payload: IRoom;
+    }
+) => {
+    state.roomDetail = action.payload;
+    state.isLoading = false;
+    state.isError = false;
 }
+
 const updateRoomSuccess = (
     state: IInitialState,
     action:{
@@ -105,6 +106,7 @@ const updateRoomSuccess = (
     state.isLoading = false;
     state.isError = false;
 }
+
 const deleteRoomSuccess = (
     state: IInitialState,
     action: {
@@ -124,8 +126,8 @@ const manageRoomSlice = createSlice({
         getListRoomPending,
         getListRoomError,
         getListRoomSuccess,
-        getRoomDetailError,
         getRoomDetailPending,
+        getRoomDetailError,
         getRoomDetailSuccess,
         createRoomPending,
         createRoomError,

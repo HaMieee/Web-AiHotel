@@ -23,7 +23,7 @@ const ListHotels: React.FC<IListHotelComponent> = ({
         <>
             <div className={"container-fluid"}>
                 <div>
-                    <h3>Most famous hotel in Ha Noi</h3>
+                    <h3 style={{textAlign:'center', fontSize:'44px',fontFamily:'-moz-initial', fontStyle:'italic'}}>Phòng nổi bật nhất</h3>
                 </div>
 
                 {!isEmpty(listHotelData) && map(listHotelData, (hotel, i_index) => (

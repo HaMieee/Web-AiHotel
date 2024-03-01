@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 function DeleteRoomModal({
   isShow,
   onClose,
-  userDelete,
+  roomDelete,
   onConfirm,
 }) {
 
@@ -21,7 +21,7 @@ function DeleteRoomModal({
           <Button variant="secondary" onClick={onClose}>
             Đóng
           </Button>
-          <Button variant="primary" onClick={() => onConfirm(userDelete.id)}>
+          <Button variant="primary" onClick={() => onConfirm(roomDelete.id)}>
             Xác nhận
           </Button>
         </Modal.Footer>
