@@ -18,6 +18,7 @@ import ManageUser from '../pages/Admin/ManageUser/ManageUser';
 import ManageReservation from "../pages/Admin/ManageReservation/ManageReservation";
 import ManageRoom from '../pages/Admin/ManageRoom/ManageRoom';
 import TestPage from "../pages/Test/TestPage";
+import ManageService from '../pages/Admin/ManageService/ManageService';
 
 const Router = () => {
     return useRoutes([
@@ -68,6 +69,10 @@ const Router = () => {
                 {
                     path:'/manage-room',
                     element:<ManageRoom/>
+                },
+                {
+                    path:'/manage-service',
+                    element:<ManageService/>
                 }
             ]
         },

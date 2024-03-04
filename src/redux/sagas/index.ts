@@ -6,6 +6,7 @@ import manageRoomTypeSaga from "./manageRoomType.saga";
 import manageRoomSaga from "./manageRoom.saga";
 import manageUserSaga from './manageUser.saga';
 import manageReservationSaga from "./manageReservation.saga";
+import manageServiceSaga from './manageService.saga';
 
 const rootSaga = function* () {
     yield fork(testSaga)
@@ -15,6 +16,7 @@ const rootSaga = function* () {
     yield fork(manageRoomTypeSaga)
     yield fork(manageRoomSaga)
     yield fork(manageReservationSaga)
+    yield fork(manageServiceSaga)
 };
 
 export default rootSaga;
