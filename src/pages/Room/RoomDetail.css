@@ -13,14 +13,14 @@
 }
 
 .room-content {
-    background-color: #ECD9C8;
+    background-color: white;
     border-radius: 10px;
     padding: 10px;
 }
 
 .room-detail-description {
     font-size: 15px;
-    border: solid 1px #CAB39E;
+    border: solid 1px #51A9FF;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 15px;

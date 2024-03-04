@@ -9,6 +9,7 @@ import {IPaginateResponse} from "../../redux/types/page";
 import {isEmpty, map} from "lodash";
 import PaginationComponent from "../../layouts/components/pagination/PaginationComponent";
 import {useNavigate} from "react-router";
+import './Hotel.scss'
 
 const Hotel = () => {
     const dispatch = useDispatch();
@@ -46,15 +47,12 @@ const Hotel = () => {
     return (
         <>
             <div className={"container-fluid mt-3"}>
-                <div>
-                    <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
-                </div>
                 <Row>
-                    <Col className={'mt-2'} md={2} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
+                    <Col className={''} md={2} style={{border: 'solid 1px #51A9FF', borderRadius: '10px', height:'250px', marginTop:'210px'}}>
                         <div className={'container-fluid  support'}>
-                            <div>Help & Support</div>
-                            <div>Hotline:</div>
-                            <div>
+                            <div className="help_support">Help & Support</div>
+                            <div className="hotline">Hotline:</div>
+                            <div className="phone">
                                 <div>
                                     <span>Hà Nội</span>
                                     <span>19002310</span>
@@ -68,16 +66,35 @@ const Hotel = () => {
                                     <span>19000608</span>
                                 </div>
                             </div>
-                            <div>Email:</div>
-                            <div>aihotel123@gmail.com</div>
+                            <div className="help_email">Email:</div>
+                            <div className="email">aihotel123@gmail.com</div>
                         </div>
                     </Col>
                     <Col>
+
+                    <Row>
+                        <div>
+                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
+                        </div>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
                         <div className={'d-flex justify-content-center'}>
                             <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
                         </div>
+                    </Row>
+
+                    {/* <Row>
+                    <div>
+                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
+                        </div>
+                        <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
+                        <div className={'d-flex justify-content-center'}>
+                            <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
+                        </div>
+                    </Row> */}
+
                     </Col>
+
+                    
                 </Row>
             </div>
         </>

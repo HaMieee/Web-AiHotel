@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: gray;
+    background-color: #51A9FF;
 }
 .header_logo:hover{
     cursor: pointer;
@@ -33,7 +33,7 @@
          font-size: 16px;
          font-weight: 400;
          border: 1px solid transparent;
-         color: gray;
+         color: blue;
          border-radius: 8px;
          text-decoration: none;
          &:hover{
@@ -83,7 +83,7 @@
     font-size: 1rem;
     position: absolute;
     top: 50px;
-    right: -20px;
+    right: -12px;
     width: 360px;
     border-radius: 10px;
     display: none;
@@ -98,7 +98,7 @@
         border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -110,7 +110,7 @@
         border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -120,7 +120,7 @@
         border-bottom: 1px solid gainsboro;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -131,7 +131,7 @@
         border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -141,7 +141,7 @@
         border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
        
@@ -156,8 +156,9 @@
     justify-content: space-between;
     padding-left: 100px;
     padding-right: 140px;
-    background-color: rgb(150, 147, 147);
-    height: 42px;    
+    background-color:#288de0;
+    height: 42px;  
+    color: #fff;  
 }
 
 .header_item1{

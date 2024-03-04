@@ -1,5 +1,4 @@
 import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import slide1 from '../../../img/slide1.png';
 import slide2 from '../../../img/slide2.png';
@@ -9,6 +8,8 @@ import hoian from '../../../img/hoian.jpg';
 import catba from '../../../img/catba.jpg';
 import coto from '../../../img/coto.jpg';
 import halong from '../../../img/halong.jpg';
+import { Carousel } from 'react-responsive-carousel';
+
 import './MyCarousel.scss'
 
 const MyCarousel: React.FC = () => {
@@ -16,7 +17,7 @@ const MyCarousel: React.FC = () => {
         <div className='slide_show'>
                <div className='slide_top '  style={{maxWidth:'100%'}}>
                     <div style={{maxWidth:'75%'}}>
-                            <Carousel 
+                            <Carousel
                             infiniteLoop={true}
                             transitionTime={2000}
                             autoPlay={true}

@@ -24,7 +24,7 @@ const ListHotels: React.FC<IListHotelComponent> = ({
             <div className={"container-fluid"}>
                 {!isEmpty(listHotelData) && map(listHotelData, (hotel, i_index) => (
                     <div className={"container-hotel"} key={i_index}>
-                        <Image src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                        <Image src={'https://i.pinimg.com/564x/5b/5c/34/5b5c34981e9d2a6adbf7c062e0fd4857.jpg'}
                                rounded
                                className={'object-fit-cover h-100'}
                                style={{width: "30%"}}
@@ -58,10 +58,10 @@ const ListHotels: React.FC<IListHotelComponent> = ({
                         <div style={{width: "20%", textAlign: "end", height: "100%"}}
                              className={'d-flex justify-content-between flex-column'}>
                             <div>
-                                <Button>4.8</Button>
+                                <Button style={{backgroundColor:'#51A9FF'}}>4.8</Button>
                             </div>
                             <div>
-                                <Button onClick={() => onCheckHotel(Number(hotel.id))}>
+                                <Button style={{backgroundColor:'#51A9FF'}} onClick={() => onCheckHotel(Number(hotel.id))}>
                                     Check room
                                     <i><IoIosArrowForward size={"20px"}/></i>
                                 </Button>

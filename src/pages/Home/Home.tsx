@@ -9,10 +9,10 @@ import Hotel from "../Hotel/Hotel";
 const Home = () => {
     return (
         <>
-        <MyCarousel/>
-        <Hotel />
-        {/* <Banner/> */}
-        {/* <Blog/> */}
+            <MyCarousel/>
+            <Hotel />
+            <Banner/>
+            <Blog/>
         </>
     )
 }

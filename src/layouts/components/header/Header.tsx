@@ -66,7 +66,7 @@ const Header: React.FC<IHeader> = ({
                   <span className="icon_home">
                     <IoHome />
                   </span>
-                  <h4 style={{ fontSize: "13px", marginTop: "16px" }}>
+                  <h4 style={{ fontSize: "13px", marginTop: "16px", color:'white' }}>
                     Hệ thống khách sạn
                   </h4>
                 </div>
@@ -91,7 +91,7 @@ const Header: React.FC<IHeader> = ({
                       
                      
                     </div>
-                    <span style={{fontSize:'0.8rem', marginTop:'18px'}}>{userInfo.name}</span>
+                    <span style={{fontSize:'0.9rem', marginTop:'18px', color:"#ffff"}}>{userInfo.name}</span>
                   </div>
                 <div className="book_btn">
                   <a className="popup-with-form" href="#test-form">
@@ -104,7 +104,7 @@ const Header: React.FC<IHeader> = ({
           <div className="header_item">
             <div className="header_item1">
               <ul className="header_item1_menu">
-                <Link to={"/"} style={{textDecoration:'none'}}>
+                <Link to={"/"} style={{textDecoration:'none', color:'white'}}>
                   <li>Trang Chủ</li>
                 </Link>
                 <li>Phòng</li>
@@ -118,7 +118,7 @@ const Header: React.FC<IHeader> = ({
             <div className="header_item2">
               <ul className="header_item2_menu">
                 <div onClick={() => navigate('.//veAiHotel')}>
-                  <li>Về AiHotel</li>
+                  <li>About Us</li>
                 </div>
                 <li>Blog</li>
               </ul>
