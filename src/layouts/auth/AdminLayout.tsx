@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 import React from 'react';
 import BlankLayout from '../blankLayout/BlankLayout';
 import { useSelector } from 'react-redux';
@@ -15,10 +15,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import {
-  mainListItems,
-  secondaryListItems,
-} from '../components/header/ListItems';
+import { mainListItems } from '../components/header/ListItems';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -153,7 +150,6 @@ const AdminLayout = () => {
             <List component="nav">
               {mainListItems}
               <Divider sx={{ my: 1 }} />
-              {/* {secondaryListItems} */}
             </List>
           </Drawer>
           <Box
