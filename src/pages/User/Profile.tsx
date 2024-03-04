@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 const Profile = () => {
-    const userInfo = useSelector((state: RootState) => state.auth.userInfo)
-    return (
-        <>
-            <UpdateInfo userInfo={userInfo}/>
-        </>
-    )
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  return (
+    <>
+      <UpdateInfo userInfo={userInfo} />
+    </>
+  );
 };
 
 export default Profile;

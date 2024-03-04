@@ -1,4 +1,4 @@
 export type ILogin = {
-    email?: string;
-    password?: string;
-}
+  email?: string;
+  password?: string;
+};

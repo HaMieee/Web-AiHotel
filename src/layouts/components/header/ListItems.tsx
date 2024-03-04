@@ -11,86 +11,85 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import HouseIcon from '@mui/icons-material/House';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import LayersIcon from '@mui/icons-material/Layers';
+import RoomServiceIcon from '@mui/icons-material/RoomService';
 import { Link } from 'react-router-dom';
 
 export const mainListItems = (
-    <React.Fragment>
+  <React.Fragment>
+    <ListItemButton component={Link} to={'/'}>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Trang chủ" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/'}>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Trang chủ" />
-        </ListItemButton>
+    <ListItemButton component={Link} to={'/manage-user'}>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản lý người dùng" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/manage-user'}>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý người dùng" />
-        </ListItemButton>
+    <ListItemButton component={Link} to={'/manage-hotel'}>
+      <ListItemIcon>
+        <HouseIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản lý khách sạn" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/manage-hotel'}>
-            <ListItemIcon>
-                <HouseIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý khách sạn" />
-        </ListItemButton>
+    <ListItemButton component={Link} to={'/manage-room'}>
+      <ListItemIcon>
+        <MeetingRoomIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản lý phòng" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/manage-room'}>
-            <ListItemIcon>
-                <MeetingRoomIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý phòng" />
-        </ListItemButton>
+    <ListItemButton component={Link} to={'/manage-service'}>
+      <ListItemIcon>
+        <RoomServiceIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản lý dịch vụ" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/manage-service'}>
-            <ListItemIcon>
-                <MeetingRoomIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý dịch vụ" />
-        </ListItemButton>
+    <ListItemButton component={Link} to={'/manage-reservation'}>
+      <ListItemIcon>
+        <EventNoteIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản đơn đặt phòng" />
+    </ListItemButton>
 
-        <ListItemButton component={Link} to={'/manage-reservation'}>
-            <ListItemIcon>
-                <EventNoteIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản đơn đặt phòng" />
-        </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Quản lý hóa đơn" />
+    </ListItemButton>
 
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý hóa đơn" />
-        </ListItemButton>
-
-        <ListItemButton>
-            <ListItemIcon>
-                <LayersIcon />
-            </ListItemIcon>
-            <ListItemText primary="Thống kê" />
-        </ListItemButton>
-
-    </React.Fragment>
-)
+    <ListItemButton>
+      <ListItemIcon>
+        <LayersIcon />
+      </ListItemIcon>
+      <ListItemText primary="Thống kê" />
+    </ListItemButton>
+  </React.Fragment>
+);
 
 export const secondaryListItems = (
-    <React.Fragment>
-        <ListSubheader component="div" inset>
-            Tác vụ khác
-        </ListSubheader>
-        <ListItemButton>
-            <ListItemIcon>
-                <HouseIcon />
-            </ListItemIcon>
-            <ListItemText primary="Do something 1" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Do something 2" />
-        </ListItemButton>
-    </React.Fragment>
+  <React.Fragment>
+    <ListSubheader component="div" inset>
+      Tác vụ khác
+    </ListSubheader>
+    <ListItemButton>
+      <ListItemIcon>
+        <HouseIcon />
+      </ListItemIcon>
+      <ListItemText primary="Do something 1" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Do something 2" />
+    </ListItemButton>
+  </React.Fragment>
 );
