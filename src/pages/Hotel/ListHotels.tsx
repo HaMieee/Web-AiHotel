@@ -22,10 +22,6 @@ const ListHotels: React.FC<IListHotelComponent> = ({
     return (
         <>
             <div className={"container-fluid"}>
-                <div>
-                    <h3>Most famous hotel in Ha Noi</h3>
-                </div>
-
                 {!isEmpty(listHotelData) && map(listHotelData, (hotel, i_index) => (
                     <div className={"container-hotel"} key={i_index}>
                         <Image src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}

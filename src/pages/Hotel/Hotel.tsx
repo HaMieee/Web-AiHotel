@@ -24,7 +24,7 @@ const Hotel = () => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
             payload: {
-                per_page: 4,
+                per_page: 3,
                 page: currentPage,
             }
         })
@@ -46,9 +46,31 @@ const Hotel = () => {
     return (
         <>
             <div className={"container-fluid mt-3"}>
+                <div>
+                    <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
+                </div>
                 <Row>
-                    <Col md={4} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
-                        <div className={'container-fluid'}>Page support</div>
+                    <Col className={'mt-2'} md={2} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
+                        <div className={'container-fluid  support'}>
+                            <div>Help & Support</div>
+                            <div>Hotline:</div>
+                            <div>
+                                <div>
+                                    <span>Hà Nội</span>
+                                    <span>19002310</span>
+                                </div>
+                                <div>
+                                    <span>TP.HCM</span>
+                                    <span>19000711</span>
+                                </div>
+                                <div>
+                                    <span>CT</span>
+                                    <span>19000608</span>
+                                </div>
+                            </div>
+                            <div>Email:</div>
+                            <div>aihotel123@gmail.com</div>
+                        </div>
                     </Col>
                     <Col>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>

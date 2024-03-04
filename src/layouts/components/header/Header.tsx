@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { FaHeart } from "react-icons/fa6";
 import { IoHome, IoPersonSharp } from "react-icons/io5";
-import { MdLanguage } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
@@ -95,16 +93,6 @@ const Header: React.FC<IHeader> = ({
                     </div>
                     <span style={{fontSize:'0.8rem', marginTop:'18px'}}>{userInfo.name}</span>
                   </div>
-                <div className="icon_heart">
-                  <span>
-                    <FaHeart />
-                  </span>
-                </div>
-                <div className="icon_language">
-                  <span>
-                    <MdLanguage />
-                  </span>
-                </div>
                 <div className="book_btn">
                   <a className="popup-with-form" href="#test-form">
                     Book A Room

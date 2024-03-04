@@ -1,14 +1,18 @@
 import Banner from "../../layouts/components/banner/Banner";
 import Blog from "../../layouts/components/blog/Blog";
-import Slide from "../../layouts/components/slide/Silde";
 import React from "react";
+
+import MyCarousel from "../../layouts/components/carousel/MyCarousel";
+import ListHotels from "../Hotel/ListHotels";
+import Hotel from "../Hotel/Hotel";
 
 const Home = () => {
     return (
         <>
-        <Slide/>
-        <Banner/>
-        <Blog/>
+        <MyCarousel/>
+        <Hotel />
+        {/* <Banner/> */}
+        {/* <Blog/> */}
         </>
     )
 }
