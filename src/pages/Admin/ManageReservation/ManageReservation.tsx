@@ -15,11 +15,13 @@ import TableThree from "../../../layouts/components/table/TableThree";
 import Pagination from "@mui/material/Pagination";
 import Box from '@mui/material/Box';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
+import {useNavigate} from "react-router";
 
 const typeActions = ['delete', 'detail'];
 
 const ManageReservation = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const listReservationState = useSelector((state: RootState) => state.manageReservation.reservations);
     const metaState = useSelector((state: RootState) => state.manageReservation.paginate);
     const listHotelState = useSelector((state: RootState) => state.manageHotel.hotels);
@@ -91,6 +93,12 @@ const ManageReservation = () => {
 
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value)
+    }
+
+    const handleOnAction = (recordId, action) => {
+        if (action === 'detail') {
+            return navigate(`/manage-reservation/${recordId}`)
+        }
     }
 
     const handleHotelSelection = (event, value) => {
@@ -177,6 +185,7 @@ const ManageReservation = () => {
             <TableThree columns={['STT', 'Khách sạn', 'Phòng', 'Loại phòng', 'Người đặt', 'Từ ngày', 'Đến đến', 'Trạng thái', 'Tùy chọn']}
                         rows={listReservationData}
                         actions={map(typeActions, (action) => ({ type: action }))}
+                        onAction={handleOnAction}
             />
 
             <div className={'d-flex justify-content-center'}>
