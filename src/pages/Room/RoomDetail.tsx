@@ -77,6 +77,12 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     useEffect(() => {
         if (roomSelected) {
             applyJoin();
+            if (roomSelected) {
+                (window as any).Echo?.channel('booked-channel')
+                  .listen(`.booked.event.${roomSelected}`, (e) => {
+                      setDisabledDates([...disabledDates, ...eachDayOfInterval({ start: new Date(e.start_date), end: new Date(e.end_date) })]);
+                  });
+            }
         }
     }, [roomSelected])
 
