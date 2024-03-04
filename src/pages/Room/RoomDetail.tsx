@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import {differenceInDays} from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
-import {initEcho} from "../../services/ws.service";
+import {initEcho, initPusher} from "../../services/ws.service";
 import {IUser} from "../../redux/types/user";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -47,7 +47,17 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
         if (!(window as any).Echo) {
             (window as any).Echo = initEcho();
         }
+        if (!(window as any).Pusher) {
+            (window as any).Pusher = initPusher();
+        }
     }, []);
+
+    useEffect(() => {
+        if (!show && roomSelected) {
+            (window as any).Echo?.leave(`presence.room.${roomSelected}`);
+            setRoomSelected(0);
+        }
+    }, [show]);
 
     useEffect(() => {
         if (roomSelected) {
@@ -67,6 +77,12 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     useEffect(() => {
         if (roomSelected) {
             applyJoin();
+            if (roomSelected) {
+                (window as any).Echo?.channel('booked-channel')
+                  .listen(`.booked.event.${roomSelected}`, (e) => {
+                      setDisabledDates([...disabledDates, ...eachDayOfInterval({ start: new Date(e.start_date), end: new Date(e.end_date) })]);
+                  });
+            }
         }
     }, [roomSelected])
 
@@ -89,18 +105,22 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     }, [dayNumbers, roomData])
 
     const applyJoin = () => {
-        (window as any).Echo?.leave(`presence.room.${roomOldSelected}`);
+        if (roomOldSelected) {
+            (window as any).Echo?.leave(`presence.room.${roomOldSelected}`);
+        }
 
-        (window as any).Echo?.join(`presence.room.${roomSelected}`)
-            .here((users) => {
-                setUsersRoom(users);
-            })
-            .joining((user) => {
-                setUsersRoom(prevState => [...prevState, user]);
-            })
-            .leaving((user) => {
-                setUsersRoom(prevState => prevState.filter(u => u.id !== user.id));
-            });
+        if (roomSelected) {
+            (window as any).Echo?.join(`presence.room.${roomSelected}`)
+              .here((users) => {
+                  setUsersRoom(users);
+              })
+              .joining((user) => {
+                  setUsersRoom(prevState => [...prevState, user]);
+              })
+              .leaving((user) => {
+                  setUsersRoom(prevState => prevState.filter(u => u.id !== user.id));
+              });
+        }
     }
 
     const inValidDate = () => {

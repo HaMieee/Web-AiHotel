@@ -14,6 +14,8 @@ import TableThree from "../../../layouts/components/table/TableThree";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import Box from "@mui/material/Box";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
 
 const typeActions = ['delete', 'edit'];
 
@@ -80,6 +82,14 @@ const ManageRoom = () => {
     }
     return(
         <>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Quản lý phòng
+                </h3>
+            </Box>
+
             <div className={'d-flex justify-content-end mb-3'}>
                 <Stack spacing={2} direction="row">
                     <Button variant="contained"

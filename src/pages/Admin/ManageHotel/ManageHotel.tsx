@@ -16,9 +16,12 @@ import TableThree from "../../../layouts/components/table/TableThree";
 import Pagination from '@mui/material/Pagination';
 import Stack from "@mui/material/Stack";
 import AddHomeIcon from "@mui/icons-material/AddHome";
+import Box from "@mui/material/Box";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
+import ConfirmModal from "../../../layouts/components/modals/ConfirmModal";
 
 
-const typeActions = ['delete', 'detail'];
+const typeActions = ['delete', 'update'];
 
 const ManageHotel = () => {
     const dispatch = useDispatch();
@@ -28,8 +31,11 @@ const ManageHotel = () => {
     const roomTypesState: IRoomType[] = useSelector((state: RootState) => state.manageRoomType.room_types);
 
     const [hotelsData, setHotelsData] = useState<IHotel[]>([]);
+    const [hotelDetail, setHotelDetail] = useState<IHotel | undefined>({});
     const [roomTypesData, setRoomTypesData] = useState<IRoomType[]>([]);
-    const [showCreate, setShowCreate] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [action, setAction] = useState<'create' | 'update'>('create');
     const [metaData, setMetaData] = useState<IPaginateResponse>({});
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -64,38 +70,79 @@ const ManageHotel = () => {
                 description: hotel.description,
             }
         });
-    }
+    };
 
     const handleOnAction = (recordId, action) => {
         if (action === 'detail') {
             return navigate(`/manage-hotel/${recordId}`)
         }
         if (action === 'delete') {
-            dispatch({
-                type: `${manageHotelActions.deleteHotelPending}_saga`,
-                payload: recordId,
-            })
+            handleShowDelete(recordId)
         }
-    }
+        if (action === 'update') {
+            handleShowUpdate(recordId);
+        }
+    };
 
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value)
-    }
+    };
 
     const handleCreateHotel = (createHotelData: ICreateHotel) => {
         dispatch({
             type: `${manageHotelActions.createHotelPending}_saga`,
             payload: createHotelData,
         })
+    };
+
+    const handleUpdateHotel = (updateHotelData: ICreateHotel) => {
+        dispatch({
+            type: `${manageHotelActions.updateHotelPending}_saga`,
+            payload: updateHotelData,
+        })
+    };
+
+    const onConfirmDeleteHotel = (recordId: number) => {
+        dispatch({
+            type: `${manageHotelActions.deleteHotelPending}_saga`,
+            payload: recordId,
+        })
+        setShowConfirmModal(false);
+    }
+
+    const handleShowUpdate = (recordId: number) => {
+        const hotel = hotelsState.find(hotel => hotel.id === recordId);
+        setHotelDetail(hotel);
+        setAction('update');
+        setShowModal(true);
+    };
+
+    const handleShowDelete = (recordId: number) => {
+        const hotel = hotelsState.find(hotel => hotel.id === recordId);
+        setHotelDetail(hotel);
+        setShowConfirmModal(true);
+    }
+
+    const handleShowCreate = () => {
+        setAction('create');
+        setShowModal(true);
     }
 
     return (
         <>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Quản lý khách sạn
+                </h3>
+            </Box>
+
             <div className={'d-flex justify-content-end mb-3'}>
                 <Stack spacing={2} direction="row">
                     <Button variant="contained"
                             startIcon={<AddHomeIcon/>}
-                            onClick={() => setShowCreate(true)}>
+                            onClick={handleShowCreate}>
                         Thêm
                     </Button>
                 </Stack>
@@ -116,10 +163,22 @@ const ManageHotel = () => {
             </div>
 
             <CreateHotelModal
-                isShow={showCreate}
-                onClose={() => setShowCreate(false)}
+                isShow={showModal}
+                onClose={() => setShowModal(false)}
                 roomTypesData={roomTypesData}
                 onCreateHotel={handleCreateHotel}
+                onUpdateHotel={handleUpdateHotel}
+                action={action}
+                hotelDetail={hotelDetail}
+            />
+
+            <ConfirmModal show={showConfirmModal}
+                          title={'Xóa khách sạn'}
+                          action={'delete'}
+                          message={'Bạn có chắc muốn xóa khách sạn này không?'}
+                          data={hotelDetail}
+                          onConfirm={onConfirmDeleteHotel}
+                          onClose={() => setShowConfirmModal(false)}
             />
         </>
     )

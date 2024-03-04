@@ -63,7 +63,12 @@ const handleLogin = function* (action) {
             type: authActions.loginError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -87,7 +92,12 @@ const handleGetInfo = function* () {
             type: authActions.getInfoError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -109,8 +119,12 @@ const handleLogout = function* () {
             type: authActions.logoutError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'message'));
-    }
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });    }
 }
 
 const handleRegister = function* (action) {
@@ -139,8 +153,12 @@ const handleRegister = function* (action) {
             type: authActions.registerError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err, 'response.data.message'));
-        console.log('error: ', err);
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -169,9 +187,12 @@ const handleChangePassword = function* (action) {
             type: authActions.changePasswordError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err,'response.data.message'))
-        console.log('error: ', err);
-        
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 
 }
@@ -199,9 +220,12 @@ const handleUpdateInfo = function* (action) {
             type: authActions.changePasswordError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err,'response.data.message'))
-        console.log('error: ', err);
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
 
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 
 }
@@ -229,9 +253,12 @@ const handleResetPassword = function* (action) {
             type: authActions.resetPasswordError.type,
             payload: {message: get(err, 'message')},
         })
-        toast.error(get(err,'response.data.message'))
-        console.log('error: ', err);
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
 
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 

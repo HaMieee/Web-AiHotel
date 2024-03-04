@@ -10,7 +10,6 @@ import DashBoardAdmin from "../pages/Admin/Dashboard/DashBoardAdmin";
 import AdminLayout from "../layouts/auth/AdminLayout";
 import NotFound404 from "../pages/404/NotFound404";
 import ManageHotel from "../pages/Admin/ManageHotel/ManageHotel";
-import ManageHotelDetail from "../pages/Admin/ManageHotel/ManageHotelDetail";
 import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import Hotel from "../pages/Hotel/Hotel";
@@ -20,6 +19,7 @@ import ManageReservation from "../pages/Admin/ManageReservation/ManageReservatio
 import ManageRoom from '../pages/Admin/ManageRoom/ManageRoom';
 import TestPage from "../pages/Test/TestPage";
 import ManageService from '../pages/Admin/ManageService/ManageService';
+import ManageReservationDetail from "../pages/Admin/ManageReservation/ManageReservationDetail";
 
 const Router = () => {
     return useRoutes([
@@ -60,10 +60,6 @@ const Router = () => {
                     element: <ManageHotel />
                 },
                 {
-                    path: '/manage-hotel/:hotel_id',
-                    element: <ManageHotelDetail />
-                },
-                {
                     path: '/manage-user',
                     element: <ManageUser/>
                 },
@@ -78,7 +74,11 @@ const Router = () => {
                 {
                     path:'/manage-service',
                     element:<ManageService/>
-                }
+                },
+                {
+                    path: '/manage-reservation/:reservation_id',
+                    element: <ManageReservationDetail />
+                },
             ]
         },
         {

@@ -12,7 +12,9 @@ import TableManage from "../../../layouts/components/table/TableManage";
 
 const DashBoardAdmin = () => {
     return (
-        <></>
+        <>
+            <div>Page thống kê</div>
+        </>
     )
 }
 export default DashBoardAdmin
