@@ -12,7 +12,7 @@ function DeleteUserModal({
   return (
     <>
 
-      <Modal show={isShow} onHide={onClose}>
+      <Modal show={isShow} onHide={onClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Xóa người dùng</Modal.Title>
         </Modal.Header>

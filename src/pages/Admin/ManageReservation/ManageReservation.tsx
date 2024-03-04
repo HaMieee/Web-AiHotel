@@ -6,27 +6,17 @@ import React, {useEffect, useState} from "react";
 import {manageReservationActions} from "../../../redux/slices/manageReservation.slice";
 import {IPaginateResponse} from "../../../redux/types/page";
 import {IReservation} from "../../../redux/types/reservation";
-import PaginationComponent from "../../../layouts/components/pagination/PaginationComponent";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {IHotel} from "../../../redux/types/hotel";
 import {manageHotelActions} from "../../../redux/slices/manageHotel.slice";
 import {IRoomType} from "../../../redux/types/roomType";
-import TableTwo from "../../../layouts/components/table/TableTwo";
 import TableThree from "../../../layouts/components/table/TableThree";
 import Pagination from "@mui/material/Pagination";
+import Box from '@mui/material/Box';
+import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 
 const typeActions = ['delete', 'detail'];
-const headerData = [
-    { field: 'id', headerName: 'ID', width: 70},
-    { field: 'hotel', headerName: 'Hotel', width: 150},
-    { field: 'room', headerName: 'Room', width: 100},
-    { field: 'user', headerName: 'User'},
-    { field: 'start_date', headerName: 'Start date'},
-    { field: 'end_date', headerName: 'End date'},
-    { field: 'status', headerName: 'Status'},
-    { field: 'actions', headerName: 'Actions'},
-]
 
 const ManageReservation = () => {
     const dispatch = useDispatch();
@@ -134,6 +124,14 @@ const ManageReservation = () => {
 
     return (
         <>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Quản lý đơn đặt phòng
+                </h3>
+            </Box>
+
             <div className={'d-flex mb-3'}>
                 <Autocomplete
                     className={'me-2'}

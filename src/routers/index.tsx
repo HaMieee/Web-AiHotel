@@ -10,7 +10,6 @@ import DashBoardAdmin from "../pages/Admin/Dashboard/DashBoardAdmin";
 import AdminLayout from "../layouts/auth/AdminLayout";
 import NotFound404 from "../pages/404/NotFound404";
 import ManageHotel from "../pages/Admin/ManageHotel/ManageHotel";
-import ManageHotelDetail from "../pages/Admin/ManageHotel/ManageHotelDetail";
 import SendEmail from '../pages/Auth/SendEmail';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import Hotel from "../pages/Hotel/Hotel";
@@ -57,10 +56,6 @@ const Router = () => {
                 {
                     path: '/manage-hotel',
                     element: <ManageHotel />
-                },
-                {
-                    path: '/manage-hotel/:hotel_id',
-                    element: <ManageHotelDetail />
                 },
                 {
                     path: '/manage-user',
