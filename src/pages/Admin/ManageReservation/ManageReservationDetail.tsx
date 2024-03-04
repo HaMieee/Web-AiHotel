@@ -27,7 +27,8 @@ import {
     HeaderContainer,
     StyledItemService,
     StyleButtonInvoice,
-    StyledGridCode
+    StyledGridCode,
+    StyledServiceCard
 } from './StyledManageHotelDetail';
 import Approve from "../../../layouts/components/modals/Reservation/Approve";
 import Reject from "../../../layouts/components/modals/Reservation/Reject";
@@ -142,10 +143,10 @@ const ManageReservationDetail = () => {
 
                 <StyleGirdCard>
                     <StyledCard>
-                        <StyleGirdItem item xs={12} sm={6}>
+                        <StyleGirdItem item xs={6} sm={6}>
                             <Card>
                                 <CardHeader title="Customer"/>
-                                <CardContent>
+                                <CardContent style={{height: '415px'}}>
                                     <StyleGirdContainerData container>
                                         <Grid item xs={4}>
                                             <StyledTypographyTitle gutterBottom>
@@ -227,27 +228,10 @@ const ManageReservationDetail = () => {
                                 </CardContent>
                             </Card>
                         </StyleGirdItem>
-                        <StyleGirdItem item xs={12} sm={6}>
-                            <Card sx={{marginTop: 2}}>
-                                <CardHeader title="Service"/>
-                                <CardContent>
-                                    <Stack direction="row" spacing={4}>
-                                        <StyledItemService>Service 1</StyledItemService>
-                                        <StyledItemService>Service 2</StyledItemService>
-                                        <StyledItemService>Service 3</StyledItemService>
-                                        <StyledItemService>Service 4</StyledItemService>
-                                        <StyledItemService>Service 5</StyledItemService>
-                                    </Stack>
-
-                                </CardContent>
-                            </Card>
-                        </StyleGirdItem>
-                    </StyledCard>
-                    <StyledCard>
-                        <StyleGirdItem item xs={12} sm={6}>
+                        <StyleGirdItem item xs={6} sm={6} >
                             <Card>
                                 <CardHeader title="Information"/>
-                                <CardContent>
+                                <CardContent style={{height: '415px'}}>
                                     <StyleGirdContainerData container>
                                         <Grid item xs={4}>
                                             <StyledTypographyTitle gutterBottom>
@@ -372,6 +356,23 @@ const ManageReservationDetail = () => {
                             </Card>
                         </StyleGirdItem>
                     </StyledCard>
+                    <StyledServiceCard>
+                        <StyleGirdItem item xs={12} sm={6}>
+                            <Card sx={{marginTop: 2}}>
+                                <CardHeader title="Service"/>
+                                <CardContent>
+                                    <Stack direction="row" spacing={4}>
+                                        <StyledItemService>Service 1</StyledItemService>
+                                        <StyledItemService>Service 2</StyledItemService>
+                                        <StyledItemService>Service 3</StyledItemService>
+                                        <StyledItemService>Service 4</StyledItemService>
+                                        <StyledItemService>Service 5</StyledItemService>
+                                    </Stack>
+
+                                </CardContent>
+                            </Card>
+                        </StyleGirdItem>
+                    </StyledServiceCard>
 
                 </StyleGirdCard>
             </>

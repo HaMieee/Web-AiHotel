@@ -10,14 +10,15 @@ export const StyledButtonContainer = styled('div')({
     marginTop: '16px',
 });
 export const StyledCard = styled(Card)({
-    marginTop: '16px',
-    marginLeft: '16px',
-    width: '50%',
-    backgroundColor: '#F7F8FB',
-    boxShadow: 'none',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: '16px',
+    boxShadow: "none"
 });
 export const StyleGirdItem = styled(Grid)({
-    backgroundColor: '#F7F8FB',
+    flex: '1 1 0',
+    padding: '16px',
 });
 export const StyledTypographyTitle = styled(Typography)({
     textAlign: 'left',
@@ -26,11 +27,9 @@ export const StyledTypographyValue = styled(Typography)({
     textAlign: 'right',
 });
 export const StyleGirdContainerData = styled(Grid)({
-    borderBottom: '1px solid #E0E0E0',
     padding: '8px 16px',
 });
 export const StyleGirdCard = styled(Grid)({
-    display: 'flex',
 });
 export const HeaderContainer = styled('div')({
     position: 'relative',
@@ -49,4 +48,9 @@ export const  StyleButtonInvoice = styled(Button)({
 export const StyledGridCode = styled(Grid)({
     marginTop: '16px',
     marginLeft: '16px',
+});
+export const StyledServiceCard = styled(Card)({
+    width: '100%',
+    marginTop: '16px',
+    boxShadow: "none"
 });
