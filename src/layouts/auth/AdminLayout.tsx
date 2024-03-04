@@ -101,6 +101,7 @@ const AdminLayout = () => {
                         <Toolbar
                             sx={{
                                 pr: '24px',
+                                backgroundColor: 'gray'
                             }}
                         >
                             <IconButton
@@ -148,7 +149,7 @@ const AdminLayout = () => {
                         <List component="nav">
                             {mainListItems}
                             <Divider sx={{ my: 1 }} />
-                            {secondaryListItems}
+                            {/* {secondaryListItems} */}
                         </List>
                     </Drawer>
                     <Box
