@@ -2,26 +2,26 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function DeleteUserModal({
+function DeleteServiceModal({
   isShow,
   onClose,
-  userDelete,
+  serviceDelete,
   onConfirm,
 }) {
 
   return (
     <>
 
-      <Modal show={isShow} onHide={onClose} centered>
+      <Modal show={isShow} onHide={onClose}centered >
         <Modal.Header closeButton>
           <Modal.Title>Xóa người dùng</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Bạn chắc chắn muốn xóa người dùng {userDelete.name}!!!</Modal.Body>
+        <Modal.Body>Bạn chắc chắn muốn xóa dịch vụ {serviceDelete.name}!!!</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
             Đóng
           </Button>
-          <Button variant="primary" onClick={() => onConfirm(userDelete.id)}>
+          <Button variant="primary" onClick={() => onConfirm(serviceDelete.id)}>
             Xác nhận
           </Button>
         </Modal.Footer>
@@ -30,4 +30,4 @@ function DeleteUserModal({
   );
 }
 
-export default DeleteUserModal;
+export default DeleteServiceModal;

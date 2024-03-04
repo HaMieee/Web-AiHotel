@@ -6,6 +6,7 @@ import manageRoomTypeReducer from "../slices/manageRoomType.slice";
 import manageRoomReducer from "../slices/manageRoom.slice";
 import manageUserSliceReducer from "../slices/manageUser.slice";
 import manageReservationReducer from "../slices/manageReservation.slice";
+import manageServiceReducer from "../slices/manageService.slice";
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     manageRoom: manageRoomReducer,
     manageUser: manageUserSliceReducer,
     manageReservation: manageReservationReducer,
+    manageService: manageServiceReducer,
 })
 
 export default rootReducer;

@@ -1,5 +1,3 @@
-import {IHotel} from "./hotel";
-import {IRoomType} from "./roomType";
 
 export type ICreateRoom = {
     id?: number;

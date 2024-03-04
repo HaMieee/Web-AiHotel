@@ -15,6 +15,8 @@ import Pagination from "@mui/material/Pagination";
 import {IPaginateResponse} from "../../../redux/types/page";
 import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
+import Box from "@mui/material/Box";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
 
 const typeActions = ['edit', 'delete'];
 
@@ -132,6 +134,14 @@ const ManageUser = () => {
    
     return(
         <>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Quản lý người dùng
+                </h3>
+            </Box>
+
             <div className={'d-flex justify-content-between mb-3'}>
                 <Stack spacing={2} direction="row">
                     <Button variant={roleType === 'customer' ? "contained" : "outlined"} onClick={() => handleFetchDataUsers('customer')}>Khách hàng</Button>

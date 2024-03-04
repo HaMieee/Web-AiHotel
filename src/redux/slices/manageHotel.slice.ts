@@ -96,7 +96,12 @@ const updateHotelSuccess = (
     }
 ) => {
     state.hotelDetail = action.payload;
+    const hotelIndex = state.hotels.findIndex(hotel => hotel.id === action.payload.id);
+    if (hotelIndex !== -1) {
+        state.hotels[hotelIndex] = action.payload;
+    }
     state.isLoading = false;
+    state.isError = false;
 }
 
 const deleteHotelSuccess = (
