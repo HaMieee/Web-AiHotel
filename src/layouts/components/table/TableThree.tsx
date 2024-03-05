@@ -48,10 +48,10 @@ const TableThree: React.FC<ITableManage> = ({
     const renderActions = (recordId, recordStatus = null) => {
         return map(actions, action => {
             switch (action.type) {
-                case 'edit':
-                    return <IconButton key={`edit${recordId}`} color={'warning'} className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><DriveFileRenameOutlineIcon /></IconButton>
+                case 'update':
+                    return <IconButton key={`update${recordId}`} color={'warning'} className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><DriveFileRenameOutlineIcon /></IconButton>
                 case 'delete':
-                    return <IconButton key={`delete${recordId}`} color={'secondary'} className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><DeleteIcon /></IconButton>
+                    return <IconButton key={`delete${recordId}`} color={'default'} className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><DeleteIcon /></IconButton>
                 case 'detail':
                     return <IconButton key={`detail${recordId}`} color={'success'} className='me-1 ms-1' onClick={() => onAction && onAction(recordId, action.type)}><VisibilityIcon /></IconButton>
                 default:

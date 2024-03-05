@@ -21,6 +21,7 @@ const TableManage: React.FC<ITableManage> = ({
     useIdx = false,
     shortValue = false,
     onAction,
+
                                              }) => {
     const renderTagTd = (value, key, idx) => {
         let style = {};

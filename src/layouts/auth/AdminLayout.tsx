@@ -24,6 +24,7 @@ import MuiAppBar from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from "@mui/material/Button";
+import logo from '../../img/logo.jpg';
 
 
 const drawerWidth: number = 300;
@@ -101,6 +102,7 @@ const AdminLayout = () => {
                         <Toolbar
                             sx={{
                                 pr: '24px',
+                                backgroundColor: '#51A9FF'
                             }}
                         >
                             <IconButton
@@ -132,14 +134,22 @@ const AdminLayout = () => {
                         </Toolbar>
                     </AppBar>
                     <Drawer variant="permanent" open={open}>
+                    
                         <Toolbar
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'flex-end',
+                                justifyContent: 'space-between',
                                 px: [1],
                             }}
                         >
+                            <div>
+                            <img
+                                style={{ width: "110px", borderRadius: "38px" }}
+                                src={logo}
+                                alt="logo"
+                            />
+                            </div>
                             <Button onClick={toggleDrawer}>
                                 <ChevronLeftIcon />
                             </Button>
@@ -148,7 +158,7 @@ const AdminLayout = () => {
                         <List component="nav">
                             {mainListItems}
                             <Divider sx={{ my: 1 }} />
-                            {secondaryListItems}
+                            {/* {secondaryListItems} */}
                         </List>
                     </Drawer>
                     <Box

@@ -2,6 +2,11 @@
 .app{
     width: 100%;
     background-color:#fff3f3;
+    // position: fixed; /* Cố định thanh header ở vị trí cố định trên trang */
+    // width: 100%; /* Chiều rộng của thanh header sẽ bằng chiều rộng của trang */
+    // top: 0; /* Cố định thanh header ở đầu trang */
+    // left: 0; /* Cố định thanh header ở vị trí bên trái của trang */
+    // z-index: 1000;
     
 }
 .wrapper{
@@ -11,18 +16,19 @@
 .site_header{
     padding-left: 70px;
     padding-right: 70px;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: gray;
+    background-color: #51A9FF;
+    
 }
 .header_logo:hover{
     cursor: pointer;
 
 }
 .header_custom{
-    width: 37%;
+    width: 30%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -33,7 +39,7 @@
          font-size: 16px;
          font-weight: 400;
          border: 1px solid transparent;
-         color: gray;
+         color: blue;
          border-radius: 8px;
          text-decoration: none;
          &:hover{
@@ -60,7 +66,7 @@
     font-weight: 600;
     font-size: 1rem;
 }
-.icon_home,.icon_admin, .icon_heart, .icon_language {
+.icon_home,.icon_admin {
     color: white;
     font-size: 32px;
      padding: 6px;
@@ -83,7 +89,7 @@
     font-size: 1rem;
     position: absolute;
     top: 50px;
-    right: -20px;
+    right: -12px;
     width: 360px;
     border-radius: 10px;
     display: none;
@@ -98,7 +104,7 @@
         border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -110,7 +116,7 @@
         border-top-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -120,7 +126,7 @@
         border-bottom: 1px solid gainsboro;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -131,7 +137,7 @@
         border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
     }
@@ -141,7 +147,7 @@
         border-bottom-right-radius: 10px;
         &:hover{
             cursor: pointer;
-            background-color: gray;
+            background-color: #51A9FF;
             color: #ffff;
         }
        
@@ -156,8 +162,9 @@
     justify-content: space-between;
     padding-left: 100px;
     padding-right: 140px;
-    background-color: rgb(150, 147, 147);
-    height: 42px;    
+    background-color:#288de0;
+    height: 42px;  
+    color: #fff; 
 }
 
 .header_item1{

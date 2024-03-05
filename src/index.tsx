@@ -9,6 +9,7 @@ import { store, persistor } from "./redux/store";
 import { ToastContainer } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fontsource/roboto/400.css';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

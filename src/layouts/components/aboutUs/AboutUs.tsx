@@ -1,9 +1,7 @@
-import Footer from "../../footer/Footer";
-import Header from "../header/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const VeAiHotel = () => {
+const AboutUs = () => {
     return (
         <div>
           {/*<Header/>*/}
@@ -13,11 +11,10 @@ const VeAiHotel = () => {
             <p className="text-center m-3 font-size-lg">
               Tọa lạc ngay tại trung tâm thành phố và trên con đường Tôn Đức Thắng
               sầm uất, chỉ mất 3-5 phút đi bộ đến Nhà hát Thành Phố nổi tiếng. Khách
-              sạn AiHotel Sài Gòn là 1 trong những khách sạn 5 sao đầu tiên tại Sài
-              Gòn, hiện nay khách sạn vẫn luôn giữ vững vị thế của mình trong suốt
-              hơn hai thập niên qua.
+              sạn AiHotel Hà Nội là 1 trong những khách sạn 5 sao đầu tiên tại Hà Nội, hiện nay khách sạn vẫn luôn giữ vững vị thế của mình trong suốt
+              hơn 5 năm  qua.
             </p>
-            <p>Nằm trên những tầng cao nhất của toà nhà 65 tầng tráng lệ, khách sạn Lotte Hà Nội tự hào là đại diện cho tiêu chuẩn khách sạn 5 sao quốc tế mới tại Hà Nội nói riêng và Việt Nam nói chung.</p>
+            <p>Nằm trên những tầng cao nhất của toà nhà 5 tầng tráng lệ, khách sạn AiHotel Hà Nội tự hào là đại diện cho tiêu chuẩn khách sạn 5 sao quốc tế mới tại Hà Nội nói riêng và Việt Nam nói chung.</p>
             <button
               type="button"
               className="btn btn-primary btn-dark"
@@ -42,7 +39,7 @@ const VeAiHotel = () => {
               </div>
               <div className="m-5">
                 <h4>Phòng ở</h4>
-                <p>283 phòng lưu trú đầy tiện nghi và sang trọng</p>
+                <p>250 phòng lưu trú đầy tiện nghi và sang trọng</p>
                 <p>Mỗi phòng đều có khu vực làm việc và tiếp khách riêng biệt.</p>
                 <p>
                   Phòng có lối kiến trúc trang nhã rộng rãi có wifi miễn phí, được
@@ -108,8 +105,7 @@ const VeAiHotel = () => {
               </div>
             </div>
           </div>
-          <Footer/>
         </div>
       );
 }
-export default VeAiHotel
+export default AboutUs

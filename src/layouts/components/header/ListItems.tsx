@@ -44,6 +44,13 @@ export const mainListItems = (
             <ListItemText primary="Quản lý phòng" />
         </ListItemButton>
 
+        <ListItemButton component={Link} to={'/manage-service'}>
+            <ListItemIcon>
+                <MeetingRoomIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý dịch vụ" />
+        </ListItemButton>
+
         <ListItemButton component={Link} to={'/manage-reservation'}>
             <ListItemIcon>
                 <EventNoteIcon />

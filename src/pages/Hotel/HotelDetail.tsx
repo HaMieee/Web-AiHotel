@@ -40,12 +40,12 @@ const HotelDetail = () => {
         <>
             <div className={'container-fluid'}>
                 <div>
-                    <h4>{hotelDetailData.name}</h4>
-                    <p>{hotelDetailData.address}</p>
+                    <h4 style={{textAlign:'center'}}>{hotelDetailData.name}</h4>
+                    <p style={{textAlign:'center'}}>{hotelDetailData.address}</p>
                 </div>
-                <div className={'banner-hotel d-flex'}>
+                <div className={'banner-hotel d-flex'} style={{backgroundColor:'#cccc'}}>
                     <div>
-                        <Image src='https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'
+                        <Image src='https://i.pinimg.com/564x/5b/5c/34/5b5c34981e9d2a6adbf7c062e0fd4857.jpg'
                                className={"banner-main"}
                                rounded
                         />
@@ -54,11 +54,11 @@ const HotelDetail = () => {
                         <div className={'d-flex'}
                              style={{justifyContent: "space-evenly"}}
                         >
-                            <Image src='https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'
+                            <Image src='https://i.pinimg.com/564x/ea/9c/bf/ea9cbf76b7e727a9fbeab8d019661fed.jpg'
                                    className={"banner-sub1"}
                                    rounded
                             />
-                            <Image src='https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'
+                            <Image src='https://i.pinimg.com/564x/bc/a4/a5/bca4a5fc5d9315ee4099769d7a69ae96.jpg'
                                    className={"banner-sub1"}
                                    rounded
                             />
@@ -66,11 +66,11 @@ const HotelDetail = () => {
                         <div className={'d-flex'}
                              style={{justifyContent: "space-evenly"}}
                         >
-                            <Image src='https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'
+                            <Image src='https://i.pinimg.com/564x/70/66/61/70666160006b391a3158c6a8776b2e88.jpg'
                                    className={"banner-sub1"}
                                    rounded
                             />
-                            <Image src='https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'
+                            <Image src='https://i.pinimg.com/564x/ea/9c/bf/ea9cbf76b7e727a9fbeab8d019661fed.jpg'
                                    className={"banner-sub1"}
                                    rounded
                             />

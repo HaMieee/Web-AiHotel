@@ -1,7 +1,7 @@
 .banner-hotel {
     height: calc(100vh - 30vh);
     max-height: calc(100vh - 30vh);
-    background-color: #282c34;
+    background-color: #51A9FF;
     border-radius: 5px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .floor {
-    background-color: #CAB39E;
+    background-color: #51A9FF;
     margin: 15px 0 15px 0;
     padding: 10px;
     border-radius: 5px;
@@ -36,7 +36,7 @@
 }
 
 .room {
-    border: 1px solid #CAB39E;
+    border: 1px solid #51A9FF;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 15px;
@@ -44,7 +44,7 @@
 
 .container-room {
     display: flex;
-    border: 1px solid #CAB39E;
+    border: 1px solid #51A9FF;
     border-radius: 10px;
     padding: 15px;
     height: 200px;
@@ -55,9 +55,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #CAB39E;
+    background-color: #51A9FF;
     border-radius: 5px;
     padding: 5px;
+    color: white;
 }
 
 .room-description {

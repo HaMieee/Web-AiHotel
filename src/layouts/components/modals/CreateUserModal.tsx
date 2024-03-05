@@ -162,7 +162,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>CCCD</Form.Label>
                                 <Form.Control
-                                    readOnly
+                                    // readOnly
                                     required
                                     type="text"
                                     placeholder="CCCD"
@@ -177,7 +177,7 @@ const CreateUserModal: React.FC<ICreateUserModal> = ({
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
-                                    readOnly
+                                    // readOnly
                                     required
                                     type="text"
                                     placeholder="Email"

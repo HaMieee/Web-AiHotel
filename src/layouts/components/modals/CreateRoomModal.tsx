@@ -41,11 +41,12 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
     const [floors, setFloors] = useState<number>(10);
     const [roomDetail, setRoomDetail] = useState<IRoom>({});
 
-    useEffect(() => {
-        if (!isShow) {
-            handleClearValue()
-        }
-    }, [isShow])
+    // useEffect(() => {
+    //     if (!isShow) {
+    //         handleClearValue()
+    //     }
+    // }, [isShow])
+
     useEffect(() => {
         setRoomDetail(roomData)
         setFormCreateRoom({
@@ -59,6 +60,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
             setRoomType(hotel?.room_types)
         }
         console.log(roomData);
+
         if (isEmpty(roomData)) {            
             handleClearValue()
         }
@@ -73,12 +75,16 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
         })
     }
 
+    const handleClose = () => {
+        handleClearValue();
+        onClose();
+    }
+
     const handleCreateRoom = async () => {
         const roomData: ICreateRoom = {
             floor: formCreateRoom.floor,
             hotel_id: formCreateRoom.hotel_id,
             room_type_id: formCreateRoom.room_type_id,
-
         }
         if (!(roomData.hotel_id === 0)) {
             if (!(roomData.room_type_id === 0)) {
@@ -101,7 +107,9 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
             ...formCreateRoom,
             hotel_id: hotel_id,
         })
+
     }
+    
 
     const handleUpdateRoom = () => {
         const payload: IUpdateRoom = {
@@ -172,7 +180,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={onClose}>
+                    <Button variant="secondary" onClick={handleClose}>
                         Đóng
                     </Button>
                     {isEmpty(roomDetail)

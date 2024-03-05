@@ -16,15 +16,20 @@ import TableThree from "../../../layouts/components/table/TableThree";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import Box from "@mui/material/Box";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
 import DeleteRoomModal from "../../../layouts/components/modals/DeleteRoomModal";
 import { IUpdateRoom } from "../../../redux/types/updateRoom";
 
-const typeActions = ['delete', 'update'];
+const typeActions = ['update','delete'];
 
 const ManageRoom = () => {
     const metaState = useSelector((state: RootState) => state.manageHotel.paginate);
+
     const roomsState: IRoom[] = useSelector((state: RootState) => state.manageRoom.rooms)
+
     const roomState: IRoom = useSelector((state: RootState) => state.manageRoom.roomDetail)
+
     const hotelsState:  IHotel[] = useSelector((state:RootState) => state.manageHotel.hotels)
 
     const [showCreate, setShowCreate] = useState(false);
@@ -62,7 +67,7 @@ const ManageRoom = () => {
 
 
     const handleOnAction = (recordId, action) => {
-        if( action === 'update') {            
+        if(action === 'update') {            
             dispatch({
                 type:`${manageRoomActions.getRoomDetailPending}_saga`,
                 payload: recordId
@@ -85,6 +90,11 @@ const ManageRoom = () => {
             payload: createRoomData,
         })
     }
+
+    useEffect(() => {
+        setRoomDetail(roomState);        
+    }, [roomState]);
+    
 
     const handleUpdateRoom = (updateRoomData: IUpdateRoom) => {
         dispatch({
@@ -125,6 +135,14 @@ const ManageRoom = () => {
 
     return(
         <>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Quản lý phòng
+                </h3>
+            </Box>
+
             <div className={'d-flex justify-content-end mb-3'}>
                 <Stack spacing={2} direction="row">
                     <Button variant="contained"

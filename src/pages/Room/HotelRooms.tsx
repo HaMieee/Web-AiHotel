@@ -65,7 +65,7 @@ const HotelRooms: React.FC<IHotelRooms> = ({
                                     <Col sm={4} key={r_index}>
                                         <div className={'container-room'}>
                                             <Image
-                                                src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                                                src={'https://i.pinimg.com/564x/5b/5c/34/5b5c34981e9d2a6adbf7c062e0fd4857.jpg'}
                                                 rounded
                                                 className={'object-fit-cover h-100'}
                                                 style={{width: "40%"}}

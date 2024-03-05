@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import {differenceInDays} from 'date-fns';
 import { IoEyeOutline } from "react-icons/io5";
 import { TbHomeDot } from "react-icons/tb";
-import {initEcho} from "../../services/ws.service";
+import {initEcho, initPusher} from "../../services/ws.service";
 import {IUser} from "../../redux/types/user";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -47,7 +47,17 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
         if (!(window as any).Echo) {
             (window as any).Echo = initEcho();
         }
+        if (!(window as any).Pusher) {
+            (window as any).Pusher = initPusher();
+        }
     }, []);
+
+    useEffect(() => {
+        if (!show && roomSelected) {
+            (window as any).Echo?.leave(`presence.room.${roomSelected}`);
+            setRoomSelected(0);
+        }
+    }, [show]);
 
     useEffect(() => {
         if (roomSelected) {
@@ -67,6 +77,12 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     useEffect(() => {
         if (roomSelected) {
             applyJoin();
+            if (roomSelected) {
+                (window as any).Echo?.channel('booked-channel')
+                  .listen(`.booked.event.${roomSelected}`, (e) => {
+                      setDisabledDates([...disabledDates, ...eachDayOfInterval({ start: new Date(e.start_date), end: new Date(e.end_date) })]);
+                  });
+            }
         }
     }, [roomSelected])
 
@@ -89,18 +105,22 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     }, [dayNumbers, roomData])
 
     const applyJoin = () => {
-        (window as any).Echo?.leave(`presence.room.${roomOldSelected}`);
+        if (roomOldSelected) {
+            (window as any).Echo?.leave(`presence.room.${roomOldSelected}`);
+        }
 
-        (window as any).Echo?.join(`presence.room.${roomSelected}`)
-            .here((users) => {
-                setUsersRoom(users);
-            })
-            .joining((user) => {
-                setUsersRoom(prevState => [...prevState, user]);
-            })
-            .leaving((user) => {
-                setUsersRoom(prevState => prevState.filter(u => u.id !== user.id));
-            });
+        if (roomSelected) {
+            (window as any).Echo?.join(`presence.room.${roomSelected}`)
+              .here((users) => {
+                  setUsersRoom(users);
+              })
+              .joining((user) => {
+                  setUsersRoom(prevState => [...prevState, user]);
+              })
+              .leaving((user) => {
+                  setUsersRoom(prevState => prevState.filter(u => u.id !== user.id));
+              });
+        }
     }
 
     const inValidDate = () => {
@@ -217,7 +237,7 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                         <div className={'room-content'}>
                             <div className={'room-image d-flex mb-2'}>
                                 <div className={'p-1'}>
-                                    <Image src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                                    <Image src={'https://i.pinimg.com/564x/ea/9c/bf/ea9cbf76b7e727a9fbeab8d019661fed.jpg'}
                                            rounded
                                            fluid
                                            className={'image-main'}
@@ -225,14 +245,14 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                                 </div>
                                 <div>
                                     <div className={'p-1'}>
-                                        <Image src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                                        <Image src={'https://i.pinimg.com/564x/70/66/61/70666160006b391a3158c6a8776b2e88.jpg'}
                                                rounded
                                                fluid
                                                className={'image-sub'}
                                         />
                                     </div>
                                     <div className={'p-1'}>
-                                        <Image src={'https://i.pinimg.com/564x/81/ff/8b/81ff8be11f48e4ced51bacb31eab8146.jpg'}
+                                        <Image src={'https://i.pinimg.com/564x/ea/9c/bf/ea9cbf76b7e727a9fbeab8d019661fed.jpg'}
                                                rounded
                                                fluid
                                                className={'image-sub'}
@@ -241,7 +261,7 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                                 </div>
                             </div>
 
-                            <div className={'custom-title'}>{roomData?.room_type?.name}</div>
+                            <div className={'custom-title'} style={{color:'white'}}>{roomData?.room_type?.name}</div>
 
                             <div className={'container-fluid'}>
                                 <label className={'title-description'}>Description</label>
@@ -250,7 +270,7 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                                 </div>
                             </div>
 
-                            <div className={'custom-title d-flex justify-content-between'}>
+                            <div className={'custom-title d-flex justify-content-between'} style={{color:'white'}}>
                                 <div>Price</div>
                                 <div>${roomData?.room_type?.price}.00/day</div>
                             </div>

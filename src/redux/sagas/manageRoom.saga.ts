@@ -20,7 +20,7 @@ const getListRoom = async (payload: {
     })
 };
 
-const getRoomDetail = async (room_id) => {
+const getRoomDetail = async (room_id: number) => {
     return axiosInstance.get('/api/room/detail', {
         params: {
             room_id: room_id,
@@ -154,6 +154,8 @@ const handleUpdateRoom = function* (action) {
             type: manageRoomActions.updateRoomPending.type,
         })
         const response = yield call(updateRoom, action.payload);
+       
+        
         if(response.data.statusCode === 200) {
             yield put({
                 type: manageRoomActions.updateRoomSuccess.type,
@@ -169,7 +171,6 @@ const handleUpdateRoom = function* (action) {
         toast.error(get(err, 'response.data.message'))
         const errorData = get(err, 'response.data.errors', {});
         const errorMessages = Object.values(errorData).flat();
-
         errorMessages.forEach((messageErr) => {
             toast.error(messageErr + '');
         });
@@ -183,6 +184,7 @@ const handleDeleteRoom = function* (action) {
             type: manageRoomActions.deleteRoomPending.type,
         })
         const response = yield call(deleteRoom, action.payload);
+        console.log("response:",response);
         if (response.data.statusCode === 200) {
             yield put({
                 type: manageRoomActions.deleteRoomSuccess.type,
@@ -198,7 +200,6 @@ const handleDeleteRoom = function* (action) {
         toast.error(get(err, 'response.data.message'));
         const errorData = get(err, 'response.data.errors', {});
         const errorMessages = Object.values(errorData).flat();
-
         errorMessages.forEach((messageErr) => {
             toast.error(messageErr + '');
         });
@@ -219,9 +220,13 @@ const manageRoomSaga = function* () {
     //     handleGetRoom
     // );
     yield takeLatest(
+        `${manageRoomActions.getRoomDetailPending}_saga`,
+        handleGetRoomDetail,
+    );
+    yield takeLatest(
         `${manageRoomActions.updateRoomPending}_saga`,
         handleUpdateRoom
-    )
+    );
     yield takeLatest(
         `${manageRoomActions.deleteRoomPending}_saga`,
         handleDeleteRoom
@@ -230,10 +235,7 @@ const manageRoomSaga = function* () {
     //     `${manageRoomActions.getRoomDetailPending}_saga`,
     //     handleGetRoomDetail,
     // )
-    yield takeLatest(
-        `${manageRoomActions.getRoomDetailPending}_saga`,
-        handleGetRoomDetail,
-    )
+   
 };
 
 export default manageRoomSaga;

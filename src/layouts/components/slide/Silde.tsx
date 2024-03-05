@@ -30,21 +30,6 @@ const Slide = () => {
                 alt="Slide 1"
               />
             </div>
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%", height:"673px"}}
-                src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner2-1400x721.jpg"
-                alt=""
-              />
-            </div>
-    
-            <div style={{ width: "100%" }}>
-              <img
-                style={{ width: "100%", height:"673px"}}
-                src="https://khachsan.webmatrix.vn/wp-content/uploads/2017/06/banner1-1400x721.jpg"
-                alt=""
-              />
-            </div>
           </Slider>
       );
 }

@@ -38,18 +38,18 @@
 }
 
 .btn-primary {
-  --bs-btn-bg: #CAB39E !important;
-  --bs-btn-border-color: #CAB39E !important;
-  --bs-btn-hover-bg: #af9b88 !important;
-  --bs-btn-hover-border-color: #af9b88 !important;
-  --bs-btn-active-bg: #948474 !important;
-  --bs-btn-active-border-color: #948474 !important;
+  --bs-btn-bg: #51A9FF !important;
+  --bs-btn-border-color: #51A9FF !important;
+  --bs-btn-hover-bg: #488acd !important;
+  --bs-btn-hover-border-color: #51A9FF !important;
+  --bs-btn-active-bg: #2d5b88 !important;
+  --bs-btn-active-border-color: #51A9FF !important;
 }
 
 .active>.page-link {
   color: var(--bs-pagination-active-color) !important;
-  background-color: gray !important;
-  border-color: gray !important;
+  background-color: #51A9FF !important;
+  border-color: #51A9FF !important;
 }
 
 .page-link {
@@ -61,21 +61,21 @@
 }
 
 .custom-stroke {
-  border: solid 2px #CAB39E;
+  border: solid 2px #51A9FF;
   border-radius: 5px;
   padding: 5px;
 }
 
 .custom-fill {
-  border: solid 2px #CAB39E;
-  background-color: #CAB39E;
+  border: solid 2px #51A9FF;
+  background-color: #51A9FF;
   border-radius: 5px;
   color: white;
   padding: 5px;
 }
 
 .custom-title {
-  background-color: #CAB39E;
+  background-color: #51A9FF;
   color: #1A1A1A;
   padding: 5px;
   border-radius: 5px;
@@ -92,3 +92,7 @@
 p {
   margin-top: auto !important;
 }
+
+/* .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root {
+  color: gray !important;
+} */

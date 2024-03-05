@@ -57,9 +57,14 @@ const handleGetListHotel = function* (action) {
     } catch (err) {
         yield put({
             type: manageHotelActions.getListHotelError.type,
-            payload: {message: get(err, 'message')},
+            payload: {message: get(err, 'response.data.message')},
         })
-        toast.error(get(err, 'message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 };
 
@@ -78,9 +83,14 @@ const handleGetHotel = function* (action) {
     } catch (err) {
         yield put({
             type: manageHotelActions.getHotelDetailError.type,
-            payload: {message: get(err, 'message')},
+            payload: {message: get(err, 'response.data.message')},
         })
-        toast.error(get(err, 'response.data.message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -102,7 +112,12 @@ const handleCreateHotel = function* (action) {
             type: manageHotelActions.createHotelPending.type,
             payload: {message: get(err, 'response.data.message')},
         })
-        toast.error(get(err, 'response.data.message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -122,9 +137,14 @@ const handleUpdateHotel = function* (action) {
     } catch (err) {
         yield put({
             type: manageHotelActions.updateHotelError.type,
-            payload: {message: get(err, 'message')},
+            payload: {message: get(err, 'response.data.message')},
         })
-        toast.error(get(err, 'response.data.message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
@@ -144,9 +164,14 @@ const handleDeleteHotel = function* (action) {
     } catch (err) {
         yield put({
             type: manageHotelActions.deleteHotelError.type,
-            payload: {message: get(err, 'response.data.message')}
+            payload: {message: get(err, 'response.data.message')},
         })
-        toast.error(get(err, 'response.data.message'));
+        const errorData = get(err, 'response.data.errors', {});
+        const errorMessages = Object.values(errorData).flat();
+
+        errorMessages.forEach((messageErr) => {
+            toast.error(messageErr + '');
+        });
     }
 }
 
