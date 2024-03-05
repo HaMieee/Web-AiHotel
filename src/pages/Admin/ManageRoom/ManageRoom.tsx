@@ -17,7 +17,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import Box from "@mui/material/Box";
 import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
 
-const typeActions = ['delete', 'edit'];
+const typeActions = ['delete', 'update'];
 
 const ManageRoom = () => {
     const metaState = useSelector((state: RootState) => state.manageHotel.paginate);

@@ -9,6 +9,7 @@ import {IPaginateResponse} from "../../redux/types/page";
 import {isEmpty, map} from "lodash";
 import PaginationComponent from "../../layouts/components/pagination/PaginationComponent";
 import {useNavigate} from "react-router";
+import './Hotel.scss'
 
 const Hotel = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Hotel = () => {
         dispatch({
             type: `${manageHotelActions.getListHotelPending}_saga`,
             payload: {
-                per_page: 4,
+                per_page: 3,
                 page: currentPage,
             }
         })
@@ -47,15 +48,53 @@ const Hotel = () => {
         <>
             <div className={"container-fluid mt-3"}>
                 <Row>
-                    <Col md={4} style={{border: 'solid 1px #CAB39E', borderRadius: '10px'}}>
-                        <div className={'container-fluid'}>Page support</div>
+                    <Col className={''} md={2} style={{border: 'solid 1px #51A9FF', borderRadius: '10px', height:'250px', marginTop:'210px'}}>
+                        <div className={'container-fluid  support'}>
+                            <div className="help_support">Help & Support</div>
+                            <div className="hotline">Hotline:</div>
+                            <div className="phone">
+                                <div>
+                                    <span>Hà Nội</span>
+                                    <span>19002310</span>
+                                </div>
+                                <div>
+                                    <span>TP.HCM</span>
+                                    <span>19000711</span>
+                                </div>
+                                <div>
+                                    <span>CT</span>
+                                    <span>19000608</span>
+                                </div>
+                            </div>
+                            <div className="help_email">Email:</div>
+                            <div className="email">aihotel123@gmail.com</div>
+                        </div>
                     </Col>
                     <Col>
+
+                    <Row>
+                        <div>
+                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Việt Nam</h3>
+                        </div>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
                         <div className={'d-flex justify-content-center'}>
                             <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
                         </div>
+                    </Row>
+
+                    {/* <Row>
+                    <div>
+                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
+                        </div>
+                        <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
+                        <div className={'d-flex justify-content-center'}>
+                            <PaginationComponent totalPages={metaData.total_pages} currentPage={currentPage} onChangePage={handleChangePage} />
+                        </div>
+                    </Row> */}
+
                     </Col>
+
+                    
                 </Row>
             </div>
         </>

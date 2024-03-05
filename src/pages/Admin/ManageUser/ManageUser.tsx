@@ -18,7 +18,7 @@ import Stack from '@mui/material/Stack';
 import Box from "@mui/material/Box";
 import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
 
-const typeActions = ['edit', 'delete'];
+const typeActions = ['update', 'delete'];
 
 const ManageUser = () => {
     const manageUserState = useSelector((state: RootState) => state.manageUser.users);
@@ -88,7 +88,7 @@ const ManageUser = () => {
     }
 
     const handleOnAction = (recordId, action) => {
-        if( action === 'edit') {            
+        if( action === 'update') {            
             dispatch({
                 type:`${manageUserActions.getUserDetailPending}_saga`,
                 payload: recordId

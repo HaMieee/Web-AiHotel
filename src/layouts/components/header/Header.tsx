@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { FaHeart } from "react-icons/fa6";
 import { IoHome, IoPersonSharp } from "react-icons/io5";
-import { MdLanguage } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import './Header.scss';
 import InputSearch from "../inputSearch/InputSearch";
@@ -68,7 +66,7 @@ const Header: React.FC<IHeader> = ({
                   <span className="icon_home">
                     <IoHome />
                   </span>
-                  <h4 style={{ fontSize: "13px", marginTop: "16px" }}>
+                  <h4 style={{ fontSize: "13px", marginTop: "16px", color:'white' }}>
                     Hệ thống khách sạn
                   </h4>
                 </div>
@@ -93,18 +91,8 @@ const Header: React.FC<IHeader> = ({
                       
                      
                     </div>
-                    <span style={{fontSize:'0.8rem', marginTop:'18px'}}>{userInfo.name}</span>
+                    <span style={{fontSize:'0.9rem', marginTop:'18px', color:"#ffff"}}>{userInfo.name}</span>
                   </div>
-                <div className="icon_heart">
-                  <span>
-                    <FaHeart />
-                  </span>
-                </div>
-                <div className="icon_language">
-                  <span>
-                    <MdLanguage />
-                  </span>
-                </div>
                 <div className="book_btn">
                   <a className="popup-with-form" href="#test-form">
                     Book A Room
@@ -116,21 +104,22 @@ const Header: React.FC<IHeader> = ({
           <div className="header_item">
             <div className="header_item1">
               <ul className="header_item1_menu">
-                <Link to={"/"} style={{textDecoration:'none'}}>
+                <Link to={"/"} style={{textDecoration:'none', color:'white'}}>
                   <li>Trang Chủ</li>
                 </Link>
-                <li>Phòng</li>
-                <li onClick={() => navigate('/dashboard')}>Dashboard</li>
-                <li onClick={() => navigate('/admin')}>Admin Manager</li>
-                {/*<li>Tin Tức</li>*/}
-                {/*<li>Liên Hệ</li>*/}
-                <li onClick={() => navigate('/ws-example')}>WS example</li>
+                <li onClick={() => navigate('/hotel')}>Phòng</li>
+                {/* <li onClick={() => navigate('/dashboard')}>Dashboard</li> */}
+                {/* <li onClick={() => navigate('/admin')}>Admin Manager</li> */}
+                <li>Tin Tức</li>
+                <li>Ưu Đãi</li>
+                <li>Liên Hệ</li>
+                {/* <li onClick={() => navigate('/ws-example')}>WS example</li> */}
               </ul>
             </div>
             <div className="header_item2">
               <ul className="header_item2_menu">
-                <div onClick={() => navigate('.//veAiHotel')}>
-                  <li>Về AiHotel</li>
+                <div>
+                  <li onClick={() => navigate('/aboutUs')}>About Us</li>
                 </div>
                 <li>Blog</li>
               </ul>
