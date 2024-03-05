@@ -9,11 +9,20 @@ import { RiTeamFill } from "react-icons/ri";
 import { RiBillLine } from "react-icons/ri";
 import { IoPersonSharp } from "react-icons/io5";
 import TableManage from "../../../layouts/components/table/TableManage";
+import Box from "@mui/material/Box";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
+import React from "react";
 
 const DashBoardAdmin = () => {
     return (
         <>
-            <div>Page thống kê</div>
+            <Box component="section"
+                 sx={{ p: 2 }}
+            >
+                <h3 className={'d-flex align-items-center'}>
+                    <ArrowRightRoundedIcon/> Thống kê
+                </h3>
+            </Box>
         </>
     )
 }

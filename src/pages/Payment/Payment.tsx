@@ -7,12 +7,16 @@ import {get} from "lodash";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY || '');
 
-export default function Payment({ itemId = 1 }) {
+const Payment = ({ itemId, onSuccess, onClose }) => {
     const [secretKey, setSecretKey] = useState('');
 
     useEffect(() => {
         if (itemId) {
-            axiosInstance.get(`api/payment/get-payment-secret-key?item-id=${itemId}`).then((result) => {
+            axiosInstance.get(`/api/invoice/payment/get-payment-secret-key`, {
+                params: {
+                    invoice_id: itemId
+                }
+            }).then((result) => {
                 const { data, statusCode } = result?.data || {};
 
                 if (statusCode === 200) {
@@ -32,7 +36,9 @@ export default function Payment({ itemId = 1 }) {
         <Elements stripe={stripePromise} options={{
             clientSecret: secretKey,
         }}>
-            <CheckoutForm itemId />
+            <CheckoutForm itemId={itemId} onSuccess={onSuccess} onClose={onClose}/>
         </Elements>
     );
 };
+
+export default Payment;

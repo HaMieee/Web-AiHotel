@@ -58,7 +58,7 @@ export const mainListItems = (
             <ListItemText primary="Quản đơn đặt phòng" />
         </ListItemButton>
 
-        <ListItemButton>
+        <ListItemButton component={Link} to={'/manage-invoice'}>
             <ListItemIcon>
                 <AssignmentIcon />
             </ListItemIcon>
