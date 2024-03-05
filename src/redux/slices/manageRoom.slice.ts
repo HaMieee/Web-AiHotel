@@ -100,9 +100,9 @@ const updateRoomSuccess = (
         payload: IRoom;
     }
 ) =>{
-    const userIndex = state.rooms.findIndex(user => user.id === action.payload.id);
-    if (userIndex !== -1) {
-        state.rooms[userIndex] = action.payload;
+    const roomIndex = state.rooms.findIndex(room => room.id === action.payload.id);
+    if (roomIndex !== -1) {
+        state.rooms[roomIndex] = action.payload;
     }
     state.isLoading = false;
     state.isError = false;
@@ -115,7 +115,7 @@ const deleteRoomSuccess = (
         payload: number;
     }
 ) => {
-    state.rooms = state.rooms.filter(user => user.id !== action.payload);
+    state.rooms = state.rooms.filter(room => room.id !== action.payload);
     state.isLoading = false;
     state.isError = false;
 }

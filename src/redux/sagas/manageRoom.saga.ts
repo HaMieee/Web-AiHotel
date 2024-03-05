@@ -28,13 +28,13 @@ const getRoomDetail = async (room_id) => {
     })
 }
 
-const getRoom = async (roomId: number) => {    
-    return axiosInstance.get('/api/room/detail', {
-        params:{
-            room_id :roomId,
-        }
-    })
-}
+// const getRoom = async (roomId: number) => {    
+//     return axiosInstance.get('/api/room/detail', {
+//         params:{
+//             room_id :roomId,
+//         }
+//     })
+// }
 
 const createRoom = async (createRoom: ICreateRoom) => {
 
@@ -75,29 +75,29 @@ const handleCreateRoom = function* (action) {
     }
 }
 
-const handleGetRoom = function* (action){
-    try{
-        yield put({
-            type: manageRoomActions.getRoomDetailPending.type,
-        })
+// const handleGetRoom = function* (action){
+//     try{
+//         yield put({
+//             type: manageRoomActions.getRoomDetailPending.type,
+//         })
 
-        const response = yield call( getRoom, action.payload);
-        if(response.data.statusCode === 200) {
-            yield put({
-                type: manageRoomActions.getRoomDetailSuccess.type,
-                payload: response.data.data,
-            })
-        }
-    } catch (err) {
-        yield put({
-            type: manageRoomActions.getRoomDetailError.type,
-            payload: {message: get(err, 'message')},
-        })
-        toast.error(get(err, 'response.data.message'))
-        console.log(err);
+//         const response = yield call( getRoom, action.payload);
+//         if(response.data.statusCode === 200) {
+//             yield put({
+//                 type: manageRoomActions.getRoomDetailSuccess.type,
+//                 payload: response.data.data,
+//             })
+//         }
+//     } catch (err) {
+//         yield put({
+//             type: manageRoomActions.getRoomDetailError.type,
+//             payload: {message: get(err, 'message')},
+//         })
+//         toast.error(get(err, 'response.data.message'))
+//         console.log(err);
         
-    }
-}
+//     }
+// }
 
 const handleGetListRoomByIdHotel = function* (action) {
     try {
@@ -214,10 +214,10 @@ const manageRoomSaga = function* () {
         `${manageRoomActions.createRoomPending}_saga`,
         handleCreateRoom
     );
-    yield takeLatest(
-        `${manageRoomActions.getRoomDetailPending}_saga`,
-        handleGetRoom
-    );
+    // yield takeLatest(
+    //     `${manageRoomActions.getRoomDetailPending}_saga`,
+    //     handleGetRoom
+    // );
     yield takeLatest(
         `${manageRoomActions.updateRoomPending}_saga`,
         handleUpdateRoom

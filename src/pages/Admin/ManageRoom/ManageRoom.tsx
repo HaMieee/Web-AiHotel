@@ -19,7 +19,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteRoomModal from "../../../layouts/components/modals/DeleteRoomModal";
 import { IUpdateRoom } from "../../../redux/types/updateRoom";
 
-const typeActions = ['delete', 'edit'];
+const typeActions = ['delete', 'update'];
 
 const ManageRoom = () => {
     const metaState = useSelector((state: RootState) => state.manageHotel.paginate);
@@ -62,7 +62,7 @@ const ManageRoom = () => {
 
 
     const handleOnAction = (recordId, action) => {
-        if( action === 'edit') {            
+        if( action === 'update') {            
             dispatch({
                 type:`${manageRoomActions.getRoomDetailPending}_saga`,
                 payload: recordId
