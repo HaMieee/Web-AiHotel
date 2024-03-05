@@ -53,6 +53,11 @@ const updateReservation = async (updateReservationData: IReservationCreate) => {
     return axiosInstance.put('/api/reservation/update', updateReservationData)
 
 }
+
+const getMyReservations = async () => {
+
+}
+
 const handleCreateReservation = function* (action) {
     try {
         yield put({

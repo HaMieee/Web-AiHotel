@@ -81,6 +81,7 @@ const Header: React.FC<IHeader> = ({
                          !isEmpty(userInfo) ? 
                         <>
                            <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
+                           <div className='profile_info' onClick={() => navigate('/reservation')}>Xem đơn đặt phòng </div>
                           <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
                           <div className='logout' onClick={handleLogout}>Đăng xuất</div>
                         </>
@@ -125,6 +126,7 @@ const Header: React.FC<IHeader> = ({
                 {/*<li>Tin Tức</li>*/}
                 {/*<li>Liên Hệ</li>*/}
                 <li onClick={() => navigate('/ws-example')}>WS example</li>
+                <li onClick={() => navigate('/stripe-example')}>stripe example</li>
               </ul>
             </div>
             <div className="header_item2">

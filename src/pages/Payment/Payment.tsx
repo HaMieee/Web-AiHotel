@@ -33,6 +33,7 @@ export default function Payment({ itemId = 1 }) {
             clientSecret: secretKey,
         }}>
             <CheckoutForm itemId />
+            <div>Key: {secretKey}</div>
         </Elements>
     );
 };
