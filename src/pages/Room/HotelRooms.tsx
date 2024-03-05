@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Image, Offcanvas, Row} from "react-bootstrap";
+import {Button, Col, Image, Row} from "react-bootstrap";
 import './HotelRooms.css'
 import RoomDetail from "./RoomDetail";
 import {IRoom} from "../../redux/types/room";

@@ -1,4 +1,4 @@
-import {Button, Col, Image, Offcanvas, Row} from "react-bootstrap";
+import {Button, Image, Offcanvas} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import './RoomDetail.css';
 import DatePicker from 'react-datepicker';

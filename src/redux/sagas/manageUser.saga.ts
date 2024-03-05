@@ -5,9 +5,6 @@ import { toast } from 'react-toastify';
 import { ICreateUser } from '../types/dtos/createUser';
 import { manageUserActions } from '../slices/manageUser.slice';
 import { IUpdateInfo } from '../types/dtos/updateInfo';
-import { useState } from 'react';
-
-
 
 const getListUser = async (payload: {
     per_page: number;
