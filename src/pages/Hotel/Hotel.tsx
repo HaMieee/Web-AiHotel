@@ -74,7 +74,7 @@ const Hotel = () => {
 
                     <Row>
                         <div>
-                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Ha Noi</h3>
+                            <h3 style={{fontSize:'54px', fontFamily:'-moz-initial', fontStyle:'italic', textAlign:'center'}}>Most famous hotel in Việt Nam</h3>
                         </div>
                         <ListHotels listHotelData={listHotelData} onCheckHotel={handleCheckHotel}/>
                         <div className={'d-flex justify-content-center'}>

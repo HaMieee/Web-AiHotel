@@ -2,6 +2,11 @@
 .app{
     width: 100%;
     background-color:#fff3f3;
+    // position: fixed; /* Cố định thanh header ở vị trí cố định trên trang */
+    // width: 100%; /* Chiều rộng của thanh header sẽ bằng chiều rộng của trang */
+    // top: 0; /* Cố định thanh header ở đầu trang */
+    // left: 0; /* Cố định thanh header ở vị trí bên trái của trang */
+    // z-index: 1000;
     
 }
 .wrapper{
@@ -11,11 +16,12 @@
 .site_header{
     padding-left: 70px;
     padding-right: 70px;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #51A9FF;
+    
 }
 .header_logo:hover{
     cursor: pointer;
@@ -158,7 +164,7 @@
     padding-right: 140px;
     background-color:#288de0;
     height: 42px;  
-    color: #fff;  
+    color: #fff; 
 }
 
 .header_item1{

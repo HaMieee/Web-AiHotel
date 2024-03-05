@@ -13,7 +13,7 @@ import { ICreateService } from "../../../redux/types/createService";
 import { IUpdateService } from "../../../redux/types/updateService";
 import DeleteServiceModal from "../../../layouts/components/modals/DeleteServiceModal";
 
-const typeActions = ['edit', 'delete'];
+const typeActions = ['update', 'delete'];
 
 
 const ManageService =  () => {

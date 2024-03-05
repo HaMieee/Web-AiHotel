@@ -20,6 +20,7 @@ import ManageRoom from '../pages/Admin/ManageRoom/ManageRoom';
 import TestPage from "../pages/Test/TestPage";
 import ManageService from '../pages/Admin/ManageService/ManageService';
 import ManageReservationDetail from "../pages/Admin/ManageReservation/ManageReservationDetail";
+import AboutUs from '../layouts/components/aboutUs/AboutUs';
 
 const Router = () => {
     return useRoutes([
@@ -43,9 +44,13 @@ const Router = () => {
                     element: <NotFound404 />
                 },
                 {
-                    path: '/',
+                    path: '/hotel',
                     element: <Hotel />
                 },
+                {
+                    path:'/aboutUs',
+                    element:<AboutUs/>
+                }
             ]
         },
         {

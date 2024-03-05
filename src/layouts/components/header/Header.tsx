@@ -107,18 +107,19 @@ const Header: React.FC<IHeader> = ({
                 <Link to={"/"} style={{textDecoration:'none', color:'white'}}>
                   <li>Trang Chủ</li>
                 </Link>
-                <li>Phòng</li>
-                <li onClick={() => navigate('/dashboard')}>Dashboard</li>
-                <li onClick={() => navigate('/admin')}>Admin Manager</li>
-                {/*<li>Tin Tức</li>*/}
-                {/*<li>Liên Hệ</li>*/}
-                <li onClick={() => navigate('/ws-example')}>WS example</li>
+                <li onClick={() => navigate('/hotel')}>Phòng</li>
+                {/* <li onClick={() => navigate('/dashboard')}>Dashboard</li> */}
+                {/* <li onClick={() => navigate('/admin')}>Admin Manager</li> */}
+                <li>Tin Tức</li>
+                <li>Ưu Đãi</li>
+                <li>Liên Hệ</li>
+                {/* <li onClick={() => navigate('/ws-example')}>WS example</li> */}
               </ul>
             </div>
             <div className="header_item2">
               <ul className="header_item2_menu">
-                <div onClick={() => navigate('.//veAiHotel')}>
-                  <li>About Us</li>
+                <div>
+                  <li onClick={() => navigate('/aboutUs')}>About Us</li>
                 </div>
                 <li>Blog</li>
               </ul>
