@@ -1,9 +1,8 @@
 import Image from 'react-bootstrap/Image';
 import React from "react";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {IoIosArrowForward} from "react-icons/io";
 import './ListHotels.css';
-import {useNavigate} from "react-router";
 import {IHotel} from "../../redux/types/hotel";
 import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';

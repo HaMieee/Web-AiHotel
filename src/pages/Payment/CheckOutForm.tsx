@@ -3,8 +3,10 @@ import React, {useState} from "react";
 import axiosInstance from "../../services/axios.service";
 import {get} from "lodash";
 import {toast} from "react-toastify";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
-const CheckoutForm = ({ itemId }) => {
+const CheckoutForm = ({ itemId, onSuccess, onClose }) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -27,7 +29,6 @@ const CheckoutForm = ({ itemId }) => {
             redirect: "if_required",
         });
 
-
         if (error) {
             // This point will only be reached if there is an immediate error when
             // confirming the payment. Show error to your customer (for example, payment
@@ -38,12 +39,13 @@ const CheckoutForm = ({ itemId }) => {
             // Your customer will be redirected to your `return_url`. For some payment
             // methods like iDEAL, your customer will be redirected to an intermediate
             // site first to authorize the payment, then redirected to the `return_url`.
-            axiosInstance.post('api/payment/verify-payment', {
+            axiosInstance.post('/api/invoice/payment/verify-payment', {
                 payment_intent_id: paymentIntent?.id,
-                item_id: itemId
+                invoice_id: itemId
             }).then((result) => {
                 const { data, statusCode } = result?.data || {};
                 if (statusCode === 200 && get(data, 'is_valid') === true) {
+                    onSuccess();
                     toast.success('Payment Success!');
                 } else {
                     toast.error(get(data, 'message'));
@@ -57,9 +59,11 @@ const CheckoutForm = ({ itemId }) => {
     return (
         <form onSubmit={handleSubmit}>
             <PaymentElement />
-            <button disabled={!stripe}>Submit</button>
-            {/* Show error message to your customers */}
             {errorMessage && <div>{errorMessage}</div>}
+            <Stack spacing={5} direction="row" justifyContent="center" marginTop={3}>
+                <Button onClick={onClose} variant="text">Cancel</Button>
+                <Button type={"submit"} disabled={!stripe} variant="contained">Submit</Button>
+            </Stack>
         </form>
     )
 };

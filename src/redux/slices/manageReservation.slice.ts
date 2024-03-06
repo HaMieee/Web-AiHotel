@@ -1,7 +1,6 @@
 import {IPaginateResponse} from "../types/page";
 import {createSlice} from "@reduxjs/toolkit";
 import {IReservation} from "../types/reservation";
-import {IHotel} from "../types/hotel";
 
 type IInitialState = {
     reservations: IReservation[];
