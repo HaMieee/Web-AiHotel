@@ -41,7 +41,6 @@ const ManageReservation = () => {
     }, [])
 
     useEffect(() => {
-        console.log(listHotelState)
         setListHotelData(listHotelState)
     }, [listHotelState])
 
