@@ -68,6 +68,7 @@ const getInfoSuccess = (
 ) => {
     state.userInfo = action.payload;
     state.isLoading = false;
+    state.isError = false;
 }
 
 const logoutSuccess = (

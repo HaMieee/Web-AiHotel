@@ -29,7 +29,7 @@ const Payment = ({ itemId, onSuccess, onClose }) => {
     }, [itemId])
 
     if (!secretKey || !stripePromise) {
-        return <>...</>
+        return <>Loading...</>
     }
 
     return (
