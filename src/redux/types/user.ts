@@ -1,3 +1,5 @@
+import { IReservation } from "./reservation";
+
 export type IUser = {
     id?: number;
     name?: string;
@@ -7,4 +9,5 @@ export type IUser = {
     identification?: string;
     email?: string;
     age?: number;
+    reservations?: IReservation[];
 }

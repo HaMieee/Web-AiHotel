@@ -48,7 +48,7 @@ const Hotel = () => {
         <>
             <div className={"container-fluid mt-3"}>
                 <Row>
-                    <Col className={''} md={2} style={{border: 'solid 1px #51A9FF', borderRadius: '10px', height:'250px', marginTop:'210px'}}>
+                    <Col className={''} md={2} style={{border: 'solid 1px #51A9FF', borderRadius: '10px', height:'280px', marginTop:'210px'}}>
                         <div className={'container-fluid  support'}>
                             <div className="help_support">Help & Support</div>
                             <div className="hotline">Hotline:</div>
@@ -58,12 +58,20 @@ const Hotel = () => {
                                     <span>19002310</span>
                                 </div>
                                 <div>
-                                    <span>TP.HCM</span>
+                                    <span>Lào Cai</span>
                                     <span>19000711</span>
                                 </div>
                                 <div>
-                                    <span>CT</span>
+                                    <span>Quảng Ninh</span>
                                     <span>19000608</span>
+                                </div>
+                                <div>
+                                    <span>Hải Phòng</span>
+                                    <span>19000616</span>
+                                </div>
+                                <div>
+                                    <span>Vĩnh Phúc</span>
+                                    <span>19000618</span>
                                 </div>
                             </div>
                             <div className="help_email">Email:</div>

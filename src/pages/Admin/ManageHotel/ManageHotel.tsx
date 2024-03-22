@@ -65,6 +65,7 @@ const ManageHotel = () => {
         return data.map(hotel => {
             return {
                 id: hotel.id,
+                image: '',
                 name: hotel.name,
                 address: hotel.address,
                 description: hotel.description,
@@ -149,7 +150,7 @@ const ManageHotel = () => {
             </div>
 
             <TableThree
-                columns={['STT', 'Name', 'Address', 'Description', 'Actions']}
+                columns={['STT', 'Image', 'Name', 'Address', 'Description', 'Actions']}
                 rows={hotelsData}
                 actions={map(typeActions, (action) => ({ type: action }))}
                 onAction={handleOnAction}

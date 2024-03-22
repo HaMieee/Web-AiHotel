@@ -59,11 +59,10 @@ const ResetPassword = () => {
             payload: payload,
           })
         }
-        navigate('/login') 
+        navigate('/') 
       }
       else {
         toast.error('Các trường không được để trống');
-        console.log('');
       }    
 }
 

@@ -35,6 +35,12 @@ const TableThree: React.FC<ITableManage> = ({
             return <TableCell align="center" key={`${key}_${idx}`} title={value}>{`${value.slice(0, 20)}...`}</TableCell>
         }
 
+        if (key === 'image') {
+            return <TableCell>
+                <img src={value} alt='image' />
+            </TableCell>
+        }
+
         return <TableCell
             style={{
                 maxWidth: '250px',

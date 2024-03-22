@@ -47,7 +47,7 @@ const ManageInvoice = () => {
                     check_in: invoice.userCheckIn?.name,
                     check_out: invoice.userCheckOut?.name,
                     total_day: invoice.total_day,
-                    total_price: invoice.total_price,
+                    total_price: Number(invoice.total_price) - 5,
                     status: invoice.status,
                     paid: invoice.userPaid?.name,
                 }

@@ -4,6 +4,7 @@ import {put, call, takeLatest} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import {get} from "lodash";
 import {manageReservationActions} from "../slices/manageReservation.slice";
+import { authActions } from "../slices/auth.slice";
 
 const createReservation = async (payload: IReservationCreate) => {
     return axiosInstance.post('/api/reservation/create', payload)
@@ -63,6 +64,9 @@ const handleCreateReservation = function* (action) {
             yield put({
                 type: manageReservationActions.createReservationSuccess.type,
                 payload: response.data.data,
+            })
+            yield put({
+                type: `${authActions.getInfoPending}_saga`,
             })
             toast.success(`Đặt phòng thành công!`);
         }

@@ -39,7 +39,7 @@ const InvoiceDetailModal: React.FC<IInvoiceDetailModal> = ({
         });
         setShowPaymentModal(false);
     }
-
+    console.log("invoiceDetailData", invoiceDetailData)
     return (
         <>
             <Dialog
@@ -79,7 +79,7 @@ const InvoiceDetailModal: React.FC<IInvoiceDetailModal> = ({
                             <div style={{width:'50%', color:'black', marginLeft:'220px'}}>
                                 <ul style={{fontSize:'24px', border:'1px solid gray', borderRadius:'8px', fontStyle:'italic', paddingBottom:'10px'}}>
                                     <li>Tổng ngày: {invoiceDetailData.total_day}</li>
-                                    <li>Tổng tiền: {invoiceDetailData.total_price}</li>
+                                    <li>Tổng tiền:${Number(invoiceDetailData?.total_price) - 5}.00</li>
                                     <li>CheckIn:  {invoiceDetailData.userCheckIn?.name}</li>
                                     <li>CheckOut: {invoiceDetailData.userCheckOut?.name}</li>
                                     <li>Người thanh toán: {invoiceDetailData.userPaid?.name}</li>

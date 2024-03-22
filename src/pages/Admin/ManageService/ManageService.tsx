@@ -67,7 +67,7 @@ const ManageService =  () => {
     }
 
     const handleOnAction = (recordId, action) => {
-        if( action === 'edit') {            
+        if( action === 'update') {            
             dispatch({
                 type:`${manageServiceActions.getServicePending}_saga`,
                 payload: recordId
