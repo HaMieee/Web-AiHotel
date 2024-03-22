@@ -38,7 +38,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
         
     });
     const [roomType, setRoomType] = useState<IRoomType[] | undefined>([]);
-    const [floors, setFloors] = useState<number>(10);
+    const [floors, setFloors] = useState<number>(5);
     const [roomDetail, setRoomDetail] = useState<IRoom>({});
 
     // useEffect(() => {
@@ -59,7 +59,6 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
             const hotel = hotelsData.find(hotel => hotel.id === roomData.hotel?.id);
             setRoomType(hotel?.room_types)
         }
-        console.log(roomData);
 
         if (isEmpty(roomData)) {            
             handleClearValue()
@@ -73,6 +72,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
             hotel_id: 0,
             room_type_id: 0,
         })
+        setRoomType([]);
     }
 
     const handleClose = () => {
@@ -90,6 +90,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
             if (!(roomData.room_type_id === 0)) {
                 onCreateRoom(roomData);
                 onClose()
+                handleClearValue()
             } else {
                 toast.error('Vui lòng chọn loại phòng!')
             }
@@ -131,7 +132,7 @@ const CreateRoomModal: React.FC<ICreateRoomModal> = ({
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Khách sạn</Form.Label>
                                 <Form.Select value={formCreateRoom.hotel_id} onChange={(e) => handleOnChangeHotel(parseInt(e.target.value))}>
-                                    <option disabled selected>-- Chọn khách sạn --</option>
+                                    <option disabled selected value={0}>-- Chọn khách sạn --</option>
                                     {hotelsData.map((hotel, h_index) => (
                                         <option
                                             key={h_index}
