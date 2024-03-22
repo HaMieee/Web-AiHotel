@@ -78,6 +78,10 @@ const Header: React.FC<IHeader> = ({
                       {
                          !isEmpty(userInfo) ? 
                         <>
+                        {userInfo.role_type === 'admin' ? 
+                                                   <div className='profile_info' onClick={() => navigate('/admin')}>Dashboard admin </div>
+                                                   : ''
+                        }
                            <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
                           <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
                           <div className='logout' onClick={handleLogout}>Đăng xuất</div>

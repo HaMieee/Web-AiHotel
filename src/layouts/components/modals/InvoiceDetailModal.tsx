@@ -23,6 +23,7 @@ const InvoiceDetailModal: React.FC<IInvoiceDetailModal> = ({
                             }) => {
     const dispatch = useDispatch();
     const invoiceDetailState = useSelector((state: RootState) => state.manageInvoice.invoiceDetail);
+    
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [invoiceDetailData, setInvoiceDetailData] = useState<IInvoice>({});
@@ -50,36 +51,44 @@ const InvoiceDetailModal: React.FC<IInvoiceDetailModal> = ({
                 <DialogTitle>Chi tiết hóa đơn</DialogTitle>
                 <DialogContent>
                     <Divider>Invoice Code: {invoiceDetailData.code}</Divider>
-                    <div className={'float-end'}>
-                        {invoiceDetailData.status === 'pending' ?
-                            <Button color={'error'}
-                                  variant="contained"
-                                  onClick={() => setShowPaymentModal(true)}>
-                                Chưa thanh toán
-                            </Button>
-                            :
-                            <Button color={'success'}
-                                    variant="contained">
-                                Đã thanh toán
-                            </Button>
-                        }
-                    </div>
-
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            '& > :not(style)': {
-                                m: 1,
-                                width: 128,
-                                height: 128,
-                            },
-                        }}
-                    >
-                        <div>Payment</div>
-                    </Box>
+                        <div className={'float-end'}>
+                            {invoiceDetailData.status === 'pending' ?
+                                <Button color={'error'}
+                                    variant="contained"
+                                    onClick={() => setShowPaymentModal(true)}>
+                                    Chưa thanh toán
+                                </Button>
+                                :
+                                <Button color={'success'}
+                                        variant="contained">
+                                    Đã thanh toán
+                                </Button>
+                            }
+                        </div>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                '& > :not(style)': {
+                                    m: 1,
+                                    width: 128,
+                                    maxHeight: 500,
+                                },
+                            }}
+                        >
+                            <div style={{width:'50%', color:'black', marginLeft:'220px'}}>
+                                <ul style={{fontSize:'24px', border:'1px solid gray', borderRadius:'8px', fontStyle:'italic', paddingBottom:'10px'}}>
+                                    <li>Tổng ngày: {invoiceDetailData.total_day}</li>
+                                    <li>Tổng tiền: {invoiceDetailData.total_price}</li>
+                                    <li>CheckIn:  {invoiceDetailData.userCheckIn?.name}</li>
+                                    <li>CheckOut: {invoiceDetailData.userCheckOut?.name}</li>
+                                    <li>Người thanh toán: {invoiceDetailData.userPaid?.name}</li>
+                                </ul>
+                            </div>
+                        </Box>
+                        
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className="d-flex justify-content-center">
                     <Button variant="text" color={'inherit'} onClick={onClose}>Đóng</Button>
                     <Button variant="contained" color={'primary'} onClick={onClose}>Xác nhận</Button>
                 </DialogActions>

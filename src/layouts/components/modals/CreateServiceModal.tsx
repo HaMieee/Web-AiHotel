@@ -75,10 +75,6 @@ const CreateServiceModal: React.FC<ICreateServiceModal> = ({
         }
         onUpdateService(payload);
     }
-
-
-    
-    
     return(
         <>
             <Modal show={isShow} onHide={onClose} size={'lg'} backdrop="static" centered
