@@ -117,13 +117,10 @@ const SingUpModal: React.FC<ISignUpModal> = ({
             clearValue()
         }
       } else {
-        toast.error('Mật khẩu không khớp');
-        console.log('Mật khẩu không khớp');
-        
+        toast.error('Mật khẩu không khớp');        
       }
     } else {
       toast.error('Các trường không được để trống');
-      console.log('');
     }
 
 }

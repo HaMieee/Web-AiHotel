@@ -22,6 +22,7 @@ import ManageService from '../pages/Admin/ManageService/ManageService';
 import ManageReservationDetail from "../pages/Admin/ManageReservation/ManageReservationDetail";
 import ManageInvoice from "../pages/Admin/ManageInvoice/ManageInvoice";
 import AboutUs from '../layouts/components/aboutUs/AboutUs';
+import ManageStatistical from '../pages/Admin/ManageStatistical/ManageStatistical';
 
 const Router = () => {
     return useRoutes([
@@ -51,7 +52,8 @@ const Router = () => {
                 {
                     path:'/aboutUs',
                     element:<AboutUs/>
-                }
+                },
+                
             ]
         },
         {
@@ -88,6 +90,10 @@ const Router = () => {
                 {
                     path: '/manage-invoice',
                     element: <ManageInvoice />
+                },
+                {
+                    path: '/manage-statistical',
+                    element: <ManageStatistical/>
                 }
                 
             ]
@@ -106,7 +112,8 @@ const Router = () => {
                 {
                     path: '/test',
                     element: <TestPage />
-                }
+                },
+                
             ],
         },
         {

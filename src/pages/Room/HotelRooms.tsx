@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {manageRoomActions} from "../../redux/slices/manageRoom.slice";
 import {RootState} from "../../redux/store";
 import {IRoomDetail} from "../../redux/types/dtos/roomDetail";
+import RatingSize from "./RatingSize";
+import { useLocation } from "react-router";
 
 type IHotelRooms = {
     roomsData: IRoom[];
@@ -21,6 +23,12 @@ const HotelRooms: React.FC<IHotelRooms> = ({
     const [show, setShow] = useState(false);
     const [groupedRooms, setGroupedRooms] = useState({});
     const [roomDetail, setRoomDetail] = useState<IRoomDetail>({});
+
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [pathname]);
 
     useEffect(() => {
         setGroupedRooms(groupRoomsByFloor(roomsData))
@@ -90,10 +98,12 @@ const HotelRooms: React.FC<IHotelRooms> = ({
                                                     }}>
                                                         {room.room_type.description}
                                                     </p>
+                                                    <div><RatingSize/></div>
                                                 </div>
                                                 <div className={"d-flex"}
                                                      style={{justifyContent: "space-between", alignItems: "center"}}
                                                 >
+                                                    
                                                     <div className={"room-price"}>${room.room_type.price}</div>
                                                     <div>
                                                         <Button

@@ -44,6 +44,8 @@ const handleLogin = function* (action) {
         })
         const response = yield call(login, action.payload);
 
+        console.log(response);
+        
         if (response.data.statusCode === 200) {
             const resultLogin = response.data.data;
             const token = resultLogin.access_token;
@@ -56,19 +58,14 @@ const handleLogin = function* (action) {
             })
             toast.success(`Welcome to my web!`);
         } else {
-            throw new Error(response.data.message || 'Server error');
+            throw new Error();
         }
-    } catch (err) {
+    } catch (err) {        
         yield put({
             type: authActions.loginError.type,
             payload: {message: get(err, 'message')},
         })
-        const errorData = get(err, 'response.data.errors', {});
-        const errorMessages = Object.values(errorData).flat();
-
-        errorMessages.forEach((messageErr) => {
-            toast.error(messageErr + '');
-        });
+        toast.error('Tài khoản hoặc mật khẩu không đúng!')
     }
 }
 

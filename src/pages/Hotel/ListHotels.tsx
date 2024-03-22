@@ -1,5 +1,5 @@
 import Image from 'react-bootstrap/Image';
-import React from "react";
+import React, { useEffect } from "react";
 import {Button} from "react-bootstrap";
 import {IoIosArrowForward} from "react-icons/io";
 import './ListHotels.css';
@@ -7,6 +7,7 @@ import {IHotel} from "../../redux/types/hotel";
 import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';
 import {isEmpty, map} from "lodash";
+import { useLocation } from 'react-router';
 
 type IListHotelComponent = {
     listHotelData: IHotel[];

@@ -17,7 +17,12 @@ import {useDispatch} from "react-redux";
 import {toast} from 'react-toastify';
 import {IRoomDetail} from "../../redux/types/dtos/roomDetail";
 import { eachDayOfInterval } from 'date-fns';
-
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import Comment from "./Comment";
 
 type IRoomDetailComponent = {
     show: boolean;
@@ -42,6 +47,11 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
     const [usersRoom, setUsersRoom] = useState<IUser[]>([]);
     const [roomSelected, setRoomSelected] = useState<number | undefined>(0);
     const [roomOldSelected, setRoomOldSelected] = useState<number | undefined>(0);
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+      setValue(newValue);
+    };
 
     useEffect(() => {
         if (!(window as any).Echo) {
@@ -218,7 +228,15 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                            style={{width: '30%'}}
                            placement={'end'}>
                     <Offcanvas.Body>
-                        <hr/>
+                    <TabContext value={value}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <TabList onChange={handleChange} aria-label="lab API tabs example">
+                            <Tab label="Chi tiết phòng" value="1" />
+                            <Tab label="Bình luận" value="2" />
+                        
+                        </TabList>
+                        </Box>
+            <TabPanel value="1">
                         <div className={'room-status'}>
                             <div className={'custom-fill'}>Tầng {roomData.floor}</div>
                             <hr style={{color: 'black'}}/>
@@ -285,7 +303,6 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                                     withPortal
                                     className="form-control mb-2"
                                     excludeDates={disabledDates}
-
                                     dateFormat="dd/MM/yyyy"
                                 />
                             </div>
@@ -316,11 +333,16 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                                     <div>Voucher</div>
                                     <div>0</div>
                                 </div>
+                                <div className={'d-flex justify-content-between'}>
+                                    <div>Đặt cọc </div>
+                                    <div>$5</div>
+                                </div>
                                 <hr />
                                 <div className={'d-flex justify-content-between'}>
                                     <div>Total: </div>
                                     <div>${totalPrice}.00</div>
                                 </div>
+                                
                             </div>
 
                             <div className={'d-flex justify-content-center'}>
@@ -328,6 +350,10 @@ const RoomDetail: React.FC<IRoomDetailComponent> = ({
                             </div>
 
                         </div>
+            </TabPanel>
+            <TabPanel value="2"><Comment/></TabPanel>
+      </TabContext>
+                    
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>

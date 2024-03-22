@@ -44,6 +44,19 @@ const WsExample = () => {
 
   console.log('users room: ', usersRoom)
 
+  const [base64Image, setBase64Image] = useState('');
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setBase64Image(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return <>
     <select onChange={(event) => setHotelSelected(parseInt(event?.target?.value))}>Hotel
       <option value="0">Select Hotel</option>
@@ -88,6 +101,23 @@ const WsExample = () => {
       </div>
     })}
 
+    <hr />
+
+    <input type="file" accept="image/*" onChange={handleImageUpload} />
+
+    {base64Image && (
+        <div>
+          <h3>Base64 Encoded Image:</h3>
+          <img src={base64Image} alt="Uploaded" style={{ maxWidth: '100%' }} />
+          <textarea
+            cols="50"
+            rows="10"
+            value={base64Image}
+            readOnly
+            style={{ marginTop: '10px' }}
+          />
+        </div>
+      )}
   </>;
 }
 

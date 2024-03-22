@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoHome, IoPersonSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import './Header.scss';
@@ -10,7 +10,8 @@ import LoginModal from '../modals/LoginModal';
 import { isEmpty } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../../redux/slices/auth.slice';
-
+import {Image} from "react-bootstrap";
+import { IReservation } from '../../../redux/types/reservation';
 type IHeader = {
   userInfo: IUser;
   isLoginError: boolean;
@@ -25,6 +26,13 @@ const Header: React.FC<IHeader> = ({
   const navigate = useNavigate()
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [reservations, setReservations] = useState<IReservation[]>([]);
+
+  useEffect(() => {
+    if (userInfo.reservations) {
+      setReservations(userInfo.reservations);
+    }
+  }, [userInfo])
 
   const handleChangeModalSignUp = () => {
     setShowLogin(false)
@@ -42,7 +50,7 @@ const Header: React.FC<IHeader> = ({
         type: `${authActions.logoutPending}_saga`,
     })
     navigate('/');
-};
+  };
 
     return (
       <>
@@ -78,9 +86,11 @@ const Header: React.FC<IHeader> = ({
                       {
                          !isEmpty(userInfo) ? 
                         <>
-                        {userInfo.role_type === 'admin' ? 
+                        {userInfo.role_type !== 'admin' && userInfo.role_type !== 'employee' ? 
+                        ''
+                                                   :
                                                    <div className='profile_info' onClick={() => navigate('/admin')}>Dashboard admin </div>
-                                                   : ''
+
                         }
                            <div className='profile_info' onClick={() => navigate('/profile')}>Xem thông tin cá nhân </div>
                           <div className='changePassword'onClick={() => navigate('/change-password')}>Đổi mật khẩu</div>
@@ -99,8 +109,25 @@ const Header: React.FC<IHeader> = ({
                   </div>
                 <div className="book_btn">
                   <a className="popup-with-form" href="#test-form">
-                    Book A Room
+                    Đặt Phòng
                   </a>
+                 
+                <div className='reservations'>
+                  {!isEmpty(reservations) && reservations.map((reservation, index) => (
+                    <div className='reservation_item' key={index} onClick={() => navigate(`/roomOlderDetail/${reservation.id}`)}>
+                      <Image
+                        src ={'https://i.pinimg.com/564x/5b/5c/34/5b5c34981e9d2a6adbf7c062e0fd4857.jpg'}
+                        rounded
+                        className={'object-fit-cover h-100'}
+                        style={{ width: "38%" }}
+                      />
+                      <div className='reservation_text'>
+                        {reservation.room && <p>Mã Phòng: {reservation.room.code}</p>}
+                        {reservation.room_type && <p>Gia tiền: ${reservation.room_type.price}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>                  
                 </div>
               </div>
             </div>

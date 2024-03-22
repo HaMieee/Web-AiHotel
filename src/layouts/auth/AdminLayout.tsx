@@ -15,7 +15,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
-import {mainListItems, secondaryListItems} from "../components/header/ListItems";
+import MenuDashboard, {secondaryListItems} from "../components/header/ListItems";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -89,7 +89,7 @@ const AdminLayout = () => {
 
     const goBack = () => window.history.back();
 
-    if (roleState !== 'admin') {
+    if (roleState !== 'admin' && roleState !== 'employee') {
         return <Navigate to={'/404'} replace />
     }
 
@@ -156,7 +156,8 @@ const AdminLayout = () => {
                         </Toolbar>
                         <Divider />
                         <List component="nav">
-                            {mainListItems}
+                            {/* {mainListItems} */}
+                            <MenuDashboard />
                             <Divider sx={{ my: 1 }} />
                             {/* {secondaryListItems} */}
                         </List>

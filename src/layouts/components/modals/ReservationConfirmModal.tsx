@@ -83,12 +83,17 @@ const ReservationConfirmModal: React.FC<IReservationConfirmModal> = ({
                                 <div>Voucher:</div>
                                 <div>0</div>
                             </div>
+                            <div className={'d-flex justify-content-between'}>
+                                    <div>Đặt cọc </div>
+                                    <div>$5</div>
+                            </div>
                         </Form.Group>
                         <hr/>
                         <Form.Group className="mb-3">
                             <div className={'d-flex justify-content-between mb-1'} style={{fontWeight: "bold"}}>
                                 <div>Tổng: </div>
-                                <div>${data.total}.00</div>
+                                {/* <div>${data?.total}.00</div> */}
+                                <div>${data?.total ? data.total - 5 : 'N/A'}</div>
                             </div>
                         </Form.Group>
                     </Form>

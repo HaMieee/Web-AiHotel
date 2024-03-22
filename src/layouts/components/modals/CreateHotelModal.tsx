@@ -12,8 +12,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import hotelDetail from "../../../pages/Hotel/HotelDetail";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {isEmpty, isEqual} from "lodash";
+import { styled } from '@mui/material/styles';
 
 type ICreateHotelModal = {
     isShow: boolean;
@@ -24,6 +25,19 @@ type ICreateHotelModal = {
     onCreateHotel: (payload: ICreateHotel) => void;
     onUpdateHotel: (payload: ICreateHotel) => void;
 }
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
+
 const CreateHotelModal: React.FC<ICreateHotelModal> = ({
     isShow = false,
     action,
@@ -39,6 +53,19 @@ const CreateHotelModal: React.FC<ICreateHotelModal> = ({
         description: '',
         room_types: [],
     });
+
+    const [base64Image, setBase64Image] = useState('');
+
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        setBase64Image(reader.result + '');
+      };
+  
+      reader.readAsDataURL(file);
+    };
 
     useEffect(() => {
         if (isShow) {
@@ -189,6 +216,33 @@ const CreateHotelModal: React.FC<ICreateHotelModal> = ({
                                     />
                                 </Grid>
                             ))}
+                        </Grid>
+                    </Box>
+
+                    <Box
+                        alignItems="center"
+                        gap={4}
+                        p={2}
+                    >
+                        <Grid container spacing={2}>
+                            <Button
+                                component="label"
+                                role={undefined}
+                                variant="contained"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                                >
+                                Upload file
+                                <VisuallyHiddenInput type="file" onChange={handleImageUpload} />
+                            </Button>
+                        </Grid>
+
+                        <Grid container spacing={2}>
+                            {base64Image && (
+                                        <div>
+                                            <img src={base64Image} alt="Uploaded" style={{ maxWidth: '50%' }} />
+                                        </div>
+                            )}
                         </Grid>
                     </Box>
 
